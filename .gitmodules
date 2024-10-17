@@ -1,0 +1,3 @@
+[submodule "scorepi"]
+	path = scorepi
+	url = git@github.com:gstonge/scorepi.git
