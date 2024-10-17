@@ -1,0 +1,17 @@
+name: epistorm-evaluations
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - bioconda::epiweeks
+  - glob2
+  - jupyterlab
+  - matplotlib
+  - numpy
+  - pandas
+  - pip
+  - pluggy
+  - pytest
+  - scipy
+  - texlive-core
+prefix: /home/data/miniconda3/envs/epistorm-evaluations
