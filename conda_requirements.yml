@@ -1,0 +1,20 @@
+name: epistorm-evaluations
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10.*
+  - bioconda::epiweeks
+  - glob2
+  - jupyterlab
+  - matplotlib
+  - seaborn
+  - numpy
+  - pandas=1.4.*
+  - pyarrow #only needed for parquet files
+  - pip
+  - pluggy
+  - pytest
+  - scipy
+  - texlive-core
+prefix: /home/data/miniconda3/envs/epistorm-evaluations
