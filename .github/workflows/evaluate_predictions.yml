@@ -1,0 +1,30 @@
+name: evaluate predictions
+
+on:   
+# run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  evaluate-predictions:
+    runs-on: ubuntu-latest
+    steps:
+# access repo and set up python
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.10.x
+      - name: install dependencies
+        run: |
+          pip install -r pip_requirements.txt
+          pip install -e ./scorepi
+
+# transform data and push to repo
+      - name: run evaluations
+        run: |
+          git pull
+          python epistorm_evaluations.py
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add evaluations/*
+          git commit -m "generate evaluations via github actions"
+          git push
