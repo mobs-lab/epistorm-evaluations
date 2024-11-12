@@ -1,0 +1,8 @@
+pandas == 1.4.x
+numpy
+scipy
+pytest
+epiweeks
+pyarrow
+pluggy
+pytest
