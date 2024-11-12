@@ -16,6 +16,7 @@ jobs:
       - name: install dependencies
         run: |
           pip install -r pip_requirements.txt
+          cd ./scorepi
           pip install -e ./scorepi
 
 # transform data and push to repo
