@@ -92,7 +92,7 @@ class Forecast_Eval:
         target_location : str
             location to filter surveillance data by
         """
-        from scorepi import *
+        from scorepi import Observations
         
         if self.target == 'hosp':
             target_obs = 'hospitalization'
