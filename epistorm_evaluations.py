@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import datetime
 from scorepi import *
+from scorepi import Observations
 from epiweeks import Week
 
 
@@ -49,11 +50,13 @@ surv.to_parquet(f"./dat/target-hospital-admissions.pq", index=False)
 ### NOTE: dates and models will need to be changed for automation
 # download and save forecasts for specified submission week (date) and for specified models from flusight github
 #selecting all target dates that exist in the surveillance file
-dates = pd.unique(surv.date)
+dates = [ '2024-04-06', '2024-04-13', '2024-04-20', '2024-04-27']
+#dates = pd.unique(surv.date)
 
 #selecting just models used in the dashboard for now
 #will need to expand eventually whether we keep the parquet implementation or pull files from the flusight repo as a submodule
-models = ['CEPH-Rtrend_fluH', 'FluSight-baseline', 'FluSight-ensemble', 'MIGHTE-Nsemble', 'MOBS-GLEAM_FLUH', 'NU_UCSD-GLEAM_AI_FLUH']
+#models = ['CEPH-Rtrend_fluH', 'FluSight-baseline', 'FluSight-ensemble', 'MIGHTE-Nsemble', 'MOBS-GLEAM_FLUH', 'NU_UCSD-GLEAM_AI_FLUH']
+models = ['MOBS-GLEAM_FLUH']
 
 for model in models:
     for date in dates:
@@ -89,6 +92,7 @@ class Forecast_Eval:
         target_location : str
             location to filter surveillance data by
         """
+        from scorepi import *
         
         if self.target == 'hosp':
             target_obs = 'hospitalization'
