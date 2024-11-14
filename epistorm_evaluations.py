@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import datetime
 from scorepi import *
-from scorepi import Observations
+import scorepi as sp
 from epiweeks import Week
 
 
@@ -92,7 +92,6 @@ class Forecast_Eval:
         target_location : str
             location to filter surveillance data by
         """
-        from scorepi import Observations
         
         if self.target == 'hosp':
             target_obs = 'hospitalization'
@@ -117,7 +116,7 @@ class Forecast_Eval:
         observations = observations.groupby(['location', pd.Grouper(key='date', freq='W-SAT')]).sum().reset_index()
 
         #transform to Observation object
-        observations = Observations(observations)
+        observations = sp.Observations(observations)
 
         return observations
     
