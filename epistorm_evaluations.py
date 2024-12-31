@@ -83,10 +83,10 @@ elif n_in == 3: # mode and output specified
     mode = sys.argv[1]
     output_directory = sys.argv[2]
     models = all_models
-elif n_in == 4: # mode, output, and model(s) specified
+elif n_in >= 4: # mode, output, and model(s) specified
     mode = sys.argv[1]
     output_directory = sys.argv[2]
-    models = sys.argv[2].split()
+    models = sys.argv[2:]
 else:
     for arg in sys.argv: print(arg)
     raise ValueError('incorrect number of arguments received: {}'.format(n_in))
