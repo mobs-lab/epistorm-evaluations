@@ -3,6 +3,32 @@ name: evaluate predictions
 on:   
 # run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Evaluation mode'
+        required: true
+        default: 'most_recent'
+        type: choice
+        options:
+          - most_recent # calculate only for most recent surveillance date
+          - recalculate_all # calculate for all dates
+      output_directory:
+        description: 'Specify directory for output'
+        required: true
+        default: 'evaluations'
+        type: choice
+        options:
+          - evaluations
+          - scratch
+      models:
+        description: 'Specify model(s) by name, space-separated'
+        required: false
+        type: string
+      
+# run on schedule with data release
+  schedule:
+    - cron: '30 6-21/3 * * 4'  # runs every Thursday, starting from 6:30 AM UTC until 9:30 PM UTC, every 3 hours
+    - cron: '30 21 * * 5,6'   # separately runs another two times, on every Friday and Saturday at 9:30 PM UTC
 
 jobs:
   evaluate-predictions:
@@ -10,36 +36,23 @@ jobs:
     steps:
       - name: checkout repository
         uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
-          fetch-depth: 0
-
-      - name: update submodule
-        run: |
-          git pull origin main
-          git submodule init
-          git submodule update
-          git submodule update --remote
-          git submodule foreach git pull origin main
           
 # access repo and set up python
       - name: python setup
         uses: actions/setup-python@v4
         with:
-          python-version: 3.10.9
+          python-version: 3.11
          
       - name: install dependencies
         run: |
           pip install -r pip_requirements.txt
-          cd ./scorepi
-          pip install -e .
 
 # transform data and push to repo
       - name: run evaluations
         run: |
-          python epistorm_evaluations.py
+          python epistorm_evaluations.py ${{ inputs.mode }} ${{ inputs.output_directory }} ${{ inputs.models }}
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add evaluations/*
-          git commit -m "generate evaluations via github actions"
+          git commit -m 'generate evaluations via github actions'
           git push

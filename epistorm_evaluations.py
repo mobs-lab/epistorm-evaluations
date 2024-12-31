@@ -3,15 +3,17 @@
 import pandas as pd
 import numpy as np
 import datetime
-from scorepi import *
-import scorepi as sp
+import sys
 from epiweeks import Week
+
+import warnings
+warnings.filterwarnings('ignore')
 
 
 ### DOWNLOAD DATA
 #################################################
 
-# functions to download flusight model predictions and surveillance data
+### Functions to download flusight model predictions and surveillance data
 def pull_flusight_predictions(model,date):
     """pull_flusight_predictions. Load predictions of the model saved by the Flusight Forecast hub
 
@@ -38,26 +40,76 @@ def pull_flusight_predictions(model,date):
 def pull_surveillance_data():
     """pull_surveillance_data. Load hospitalization admissions surveillance data
     """
+    
     url = f"https://raw.githubusercontent.com/cdcepi/FluSight-forecast-hub/main/target-data/target-hospital-admissions.csv"
     return pd.read_csv(url, dtype={'location':str})
 
 
-# download and save surveillance data
+### Download and save all available surveillance data
 surv = pull_surveillance_data()
 surv.to_parquet(f"./dat/target-hospital-admissions.pq", index=False)
+surv = pd.read_parquet(f"./dat/target-hospital-admissions.pq")
+surv['Unnamed: 0'] = 0
+
+# predictions will be downloaded after input handling
 
 
-### NOTE: dates and models will need to be changed for automation
+### HANDLE INPUTS & DOWNLOAD PREDICTIONS
+#################################################
+# all existing models as of Dec 2024
+all_models = ['CADPH-FluCAT_Ensemble', 'CEPH-Rtrend_fluH',  'CMU-TimeSeries', 'CU-ensemble', 'FluSight-baseline',
+          'FluSight-ensemble','FluSight-equal_cat', 'FluSight-lop_norm', 'GH-model', 'GT-FluFNP', 'ISU_NiemiLab-ENS', 
+          'ISU_NiemiLab-NLH','ISU_NiemiLab-SIR', 'LUcompUncertLab-chimera', 'LosAlamos_NAU-CModel_Flu', 
+          'MIGHTE-Nsemble','MOBS-GLEAM_FLUH', 'NIH-Flu_ARIMA', 'PSI-PROF', 'SGroup-RandomForest', 'SigSci-CREG', 
+          'SigSci-TSENS','Stevens-GBR', 'UGA_flucast-Copycat', 'UGA_flucast-INFLAenza', 'UGA_flucast-OKeeffe', 
+          'UGuelph-CompositeCurve', 'UGuelphensemble-GRYPHON', 'UM-DeepOutbreak', 'UMass-flusion', 'UMass-trends_ensemble',
+          'UNC_IDD-InfluPaint', 'UVAFluX-Ensemble', 'VTSanghani-Ensemble', 'cfa-flumech', 'cfarenewal-cfaepimlight', 
+          'fjordhest-ensemble', 'NU_UCSD-GLEAM_AI_FLUH', 'PSI-PROF_beta', 'JHU_CSSE-CSSE_Ensemble', 'FluSight-national_cat',
+          'FluSight-ens_q_cat', 'FluSight-baseline_cat', 'FluSight-base_seasonal', 'Gatech-ensemble_point', 'Gatech-ensemble_prob',
+          'ISU_NiemiLab-GPE', 'JHUAPL-DMD', 'MDPredict-SIRS', 'MIGHTE-Joint', 'Metaculus-cp', 'NEU_ISI-AdaptiveEnsemble',
+          'NEU_ISI-FluBcast', 'OHT_JHU-nbxd', 'SigSci-BECAM', 'Stevens-ILIForecast', 'UGA_CEID-Walk', 'UGA_flucast-Scenariocast',
+          'UI_CompEpi-EpiGen', 'UMass-AR2', 'VTSanghani-PRIME']
+
+# Accept inputs for:
+# mode - 'most_recent' or 'recalculate_all'
+# output_directory - 'evaluations' or 'scratch'
+# models - any number of model names in a space-separated string
+n_in = len(sys.argv)
+if n_in == 1: # no arguments input
+    mode = 'most_recent'
+    output_directory = 'evaluations'
+    models = all_models
+elif n_in == 3: # mode and output specified
+    mode = sys.argv[1]
+    output_directory = sys.argv[2]
+    models = all_models
+elif n_in == 4: # mode, output, and model(s) specified
+    mode = sys.argv[1]
+    output_directory = sys.argv[2]
+    models = sys.argv[2].split()
+else:
+    for arg in sys.argv: print(arg)
+    raise ValueError('incorrect number of arguments received: {}'.format(n_in)
+
+# mode
+if mode == 'most_recent': surv = surv[surv.date == surv.date.max()]
+elif mode == 'recalculate_all': continue
+else: raise ValueError('improper mode input: {}'.format(mode))
+
+# output_directory and write_mode
+write_mode = 'w' # determine whether to append to or overwrite files
+if output_directory == 'evaluations': 
+    output_directory = './evaluations/'
+    if mode == 'most_recent': write_mode = 'a'
+elif output_directory == 'scratch': output_directory = './scratch/'
+else: raise ValueError('improper output_directory input: {}'.format(output_directory))
+
+# model name validation is handled by pull_flusight_predictions()
+
+# selecting all target dates that exist in the surveillance file
+dates = pd.unique(surv.date)
+
 # download and save forecasts for specified submission week (date) and for specified models from flusight github
-#selecting all target dates that exist in the surveillance file
-dates = [ '2024-04-06', '2024-04-13', '2024-04-20', '2024-04-27']
-#dates = pd.unique(surv.date)
-
-#selecting just models used in the dashboard for now
-#will need to expand eventually whether we keep the parquet implementation or pull files from the flusight repo as a submodule
-#models = ['CEPH-Rtrend_fluH', 'FluSight-baseline', 'FluSight-ensemble', 'MIGHTE-Nsemble', 'MOBS-GLEAM_FLUH', 'NU_UCSD-GLEAM_AI_FLUH']
-models = ['MOBS-GLEAM_FLUH']
-
 for model in models:
     for date in dates:
         try:
@@ -84,7 +136,38 @@ class Forecast_Eval:
         self.start_week = start_week # epiweek: beginning of observations of interest
         self.end_week = end_week # epiweek: end of observations of interest
         
-          
+    def process_observations(self, data, value_col='value', t_col='date', other_ind_cols=None):
+        """
+    
+        Parameters:
+        - data: pd.DataFrame
+            The input data containing observational information.
+        - value_col: str
+            The column name representing the value column.
+        - t_col: str
+            The column name representing the time column.
+        - other_ind_cols: list
+            A list of additional independent columns for sorting.
+
+        Returns:
+        - pd.DataFrame with additional helper functions for accessing specific columns.
+        """
+        # Ensure required columns are present
+        if value_col not in data.columns or t_col not in data.columns:
+            raise ValueError(f"DataFrame must contain '{value_col}' and '{t_col}' columns.")
+
+        # Prepare independent columns and sort data
+        ind_cols = [t_col] + (other_ind_cols if other_ind_cols else [])
+        sorted_data = data.sort_values(by=ind_cols).reset_index(drop=True)
+
+        # Define helper functions to access specific columns and set them as attributes
+        sorted_data.get_value = lambda: sorted_data[value_col].to_numpy()
+        sorted_data.get_t = lambda: sorted_data[t_col].to_numpy()
+        sorted_data.get_x = lambda: sorted_data[ind_cols].to_numpy()
+        sorted_data.get_unique_x = lambda: np.unique(np.array(sorted_data[ind_cols].to_numpy(), dtype=str), axis=0)
+
+        return sorted_data      
+            
     def get_observations(self, target_location):
         """ get_observations. Load and filter surveillance data for a certain location.
         Parameters
@@ -99,6 +182,7 @@ class Forecast_Eval:
             target_obs = self.target
             
         # read in observations dataframe
+        
         observations = self.obsdf.copy().drop(columns= ['Unnamed: 0', 'weekly_rate'])
         observations['date'] = pd.to_datetime(observations['date'])
 
@@ -116,11 +200,52 @@ class Forecast_Eval:
         observations = observations.groupby(['location', pd.Grouper(key='date', freq='W-SAT')]).sum().reset_index()
 
         #transform to Observation object
-        observations = sp.Observations(observations)
+        observations = self.process_observations(observations)
 
         return observations
     
-    
+    def process_predictions(self, data, value_col='value', quantile_col='output_type_id', type_col='output_type',
+                        t_col='target_end_date', other_ind_cols=None):
+        """
+        
+        Parameters:
+        - data: pd.DataFrame
+            The input data containing prediction information.
+        - value_col: str
+            Column label for the predictions' value.
+        - quantile_col: str
+            Column label for the predictions' quantile.
+        - type_col: str
+            Column label for the type of predictions (e.g., quantile or point).
+        - t_col: str
+            Column label for the timestamp of predictions.
+        - other_ind_cols: list
+            List of other independent variable columns (e.g., location).
+
+        Returns:
+        - pd.DataFrame with additional helper methods to access specific data arrays or filtered predictions.
+        """
+        # Ensure required columns are present
+        if not all(col in data.columns for col in [value_col, quantile_col, t_col]):
+            raise ValueError(f"DataFrame must contain '{value_col}', '{quantile_col}', and '{t_col}' columns.")
+        if other_ind_cols and not all(col in data.columns for col in other_ind_cols):
+            raise ValueError("DataFrame must contain all specified independent columns.")
+
+        # Define independent columns and sort data
+        ind_cols = [t_col] + (other_ind_cols if other_ind_cols else [])
+        sorted_data = data.sort_values(by=ind_cols).reset_index(drop=True)
+
+        # Set default value for type column if missing
+        if type_col not in sorted_data.columns:
+            sorted_data[type_col] = 'quantile'
+
+        # Attach helper methods as attributes of the DataFrame
+        sorted_data.get_t = lambda: sorted_data[t_col].to_numpy()
+        sorted_data.get_x = lambda: sorted_data[ind_cols].to_numpy()
+        sorted_data.get_unique_x = lambda: np.unique(np.array(sorted_data[ind_cols].to_numpy(), dtype=str), axis=0)
+
+        return sorted_data
+
     def format_forecasts_all(self, dfformat):
         """ format_forecasts_all. Get forecasts into standard format to use for scoring.
         Parameters
@@ -141,12 +266,11 @@ class Forecast_Eval:
         pred['output_type_id'] = pred["output_type_id"].astype(float) # make sure quantile levels are floats
         
         return pred
-
-
+        
+    
 class Scoring(Forecast_Eval):
     """ calculate score values for probabilistic epidemic forecasts 
     find WIS, MAPE, and coverage over whole projection window as well as timestamped for every week.
-    uses scorepi package to calculate the scores  (https://github.com/gstonge/scorepi/tree/main)
     score dataframe must have 'Model' column to differentiate and calculate scores for different models
     """
     
@@ -154,170 +278,183 @@ class Scoring(Forecast_Eval):
                  end_week = False):
         super().__init__(df, obsdf, target, start_week, end_week)
         
-    def get_all_average_scores(self, models):
-        """ get_all_average_scores. Calculate all score in scorepi package that average over the full forecast
-        time series. 
-        
+    def interval_score(self, observation, lower, upper, interval_range, specify_range_out=False):
+        """interval_score.
+
         Parameters
         ----------
-        models: list
-            list of models that the scores will be calculated for, each element is a string corresponding to
-            a forecast model's name from the Model column of the forecast dataframe
+        observation : array_like
+            Vector of observations.
+        lower : array_like
+            Prediction for the lower quantile.
+        upper : array_like
+            Prediction for the upper quantile.
+        interval_range : int
+            Percentage covered by the interval. For instance, if lower and upper correspond to 0.05 and 0.95
+            quantiles, interval_range is 90.
+
+        Returns
+        -------
+        out : dict
+            Dictionary containing vectors for the interval scores, but also the dispersion, underprediction and
+            overprediction.
+
+        Raises
+        ------
+        ValueError:
+            If the observation, the lower and upper vectors are not the same length or if interval_range is not
+            between 0 and 100
         """
-        
-        pred1 = self.df.copy() # dataframe that will be scored
-        loclist = list(pred1.location.unique()) 
-        
-        allscore = {}
-        for model in models:
-            allscore[model] = {}
-            for target_location in loclist:
-                if target_location == '72':
-                    continue
-                #print(target_location)
-                
-                observations = self.get_observations(target_location) # get surveillance data for target location 
+        if len(lower) != len(upper) or len(lower) != len(observation):
+            raise ValueError("vector shape mismatch")
+        if interval_range > 100 or interval_range < 0:
+            raise ValueError("interval range should be between 0 and 100")
 
-                # filter by model and location
-                pred = pred1[(pred1.Model==model) & (pred1['location']==target_location) ] 
-                # make into Predictions object
-                pred = Predictions(pred, t_col = 'target_end_date', quantile_col = 'output_type_id')
-                observations = Observations(observations[observations.date<=pred.target_end_date.max()])
-                #calculate scores
-                d,_ = score_utils.all_scores_from_df(observations, pred, mismatched_allowed=False) 
+        #make sure vector operation works
+        obs,l,u = np.array(observation),np.array(lower),np.array(upper)
 
-                # save in dictionary
-                allscore[model][target_location] = d
-            
-        
-        return allscore
-    
-    def organize_average_scores(self, want_scores, models):
-        """ organize_average_scores. save average scores of interest into a pandas dataframe
-        
+        alpha = 1-interval_range/100 #prediction probability outside the interval
+        dispersion = u - l
+        underprediction = (2/alpha) * (l-obs) * (obs < l)
+        overprediction = (2/alpha) * (obs-u) * (obs > u)
+        score = dispersion + underprediction + overprediction
+        if not specify_range_out:
+            out = {'interval_score': score,
+                   'dispersion': dispersion,
+                   'underprediction': underprediction,
+                   'overprediction': overprediction}
+        else:
+            out = {f'{interval_range}_interval_score': score,
+                   f'{interval_range}_dispersion': dispersion,
+                   f'{interval_range}_underprediction': underprediction,
+                   f'{interval_range}_overprediction': overprediction}
+        return out
+
+    def timestamp_wis(self,observations, predsfilt, interval_ranges =[10,20,30,40,50,60,70,80,90,95,98]):
+        """timestamp_wis.
+
         Parameters
         ----------
-        want_scores: list
-            list of scores you want to save in the dataframe
-            wis is 'wis_mean', and all coverages are '10_cov', '20_cov', ... '95_cov' etc.
-        models: list
-            list of models that the scores will be calculated for, each element is a string correspongding to
-            a forecast model's name from the Model column of the forecast dataframe. 
-            used for get_all_average_scores function call.
+        observations : Observations object
+            Specialized dateframe for the observations across time.
+        predictions : Predictions object
+            Specialized dateframe for the predictions (quantile and point) across time.
+        interval_ranges : list of int
+            Percentage covered by each interval. For instance, if interval_range is 90, this corresponds
+            to the interval for the 0.05 and 0.95 quantiles.
+
+        Returns
+        -------
+        df : DataFrame
+            DataFrame containing the weighted interval score across time.
+
+        Raises
+        ------
+        ValueError:
+            If the independent columns do not match for observations and predictions.
+            If the median is not calculated.
+            If the point estimate is not included.
+
         """
-        
-        average_scores = pd.DataFrame()
-        
-        allscore = self.get_all_average_scores(models) #calculate all average scores
-        
-        for model in allscore.keys():
-            scoresmod = allscore[model]
-            for loc in scoresmod.keys():
-                    
-                scoresloc = scoresmod[loc]
 
-                scoredict = {'Model': model ,'location': loc}
-                for score in want_scores: # only save scores input into want_scores
-                    scoredict[score] = scoresloc[score]
+        quantiles = np.array(predsfilt.sort_values(by='output_type_id').output_type_id)
 
-                average_scores = pd.concat([average_scores, pd.DataFrame(scoredict, index=[0])])
+        qs = []
+        for q in quantiles:
+            df = predsfilt[predsfilt.output_type_id==q].sort_values(by='target_end_date')
+            val = np.array(df.value)
+            qs.append(val)
 
-        average_scores = average_scores.reset_index() 
-        average_scores = average_scores.drop(columns=['index'])
-        
-        return average_scores
+        Q = np.array(qs) # quantiles array
+        y = np.array(observations.value) # observations array
+
+        # calculate WIS
+        WIS = np.zeros(len(y))
+
+        for i in range(len(quantiles) // 2):
+            interval_range = 100*(quantiles[-i-1]-quantiles[i])
+            #print(interval_range)
+            alpha = 1-(quantiles[-i-1]-quantiles[i])
+            IS = self.interval_score(y,Q[i],Q[-i-1],interval_range)
+            WIS += IS['interval_score']*alpha/2
+        WIS += 0.5*np.abs(Q[11] - y)
+
+        WISlist = np.array(WIS) / (len(interval_ranges) + 0.5)
+
+        df = pd.DataFrame({'Model':predsfilt.Model.unique(), 'location':predsfilt.location.unique(), 'horizon':predsfilt.horizon.unique(),
+                           'reference_date':predsfilt.reference_date.unique(), 'target_end_date':predsfilt.target_end_date.unique(),
+                           'wis':WISlist[0]},index=[0])
+
+        return df
     
-    def get_all_timestamped_scores(self, models):
-        """ get_all_timestamped_scores. Calculate all scores in scorepi package for each week of the full forecast
-        time series. 
-        
+    def coverage(self,observation,lower,upper):
+        """coverage. Output the fraction of observations within lower and upper.
+
         Parameters
         ----------
-        models: list
-            list of models that the scores will be calculated for, each element is a string corresponding to
-            a forecast model's name from the Model column of the forecast dataframe
+        observation : array_like
+            Vector of observations.
+        lower : array_like
+            Prediction for the lower quantile.
+        upper : array_like
+            Prediction for the upper quantile.
+
+        Returns
+        -------
+        cov : float
+            Fraction of observations within the lower and upper bound.
+
+
+        Raises
+        ------
+        ValueError:
+            If the observation, the lower and upper vectors are not the same length.
         """
-        
-        pred = self.df.copy() # dataframe used for scoring
-        loclist = list(pred.location.unique())
-        
-        allscore = {}
-        
-        for model in models:
-            allscore[model] = {}
-            for target_location in loclist:
-                    
-                observations = self.get_observations(target_location) # get surveillance data for target location
-                
-                try:
-                    predss = pred[pred['location'] == target_location] #filter by location
-                    # format forecasts into Predictions scorepi objec
-                    predss = Predictions(predss, t_col = 'target_end_date', quantile_col = 'output_type_id')
-                    
-                    if len(predss)==0:
-                        continue
-                    
-                    allscore[model][target_location] = {}
-                    # loop over all time points in the predictions
-                    for t in predss.target_end_date.unique():
-                        prednew = predss[predss.target_end_date == t]
-                        obsnew = observations[observations.date == t]
+        if len(lower) != len(upper) or len(lower) != len(observation):
+            raise ValueError("vector shape mismatch")
 
-                        obsnew = Observations(obsnew)
-                        prednew = Predictions(prednew, t_col = 'target_end_date', quantile_col = 'output_type_id')
+        #make sure vector operation works
+        obs,l,u = np.array(observation),np.array(lower),np.array(upper)
 
-                        # calculate scores
-                        d = score_utils.all_timestamped_scores_from_df(obsnew, prednew)
+        return np.mean(np.logical_and(obs >= l, obs <= u))
 
-                        allscore[model][target_location][t] = d
-                except Exception as e:
-                    print(e)
-        
-        return allscore
-    
-    
-    def organize_timestamped_scores(self, want_scores, models):
-        """ organize_timestamped_scores. save timestamped scores of interest into a pandas dataframe
-        
+    def all_coverages_from_df(self,observations, predictions, interval_ranges=[10,20,30,40,50,60,70,80,90,95,98],
+                              **kwargs):
+        """all_coverages_from_df.
+
         Parameters
         ----------
-        want_scores: list
-            list of scores you want to save in the dataframe
-            wis is 'wis'
-        models: list
-            list of models that the scores will be calculated for, each element is a string correspongding to
-            a forecast model's name from the Model column of the forecast dataframe. 
-            used for get_all_timestamped_scores function call.
+        observations : DataFrame object
+            Dateframe for the observations across time.
+        predictions : DataFrame object
+            Dateframe for the predictions (intervals) across time.
+        interval_ranges : list of int
+            Percentage covered by each interval. For instance, if interval_range is 90, this corresponds
+            to the interval for the 0.05 and 0.95 quantiles.
+
+        Returns
+        -------
+        out : dict
+            Dictionary containing the coverage for all interval ranges.
+
+        Raises
+        ------
+        ValueError:
+            If the independent columns do not match for observations and predictions.
         """
-        
-        time_scores = pd.DataFrame()
-        
-        # calculate all scores evaluated for each time point
-        allscore = self.get_all_timestamped_scores(models=models)
-        
-        for model in allscore.keys():
-            scoremod = allscore[model]
-        
-            for loc in scoremod.keys():
-                    
-                scoresloc = scoremod[loc]
+        #verify that the independent variable columns (usually dates and location) matches
+        if not np.array_equal(observations.get_unique_x(), predictions.get_unique_x()):
+            raise ValueError("Values for the independent columns do not match")
 
-                for t in scoresloc.keys():
-                    tdf = scoresloc[t]
-
-                    scoredict = {'Model':model ,'location':loc, 'target_end_date':t}
-                    for score in want_scores:
-                        scoredict[score] = tdf[score]
-
-                    # save scores in want_scores into a dataframe
-                    time_scores = pd.concat([time_scores, pd.DataFrame(scoredict, index=[0])])
-
-        time_scores = time_scores.reset_index() 
-        time_scores = time_scores.drop(columns=['index'])
+        out = dict()
+        for interval_range in interval_ranges:
+            q_low,q_upp = round(0.5-interval_range/200,3),round(0.5+interval_range/200,3)
+            cov = self.coverage(list(observations.value),
+                           list(predictions[predictions.output_type_id ==q_low].value),
+                           list(predictions[predictions.output_type_id==q_upp].value))
+            out[f'{interval_range}_cov'] = cov
+        return out
         
-        return time_scores
-    
-    
     def get_mape(self):
         """ get_mape. Calculate MAPE (mean absolute percentage error) for each date of a forecast. If 
             surveillance data point is equal to zero, the score is undefined (Nan).
@@ -340,9 +477,8 @@ class Scoring(Forecast_Eval):
 
                     observations = self.get_observations(target_location)
                     
-
                     pred = predictions[(predictions.location == target_location) & (predictions.Model==model)]
-                    pred = Predictions(pred, t_col = 'target_end_date',quantile_col='output_type_id')
+                    pred = self.process_predictions(pred, t_col = 'target_end_date',quantile_col='output_type_id')
                     
                     observations = observations[observations.date.isin(pred.target_end_date.unique())]
 
@@ -350,7 +486,6 @@ class Scoring(Forecast_Eval):
 
                     realvals = list(observations.value)
                     predvals = list(pred.value)
-
                     
                     if len(predvals) == 0:
                         continue
@@ -383,7 +518,6 @@ class Scoring(Forecast_Eval):
 #################################################
 
 ### Instantiate Forecast_Eval Class and Format Data for Scoring
-
 # put all forecasts into one dataframe
 predictionsall = pd.DataFrame()
 for model in models:
@@ -394,47 +528,55 @@ for model in models:
             predictionsall = pd.concat([predictionsall, predictions])
         except Exception as e:
             print(e)
-
+            
 # format forecasts in order to calculate scores
 # input start and end weeks for the period of interest
+start_week = Week.fromdate(datetime.datetime.strptime(surv.date.min(), '%Y-%m-%d'))
+end_week = Week.fromdate(datetime.datetime.strptime(surv.date.max(), '%Y-%m-%d'))
 test = Forecast_Eval(df=pd.DataFrame(), obsdf=surv, target='hosp', 
-                            start_week = Week(2023,40), end_week = Week(2024, 17))
-predsall = test.format_forecasts_all( dfformat = predictionsall)
-
+                            start_week = start_week, end_week = end_week)
+predsall = test.format_forecasts_all(dfformat = predictionsall)
 
 ### WIS
-
 # calculate WIS for all forecasts
 dfwis = pd.DataFrame()
-for horizon in [0, 1, 2,3]:
+for horizon in [0, 1, 2, 3]:
     for model in models:
         for date in dates: 
-            start_week = Week.fromdate(pd.to_datetime(date)) # week of submission date
-            end_week = start_week + 3 # target end date of last horizon
-            
-            # filter by horizon, model and submission date
-            pred = predsall[(predsall.horizon==horizon) & (predsall.Model == model) & \
-                            (predsall.reference_date == date)]
-            if len(pred)==0:
-                continue
-            
-            # calculate wis for each week
-            test = Scoring(df=pred, obsdf=surv, target='hosp',
-                            start_week = start_week, end_week = end_week)
+            for loc in predsall.location.unique():
+                start_week = Week.fromdate(pd.to_datetime(date)) # week of submission date
+                end_week = start_week + 3 # target end date of last horizon
 
-            out = test.organize_timestamped_scores(want_scores = ['wis'], models = [model])
-            
-            out['horizon'] = horizon
-            out['reference_date'] = date
-            
-            dfwis = pd.concat([dfwis, out])
+                # filter by horizon, model and submission date
+                pred = predsall[(predsall.horizon==horizon) & (predsall.Model == model) & \
+                                (predsall.reference_date == date) & (predsall.location==loc)]
+
+                test = Scoring(df=pred, obsdf=surv, target='hosp')
+                predss = test.process_predictions(pred, t_col = 'target_end_date', quantile_col = 'output_type_id')
+
+                if len(predss) == 0: continue
+
+                obs = test.get_observations(loc)
+                obs = obs[obs.date==pred.target_end_date.unique()[0]]
+                
+                out = test.timestamp_wis(obs, predss)
+
+                dfwis = pd.concat([dfwis, out])
 
 # save to csv
-dfwis.to_csv('./evaluations/WIS.csv', index=False)#, mode='a')
+if write_mode == 'a': # if appending, ensure there are unseen rows to append
+    old_df = pd.read_csv('./evaluations/WIS.csv')
+    all_df = pd.merge(dfwis, old_df, on=dfwis.columns.tolist(), how='left', indicator='exists')
+    is_new = np.where(all_df.exists == 'both', False, True) # True if row in dfwis does not exist in old_df
+    dfwis = dfwis[is_new]
+    del old_df
+    del all_df
+    if dfwis.empty: continue
+    else: dfwis.to_csv('./evaluations/WIS.csv', index=False, mode=write_mode)
+else: dfwis.to_csv('./evaluations/WIS.csv', index=False, mode=write_mode)
 
 
 ### WIS Ratio
-
 # compute wis ratio, comparing the Flusight models' forecast scores to the Flusight baseline model
 # divide flusight models by flusight baseline WIS scores at each location, week, horizon, location
 dfwis = pd.read_csv('./evaluations/WIS.csv')
@@ -449,42 +591,64 @@ dfwis_ratio = pd.merge(dfwis_test, baseline, how='inner',
 dfwis_ratio['wis_ratio'] = dfwis_ratio['wis']/dfwis_ratio['wis_baseline']
 
 # save to csv
-dfwis_ratio.to_csv('./evaluations/WIS_ratio.csv', index=False)#, mode='a')
+if write_mode == 'a': # if appending, ensure there are unseen rows to append
+    old_df = pd.read_csv('./evaluations/WIS_ratio.csv')
+    all_df = pd.merge(dfwis_ratio, old_df, on=dfwis_ratio.columns.tolist(), how='left', indicator='exists')
+    is_new = np.where(all_df.exists == 'both', False, True) # True if row in dfwis_ratio does not exist in old_df
+    dfwis_ratio = dfwis_ratio[is_new]
+    del old_df
+    del all_df
+    if dfwis_ratio.empty: continue
+    else: dfwis_ratio.to_csv('./evaluations/WIS_ratio.csv', index=False, mode=write_mode)
+else: dfwis_ratio.to_csv('./evaluations/WIS_ratio.csv', index=False, mode=write_mode)
 
 
 ### Coverage
-
+# calculate coverage for all forecasts
 dfcoverage = pd.DataFrame()
 for date in dates:
     for model in models:
-         
-        start_week = Week.fromdate(pd.to_datetime(date)) # week of submission date
-        end_week = start_week + 3 # target end date of last horizon
+        for loc in predsall.location.unique():
+            for horizon in [0,1,2,3]:
+                start_week = Week.fromdate(pd.to_datetime(date)) # week of submission date
+                end_week = start_week + 3 # target end date of last horizon
 
-        # filter by model and submission date, only look at horizon 0-3
-        pred = predsall[(predsall.Model == model) & \
-                        (predsall.reference_date == date) & (predsall.horizon >=0)]
-        if len(pred)==0:
-            continue
+                # filter by model and submission date, only look at horizon 0-3
+                pred = predsall[(predsall.Model == model)& (predsall.reference_date == date) &\
+                                (predsall.horizon == horizon) & (predsall.location == loc)]
 
-        # calculate wis for each week
-        test = Scoring(df=pred, obsdf=surv, target='hosp',  
-                        start_week = start_week, end_week = end_week)
+                if len(pred) == 0: continue
 
-        out = test.organize_average_scores(want_scores=['10_cov', '20_cov', '30_cov', '40_cov', '50_cov',
-            '60_cov', '70_cov', '80_cov', '90_cov', '95_cov', '98_cov'], models = [model])
+                test = Scoring(df=pred, obsdf=surv, target='hosp')
+                predss = test.process_predictions(pred, t_col = 'target_end_date', quantile_col = 'output_type_id')
 
-        out['horizon'] = horizon
-        out['reference_date'] = date
+                obs = test.get_observations(loc)
+                obs = obs[obs.date.isin(pred.target_end_date.unique())]
 
-        dfcoverage = pd.concat([dfcoverage, out])
+                out = test.all_coverages_from_df(obs, predss)
+
+                out['horizon'] = horizon
+                out['Model'] = model
+                out['reference_date'] = date
+                out['location'] = loc
+
+                dfcoverage = pd.concat([dfcoverage, pd.DataFrame(out,index=[0])])
+dfcoverage = dfcoverage.reset_index().drop(columns='index')
 
 # save to csv
-dfcoverage.to_csv('./evaluations/coverage.csv', index=False)#, mode='a')
+if write_mode == 'a': # if appending, ensure there are unseen rows to append
+    old_df = pd.read_csv('./evaluations/coverage.csv')
+    all_df = pd.merge(dfcoverage, old_df, on=dfcoverage.columns.tolist(), how='left', indicator='exists')
+    is_new = np.where(all_df.exists == 'both', False, True) # true if row in dfcoverage does not exist in old_df
+    dfcoverage = dfcoverage[is_new]
+    del old_df
+    del all_df
+    if dfcoverage.empty: continue
+    else: dfcoverage.to_csv('./evaluations/coverage.csv', index=False, mode=write_mode)
+else: dfcoverage.to_csv('./evaluations/coverage.csv', index=False, mode=write_mode)
 
 
 ### MAPE
-
 # calculate MAPE for all forecasts
 dfmape = pd.DataFrame()
 for horizon in [0, 1, 2,3]:
@@ -509,8 +673,18 @@ for horizon in [0, 1, 2,3]:
             out['reference_date'] = date
             
             dfmape = pd.concat([dfmape, out])
-
-dfmape.to_csv('./evaluations/MAPE.csv', index=False)#, mode='a')
+            
+# save to csv
+if write_mode == 'a': # if appending, ensure there are unseen rows to append
+    old_df = pd.read_csv('./evaluations/MAPE.csv')
+    all_df = pd.merge(dfmape, old_df, on=dfmape.columns.tolist(), how='left', indicator='exists')
+    is_new = np.where(all_df.exists == 'both', False, True) # true if row in dfmape does not exist in old_df
+    dfmape = dfmape[is_new]
+    del old_df
+    del all_df
+    if dfmape.empty: continue
+    else: dfmape.to_csv('./evaluations/MAPE.csv', index=False, mode=write_mode)
+else: dfmape.to_csv('./evaluations/MAPE.csv', index=False, mode=write_mode)
 
 
 
