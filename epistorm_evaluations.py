@@ -93,8 +93,7 @@ else:
 
 # mode
 if mode == 'most_recent': surv = surv[surv.date == surv.date.max()]
-elif mode == 'recalculate_all': continue
-else: raise ValueError('improper mode input: {}'.format(mode))
+elif mode != 'recalculate_all': raise ValueError('improper mode input: {}'.format(mode))
 
 # output_directory and write_mode
 write_mode = 'w' # determine whether to append to or overwrite files
@@ -571,8 +570,7 @@ if write_mode == 'a': # if appending, ensure there are unseen rows to append
     dfwis = dfwis[is_new]
     del old_df
     del all_df
-    if dfwis.empty: continue
-    else: dfwis.to_csv('./evaluations/WIS.csv', index=False, mode=write_mode)
+    if not dfwis.empty: dfwis.to_csv('./evaluations/WIS.csv', index=False, mode=write_mode)
 else: dfwis.to_csv('./evaluations/WIS.csv', index=False, mode=write_mode)
 
 
@@ -598,8 +596,7 @@ if write_mode == 'a': # if appending, ensure there are unseen rows to append
     dfwis_ratio = dfwis_ratio[is_new]
     del old_df
     del all_df
-    if dfwis_ratio.empty: continue
-    else: dfwis_ratio.to_csv('./evaluations/WIS_ratio.csv', index=False, mode=write_mode)
+    if not dfwis_ratio.empty: dfwis_ratio.to_csv('./evaluations/WIS_ratio.csv', index=False, mode=write_mode)
 else: dfwis_ratio.to_csv('./evaluations/WIS_ratio.csv', index=False, mode=write_mode)
 
 
@@ -643,8 +640,7 @@ if write_mode == 'a': # if appending, ensure there are unseen rows to append
     dfcoverage = dfcoverage[is_new]
     del old_df
     del all_df
-    if dfcoverage.empty: continue
-    else: dfcoverage.to_csv('./evaluations/coverage.csv', index=False, mode=write_mode)
+    if not dfcoverage.empty: dfcoverage.to_csv('./evaluations/coverage.csv', index=False, mode=write_mode)
 else: dfcoverage.to_csv('./evaluations/coverage.csv', index=False, mode=write_mode)
 
 
@@ -682,8 +678,7 @@ if write_mode == 'a': # if appending, ensure there are unseen rows to append
     dfmape = dfmape[is_new]
     del old_df
     del all_df
-    if dfmape.empty: continue
-    else: dfmape.to_csv('./evaluations/MAPE.csv', index=False, mode=write_mode)
+    if not dfmape.empty: dfmape.to_csv('./evaluations/MAPE.csv', index=False, mode=write_mode)
 else: dfmape.to_csv('./evaluations/MAPE.csv', index=False, mode=write_mode)
 
 
