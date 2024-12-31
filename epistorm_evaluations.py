@@ -89,7 +89,7 @@ elif n_in == 4: # mode, output, and model(s) specified
     models = sys.argv[2].split()
 else:
     for arg in sys.argv: print(arg)
-    raise ValueError('incorrect number of arguments received: {}'.format(n_in)
+    raise ValueError('incorrect number of arguments received: {}'.format(n_in))
 
 # mode
 if mode == 'most_recent': surv = surv[surv.date == surv.date.max()]
