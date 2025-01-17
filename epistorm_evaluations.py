@@ -579,7 +579,7 @@ if args.mode == 'update':
     
     # filter out scores which are being replaced with new scores
     trunc_old_df = old_df.iloc[:,:5]
-    trunc_new_df = new_df.iloc[;,:5]
+    trunc_new_df = new_df.iloc[:,:5]
     all_df = pd.merge(trunc_old_df, trunc_new_df, on=trunc_new_df.columns.tolist(), how='left', indicator='exists')
     retain_rows = np.where(all_df.exists == 'both', False, True) # True if row in old_df should be retained (is not updated)
     old_df = old_df[retain_rows]
