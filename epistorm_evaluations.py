@@ -429,9 +429,9 @@ all_models = ['CADPH-FluCAT_Ensemble', 'CEPH-Rtrend_fluH',  'CMU-TimeSeries', 'C
 parser = argparse.ArgumentParser()
 parser.add_argument('--mode', action='store', nargs=1, choices=['update', 'scratch'], required=True,
                     help='Update deployment evaluations or work in scratch folder.')
-parser.add_argument('--models', action='extend', nargs='+', choices=all_models+['all'], required=False, default='all',
+parser.add_argument('--models', nargs='+', choices=all_models+['all'], required=False, default='all',
                     help='Specify any number of space-separated model names, or \'all\'.')
-parser.add_argument('--dates', action='extend', nargs='+', required=False, default='all',
+parser.add_argument('--dates', nargs='+', required=False, default='all',
                     help='Specify any number of space-separated dates in YYYY-MM-DD format, or \'all\'.')
 args = parser.parse_args()
 
