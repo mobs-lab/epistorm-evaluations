@@ -1,0 +1,11 @@
+name: epistorm-evaluations
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - bioconda::epiweeks
+  - jupyterlab
+  - numpy
+  - pandas
+  - pyarrow #for parquet files
+prefix: /home/data/miniconda3/envs/epistorm-evaluations
