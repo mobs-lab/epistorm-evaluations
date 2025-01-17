@@ -9,7 +9,7 @@ on:
         required: false
         default: 'all'
         type: string
-       dates:
+      dates:
         description: 'Specify date(s) in YYYY-MM-DD format, space-separated'
         required: false
         default: 'all'
