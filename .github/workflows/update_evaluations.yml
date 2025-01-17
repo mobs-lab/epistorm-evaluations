@@ -54,7 +54,7 @@ jobs:
 
       - name: run evaluations
         run: |
-          python epistorm_evaluations.py update
+          python epistorm_evaluations.py --mode update
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add evaluations/*

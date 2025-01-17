@@ -427,7 +427,7 @@ all_models = ['CADPH-FluCAT_Ensemble', 'CEPH-Rtrend_fluH',  'CMU-TimeSeries', 'C
 # models - any number of model names in a space-separated string, or 'all'
 # dates - any number of dates in YYYY-MM-DD format in a space-separated string
 parser = argparse.ArgumentParser()
-parser.add_argument('mode', action='store', nargs=1, choices=['update', 'scratch'], required=True,
+parser.add_argument('--mode', action='store', nargs=1, choices=['update', 'scratch'], required=True,
                     help='Update deployment evaluations or work in scratch folder.')
 parser.add_argument('--models', action='extend', nargs='+', choices=all_models+['all'], required=False, default='all',
                     help='Specify any number of space-separated model names, or \'all\'.')
