@@ -1,0 +1,66 @@
+name: scratch_evaluations
+
+on:   
+# run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      models:
+        description: 'Specify model(s) by name, space-separated'
+        required: false
+        default: 'all'
+        type: string
+       dates:
+        description: 'Specify date(s) in YYYY-MM-DD format, space-separated'
+        required: false
+        default: 'all'
+        type: string
+  
+jobs:
+
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+          fetch-depth: 0
+          ref: main  # Explicitly checkout main
+
+      - name: Update Submodule
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git pull origin main
+          git submodule init
+          git submodule update --remote
+          git submodule foreach git pull origin main
+          
+  evaluate-predictions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+          fetch-depth: 0
+          ref: main  # Explicitly checkout main
+          
+      - name: python setup
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+         
+      - name: install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r pip_requirements.txt
+
+      - name: run evaluations
+        run: |
+          python epistorm_evaluations.py scratch --models ${{ inputs.models }} --dates ${{ inputs.dates}}
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add evaluations/*
+          git commit -m 'generate evaluations via github actions'
+          git push
