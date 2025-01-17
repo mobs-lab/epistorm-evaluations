@@ -3,120 +3,13 @@
 import pandas as pd
 import numpy as np
 import datetime
-import sys
+#import sys
+import argparse
 from epiweeks import Week
+#from os.path import exists
 
 import warnings
 warnings.filterwarnings('ignore')
-
-
-### DOWNLOAD DATA
-#################################################
-
-### Functions to download flusight model predictions and surveillance data
-def pull_flusight_predictions(model,date):
-    """pull_flusight_predictions. Load predictions of the model saved by the Flusight Forecast hub
-
-    Parameters
-    ----------
-    model : str
-        Model name on the
-    dates : list or string
-        List of potential dates in the iso format, e.g., 'yyyy-mm-dd', for the submission.
-    """
-    predictions = None
-    
-    url = f"https://raw.githubusercontent.com/cdcepi/Flusight-forecast-hub/main/model-output/{model}/{date}-{model}"
-    for ext in [".csv",".gz",".zip",".csv.zip",".csv.gz"]:
-        try:
-            predictions = pd.read_csv(url+ext,dtype={'location':str},parse_dates=['target_end_date'])
-        except:
-            pass
-    if predictions is None:
-        print(f"Data for model {model} and date {date} unavailable")
-    return predictions
-
-
-def pull_surveillance_data():
-    """pull_surveillance_data. Load hospitalization admissions surveillance data
-    """
-    
-    url = f"https://raw.githubusercontent.com/cdcepi/FluSight-forecast-hub/main/target-data/target-hospital-admissions.csv"
-    return pd.read_csv(url, dtype={'location':str})
-
-
-### Download and save all available surveillance data
-surv = pull_surveillance_data()
-surv.to_parquet(f"./dat/target-hospital-admissions.pq", index=False)
-surv = pd.read_parquet(f"./dat/target-hospital-admissions.pq")
-surv['Unnamed: 0'] = 0
-
-# predictions will be downloaded after input handling
-
-
-### HANDLE INPUTS & DOWNLOAD PREDICTIONS
-#################################################
-# all existing models as of Dec 2024
-all_models = ['CADPH-FluCAT_Ensemble', 'CEPH-Rtrend_fluH',  'CMU-TimeSeries', 'CU-ensemble', 'FluSight-baseline',
-          'FluSight-ensemble','FluSight-equal_cat', 'FluSight-lop_norm', 'GH-model', 'GT-FluFNP', 'ISU_NiemiLab-ENS', 
-          'ISU_NiemiLab-NLH','ISU_NiemiLab-SIR', 'LUcompUncertLab-chimera', 'LosAlamos_NAU-CModel_Flu', 
-          'MIGHTE-Nsemble','MOBS-GLEAM_FLUH', 'NIH-Flu_ARIMA', 'PSI-PROF', 'SGroup-RandomForest', 'SigSci-CREG', 
-          'SigSci-TSENS','Stevens-GBR', 'UGA_flucast-Copycat', 'UGA_flucast-INFLAenza', 'UGA_flucast-OKeeffe', 
-          'UGuelph-CompositeCurve', 'UGuelphensemble-GRYPHON', 'UM-DeepOutbreak', 'UMass-flusion', 'UMass-trends_ensemble',
-          'UNC_IDD-InfluPaint', 'UVAFluX-Ensemble', 'VTSanghani-Ensemble', 'cfa-flumech', 'cfarenewal-cfaepimlight', 
-          'fjordhest-ensemble', 'NU_UCSD-GLEAM_AI_FLUH', 'PSI-PROF_beta', 'JHU_CSSE-CSSE_Ensemble', 'FluSight-national_cat',
-          'FluSight-ens_q_cat', 'FluSight-baseline_cat', 'FluSight-base_seasonal', 'Gatech-ensemble_point', 'Gatech-ensemble_prob',
-          'ISU_NiemiLab-GPE', 'JHUAPL-DMD', 'MDPredict-SIRS', 'MIGHTE-Joint', 'Metaculus-cp', 'NEU_ISI-AdaptiveEnsemble',
-          'NEU_ISI-FluBcast', 'OHT_JHU-nbxd', 'SigSci-BECAM', 'Stevens-ILIForecast', 'UGA_CEID-Walk', 'UGA_flucast-Scenariocast',
-          'UI_CompEpi-EpiGen', 'UMass-AR2', 'VTSanghani-PRIME']
-
-# Accept inputs for:
-# mode - 'most_recent' or 'recalculate_all'
-# output_directory - 'evaluations' or 'scratch'
-# models - any number of model names in a space-separated string
-n_in = len(sys.argv)
-if n_in == 1: # no arguments input
-    mode = 'most_recent'
-    output_directory = 'evaluations'
-    models = all_models
-elif n_in == 3: # mode and output specified
-    mode = sys.argv[1]
-    output_directory = sys.argv[2]
-    models = all_models
-elif n_in >= 4: # mode, output, and model(s) specified
-    mode = sys.argv[1]
-    output_directory = sys.argv[2]
-    models = sys.argv[2:]
-else:
-    for arg in sys.argv: print(arg)
-    raise ValueError('incorrect number of arguments received: {}'.format(n_in))
-
-# mode
-if mode == 'most_recent': surv = surv[surv.date == surv.date.max()]
-elif mode != 'recalculate_all': raise ValueError('improper mode input: {}'.format(mode))
-
-# output_directory and write_mode
-write_mode = 'w' # determine whether to append to or overwrite files
-if output_directory == 'evaluations': 
-    output_directory = './evaluations/'
-    if mode == 'most_recent': write_mode = 'a'
-elif output_directory == 'scratch': output_directory = './scratch/'
-else: raise ValueError('improper output_directory input: {}'.format(output_directory))
-
-# model name validation is handled by pull_flusight_predictions()
-
-# selecting all target dates that exist in the surveillance file
-dates = pd.unique(surv.date)
-
-# download and save forecasts for specified submission week (date) and for specified models from flusight github
-for model in models:
-    for date in dates:
-        try:
-            predictions = pull_flusight_predictions(model,date)
-
-            predictions.to_parquet(f'./dat/{model}_{date}.pq', index=False)
-        except Exception as e:
-            print(e)
 
 
 ### CLASSES AND METHODS
@@ -513,20 +406,133 @@ class Scoring(Forecast_Eval):
         return mapedf
 
 
+### HANDLE INPUTS & LOAD DATA
+#################################################
+# all existing models as of Dec 2024
+all_models = ['CADPH-FluCAT_Ensemble', 'CEPH-Rtrend_fluH',  'CMU-TimeSeries', 'CU-ensemble', 'FluSight-baseline',
+          'FluSight-ensemble','FluSight-equal_cat', 'FluSight-lop_norm', 'GH-model', 'GT-FluFNP', 'ISU_NiemiLab-ENS', 
+          'ISU_NiemiLab-NLH','ISU_NiemiLab-SIR', 'LUcompUncertLab-chimera', 'LosAlamos_NAU-CModel_Flu', 
+          'MIGHTE-Nsemble','MOBS-GLEAM_FLUH', 'NIH-Flu_ARIMA', 'PSI-PROF', 'SGroup-RandomForest', 'SigSci-CREG', 
+          'SigSci-TSENS','Stevens-GBR', 'UGA_flucast-Copycat', 'UGA_flucast-INFLAenza', 'UGA_flucast-OKeeffe', 
+          'UGuelph-CompositeCurve', 'UGuelphensemble-GRYPHON', 'UM-DeepOutbreak', 'UMass-flusion', 'UMass-trends_ensemble',
+          'UNC_IDD-InfluPaint', 'UVAFluX-Ensemble', 'VTSanghani-Ensemble', 'cfa-flumech', 'cfarenewal-cfaepimlight', 
+          'fjordhest-ensemble', 'NU_UCSD-GLEAM_AI_FLUH', 'PSI-PROF_beta', 'JHU_CSSE-CSSE_Ensemble', 'FluSight-national_cat',
+          'FluSight-ens_q_cat', 'FluSight-baseline_cat', 'FluSight-base_seasonal', 'Gatech-ensemble_point', 'Gatech-ensemble_prob',
+          'ISU_NiemiLab-GPE', 'JHUAPL-DMD', 'MDPredict-SIRS', 'MIGHTE-Joint', 'Metaculus-cp', 'NEU_ISI-AdaptiveEnsemble',
+          'NEU_ISI-FluBcast', 'OHT_JHU-nbxd', 'SigSci-BECAM', 'Stevens-ILIForecast', 'UGA_CEID-Walk', 'UGA_flucast-Scenariocast',
+          'UI_CompEpi-EpiGen', 'UMass-AR2', 'VTSanghani-PRIME']
+
+# Accept inputs for:
+# mode - 'update' or 'scratch'
+# models - any number of model names in a space-separated string, or 'all'
+# dates - any number of dates in YYYY-MM-DD format in a space-separated string
+parser = argparse.ArgumentParser()
+parser.add_argument('mode', action='store', nargs=1, choices=['update', 'scratch'], required=True,
+                    help='Update deployment evaluations or work in scratch folder.')
+parser.add_argument('--models', action='extend', nargs='+', choices=all_models+['all'], required=False, default='all',
+                    help='Specify any number of space-separated model names, or \'all\'.')
+parser.add_argument('--dates', action='extend', nargs='+', required=False, default='all',
+                    help='Specify any number of space-separated dates in YYYY-MM-DD format, or \'all\'.')
+args = parser.parse_args()
+
+# mode
+if args.mode == 'update':
+    output_directory = './evaluations/'
+    models = []
+    dates = np.array([])
+    
+    # list of files with new predictions data
+    updated_forecasts = pd.read_csv('./updated_forecasts.csv')
+    
+    # detect dates with new/changed surveillance numbers
+    surv = pd.read_csv('./data/ground-truth/target-hospital-admissions.csv')
+    surv_old = pd.read_csv('./data/ground-truth/target-hospital-admissions_old.csv')
+    all_df = pd.merge(surv, surv_old, on=surv.columns.tolist(), how='left', indicator='exists')
+    is_new = np.where(all_df.exists == 'both', False, True) # True if row in surv does not exist in surv_old
+    new_records = surv[is_new]
+    if not new_records.empty: models = all_models # if there are any new surveillance numbers we need to evaluate all models
+    update_target_dates = pd.unique(new_records.date)
+
+    # calculate reference dates for predictions including desired target dates
+    update_reference_dates = np.array([])
+    date_format = '%Y-%m-%d'
+    for date in update_target_dates:
+        update_reference_dates = update_reference_dates.append(date)
+        for i in [1, 2, 3]:
+            update_reference_dates = update_reference_dates.append(datetime.datetime.strftime(
+                datetime.datetime.strptime('2023-10-14', date_format) - datetime.timedelta(weeks=1), date_format))
+    dates = np.concat((dates, update_reference_dates))
+    
+    # add predictions from all models for the updated surveillance target dates to a single dataframe
+    predictionsall = pd.DataFrame()
+    for model in all_models:
+        for date in update_reference_dates:
+            for ext in [".csv",".gz",".zip",".csv.zip",".csv.gz"]:
+                try:
+                    predictions = pd.read_csv(f'./data/predictions/{model}/{date}-{model}{ext}')
+                    predictions['Model'] = model
+                    predictionsall = pd.concat([predictionsall, predictions]).drop_duplicates().reset_index(drop=True)
+                except Exception as e:
+                    print(e)
+            for ext in ['.parquet','.pq']:
+                try:
+                    predictions = pd.read_parquet(f'./data/predictions/{model}/{date}-{model}{ext}')
+                    predictions['Model'] = model
+                    predictionsall = pd.concat([predictionsall, predictions]).drop_duplicates().reset_index(drop=True)
+                except Exception as e:
+                    print(e)
+
+    # add new/changed predictions files to the dataframe and record models and dates
+    models = set(models)
+    dates = set(dates)
+    for file in updated_forecasts.file:
+        model = file.split('/')[2]
+        date = '-'.join(file.split('/')[-1].split('-', 3)[:3])
+        for ext in [".csv",".gz",".zip",".csv.zip",".csv.gz"]:
+            try:
+                predictions = pd.read_csv(file)
+                predictions['Model'] = model
+                predictionsall = pd.concat([predictionsall, predictions]).drop_duplicates().reset_index(drop=True)
+                models.add(model)
+                dates.add(date)
+            except Exception as e:
+                print(e)
+        for ext in ['.parquet','.pq']:
+            try:
+                predictions = pd.read_parquet(file)
+                predictions['Model'] = model
+                predictionsall = pd.concat([predictionsall, predictions]).drop_duplicates().reset_index(drop=True)
+                models.add(model)
+                dates.add(date)
+            except Exception as e:
+                print(e)
+    models = list(models)
+    dates = list(dates)
+                                          
+elif args.mode == 'scratch':
+    output_directory = './scratch/'
+    
+    # read files for specified models and dates directly from the flusight repo folder
+    surv = pd.read_csv('./FluSight-forecast-hub/target-data/target-hospital-admissions.csv')
+    if args.models == 'all': models = all_models
+    else: models = args.models
+    if args.dates == 'all': dates = pd.unique(surv.date)
+    else: dates = args.dates
+    predictionsall = pd.DataFrame()
+    for model in models:
+        for date in dates:
+            try:
+                predictions = pd.read_csv(f'./FluSight-forecast-hub/model-output/{model}/{date}-{model}.csv')
+                predictions['Model'] = model
+                predictionsall = pd.concat([predictionsall, predictions])
+            except Exception as e:
+                print(e)
+    
+
 ### CALCULATE SCORES
 #################################################
 
 ### Instantiate Forecast_Eval Class and Format Data for Scoring
-# put all forecasts into one dataframe
-predictionsall = pd.DataFrame()
-for model in models:
-    for date in dates:
-        try:
-            predictions = pd.read_parquet(f'./dat/{model}_{date}.pq')
-            predictions['Model'] = model
-            predictionsall = pd.concat([predictionsall, predictions])
-        except Exception as e:
-            print(e)
             
 # format forecasts in order to calculate scores
 # input start and end weeks for the period of interest
@@ -563,15 +569,27 @@ for horizon in [0, 1, 2, 3]:
                 dfwis = pd.concat([dfwis, out])
 
 # save to csv
-if write_mode == 'a': # if appending, ensure there are unseen rows to append
+if args.mode == 'update':
     old_df = pd.read_csv('./evaluations/WIS.csv')
+    
+    # filter out duplicate scores
     all_df = pd.merge(dfwis, old_df, on=dfwis.columns.tolist(), how='left', indicator='exists')
     is_new = np.where(all_df.exists == 'both', False, True) # True if row in dfwis does not exist in old_df
-    dfwis = dfwis[is_new]
-    del old_df
-    del all_df
-    if not dfwis.empty: dfwis.to_csv('./evaluations/WIS.csv', index=False, mode=write_mode)
-else: dfwis.to_csv('./evaluations/WIS.csv', index=False, mode=write_mode)
+    new_df = dfwis[is_new]
+    
+    # filter out scores which are being replaced with new scores
+    trunc_old_df = old_df.iloc[:,:5]
+    trunc_new_df = new_df.iloc[;,:5]
+    all_df = pd.merge(trunc_old_df, trunc_new_df, on=trunc_new_df.columns.tolist(), how='left', indicator='exists')
+    retain_rows = np.where(all_df.exists == 'both', False, True) # True if row in old_df should be retained (is not updated)
+    old_df = old_df[retain_rows]
+
+    # save the updated scores
+    dfwis = pd.concat([old_df, new_df])
+    dfwis.to_csv('./evaluations/WIS.csv', index=False, mode='w')
+    
+elif args.mode == 'scratch':
+    dfwis.to_csv('./scratch/WIS.csv', index=False, mode='w')
 
 
 ### WIS Ratio
@@ -589,15 +607,27 @@ dfwis_ratio = pd.merge(dfwis_test, baseline, how='inner',
 dfwis_ratio['wis_ratio'] = dfwis_ratio['wis']/dfwis_ratio['wis_baseline']
 
 # save to csv
-if write_mode == 'a': # if appending, ensure there are unseen rows to append
+if args.mode == 'update':
     old_df = pd.read_csv('./evaluations/WIS_ratio.csv')
+    
+    # filter out duplicate scores
     all_df = pd.merge(dfwis_ratio, old_df, on=dfwis_ratio.columns.tolist(), how='left', indicator='exists')
     is_new = np.where(all_df.exists == 'both', False, True) # True if row in dfwis_ratio does not exist in old_df
-    dfwis_ratio = dfwis_ratio[is_new]
-    del old_df
-    del all_df
-    if not dfwis_ratio.empty: dfwis_ratio.to_csv('./evaluations/WIS_ratio.csv', index=False, mode=write_mode)
-else: dfwis_ratio.to_csv('./evaluations/WIS_ratio.csv', index=False, mode=write_mode)
+    new_df = dfwis_ratio[is_new]
+    
+    # filter out scores which are being replaced with new scores
+    trunc_old_df = old_df.iloc[:,:5]
+    trunc_new_df = new_df.iloc[:,:5]
+    all_df = pd.merge(trunc_old_df, trunc_new_df, on=trunc_new_df.columns.tolist(), how='left', indicator='exists')
+    retain_rows = np.where(all_df.exists == 'both', False, True) # True if row in old_df should be retained (is not updated)
+    old_df = old_df[retain_rows]
+
+    # save the updated scores
+    dfwis_ratio = pd.concat([old_df, new_df])
+    dfwis_ratio.to_csv('./evaluations/WIS_ratio.csv', index=False, mode='w')
+    
+elif args.mode == 'scratch':
+    dfwis_ratio.to_csv('./scratch/WIS_ratio.csv', index=False, mode='w')
 
 
 ### Coverage
@@ -633,15 +663,27 @@ for date in dates:
 dfcoverage = dfcoverage.reset_index().drop(columns='index')
 
 # save to csv
-if write_mode == 'a': # if appending, ensure there are unseen rows to append
+if args.mode == 'update':
     old_df = pd.read_csv('./evaluations/coverage.csv')
+    
+    # filter out duplicate scores
     all_df = pd.merge(dfcoverage, old_df, on=dfcoverage.columns.tolist(), how='left', indicator='exists')
-    is_new = np.where(all_df.exists == 'both', False, True) # true if row in dfcoverage does not exist in old_df
-    dfcoverage = dfcoverage[is_new]
-    del old_df
-    del all_df
-    if not dfcoverage.empty: dfcoverage.to_csv('./evaluations/coverage.csv', index=False, mode=write_mode)
-else: dfcoverage.to_csv('./evaluations/coverage.csv', index=False, mode=write_mode)
+    is_new = np.where(all_df.exists == 'both', False, True) # True if row in dfcoverage does not exist in old_df
+    new_df = dfcoverage[is_new]
+    
+    # filter out scores which are being replaced with new scores
+    trunc_old_df = old_df.iloc[:,:5]
+    trunc_new_df = new_df.iloc[:,:5]
+    all_df = pd.merge(trunc_old_df, trunc_new_df, on=trunc_new_df.columns.tolist(), how='left', indicator='exists')
+    retain_rows = np.where(all_df.exists == 'both', False, True) # True if row in old_df should be retained (is not updated)
+    old_df = old_df[retain_rows]
+
+    # save the updated scores
+    dfcoverage = pd.concat([old_df, new_df])
+    dfcoverage.to_csv('./evaluations/coverage.csv', index=False, mode='w')
+    
+elif args.mode == 'scratch':
+    dfcoverage.to_csv('./scratch/coverage.csv', index=False, mode='w')
 
 
 ### MAPE
@@ -671,15 +713,27 @@ for horizon in [0, 1, 2,3]:
             dfmape = pd.concat([dfmape, out])
             
 # save to csv
-if write_mode == 'a': # if appending, ensure there are unseen rows to append
+if args.mode == 'update':
     old_df = pd.read_csv('./evaluations/MAPE.csv')
+    
+    # filter out duplicate scores
     all_df = pd.merge(dfmape, old_df, on=dfmape.columns.tolist(), how='left', indicator='exists')
-    is_new = np.where(all_df.exists == 'both', False, True) # true if row in dfmape does not exist in old_df
-    dfmape = dfmape[is_new]
-    del old_df
-    del all_df
-    if not dfmape.empty: dfmape.to_csv('./evaluations/MAPE.csv', index=False, mode=write_mode)
-else: dfmape.to_csv('./evaluations/MAPE.csv', index=False, mode=write_mode)
+    is_new = np.where(all_df.exists == 'both', False, True) # True if row in dfmape does not exist in old_df
+    new_df = dfmape[is_new]
+    
+    # filter out scores which are being replaced with new scores
+    trunc_old_df = old_df.iloc[:,:5]
+    trunc_new_df = new_df.iloc[:,:5]
+    all_df = pd.merge(trunc_old_df, trunc_new_df, on=trunc_new_df.columns.tolist(), how='left', indicator='exists')
+    retain_rows = np.where(all_df.exists == 'both', False, True) # True if row in old_df should be retained (is not updated)
+    old_df = old_df[retain_rows]
+
+    # save the updated scores
+    dfmape = pd.concat([old_df, new_df])
+    dfmape.to_csv('./evaluations/MAPE.csv', index=False, mode='w')
+    
+elif args.mode == 'scratch':
+    dfmape.to_csv('./scratch/MAPE.csv', index=False, mode='w')
 
 
 
