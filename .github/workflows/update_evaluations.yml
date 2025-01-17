@@ -36,6 +36,7 @@ jobs:
           source ./data_retrieval.sh
           
   evaluate-predictions:
+    needs: update-data
     if: ${{ env.NEW_PREDICTION_DATA_COPIED == 'true' || env.NEW_SURVEILLANCE_DATA_COPIED == 'true' }}
     runs-on: ubuntu-latest
     steps:
