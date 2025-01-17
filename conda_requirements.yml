@@ -5,7 +5,7 @@ channels:
 dependencies:
   - bioconda::epiweeks
   - jupyterlab
+  - argparse
   - numpy
   - pandas
-  - pyarrow #for parquet files
 prefix: /home/data/miniconda3/envs/epistorm-evaluations
