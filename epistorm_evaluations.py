@@ -434,10 +434,11 @@ parser.add_argument('--models', nargs='+', choices=all_models+['all'], required=
 parser.add_argument('--dates', nargs='+', required=False, default='all',
                     help='Specify any number of space-separated dates in YYYY-MM-DD format, or \'all\'.')
 args = parser.parse_args()
-print(args.mode)
+print(args.mode[0])
 
 # mode
-if args.mode == 'update':
+mode = args.mode[0]
+if mode == 'update':
     output_directory = './evaluations/'
     models = []
     dates = np.array([])
@@ -510,7 +511,7 @@ if args.mode == 'update':
     models = list(models)
     dates = list(dates)
                                           
-elif args.mode == 'scratch':
+elif mode == 'scratch':
     output_directory = './scratch/'
     
     # read files for specified models and dates directly from the flusight repo folder
@@ -570,7 +571,7 @@ for horizon in [0, 1, 2, 3]:
                 dfwis = pd.concat([dfwis, out])
 
 # save to csv
-if args.mode == 'update':
+if mode == 'update':
     old_df = pd.read_csv('./evaluations/WIS.csv')
     
     # filter out duplicate scores
@@ -589,7 +590,7 @@ if args.mode == 'update':
     dfwis = pd.concat([old_df, new_df])
     dfwis.to_csv('./evaluations/WIS.csv', index=False, mode='w')
     
-elif args.mode == 'scratch':
+elif mode == 'scratch':
     dfwis.to_csv('./scratch/WIS.csv', index=False, mode='w')
 
 
@@ -608,7 +609,7 @@ dfwis_ratio = pd.merge(dfwis_test, baseline, how='inner',
 dfwis_ratio['wis_ratio'] = dfwis_ratio['wis']/dfwis_ratio['wis_baseline']
 
 # save to csv
-if args.mode == 'update':
+if mode == 'update':
     old_df = pd.read_csv('./evaluations/WIS_ratio.csv')
     
     # filter out duplicate scores
@@ -627,7 +628,7 @@ if args.mode == 'update':
     dfwis_ratio = pd.concat([old_df, new_df])
     dfwis_ratio.to_csv('./evaluations/WIS_ratio.csv', index=False, mode='w')
     
-elif args.mode == 'scratch':
+elif mode == 'scratch':
     dfwis_ratio.to_csv('./scratch/WIS_ratio.csv', index=False, mode='w')
 
 
@@ -664,7 +665,7 @@ for date in dates:
 dfcoverage = dfcoverage.reset_index().drop(columns='index')
 
 # save to csv
-if args.mode == 'update':
+if mode == 'update':
     old_df = pd.read_csv('./evaluations/coverage.csv')
     
     # filter out duplicate scores
@@ -683,7 +684,7 @@ if args.mode == 'update':
     dfcoverage = pd.concat([old_df, new_df])
     dfcoverage.to_csv('./evaluations/coverage.csv', index=False, mode='w')
     
-elif args.mode == 'scratch':
+elif mode == 'scratch':
     dfcoverage.to_csv('./scratch/coverage.csv', index=False, mode='w')
 
 
@@ -714,7 +715,7 @@ for horizon in [0, 1, 2,3]:
             dfmape = pd.concat([dfmape, out])
             
 # save to csv
-if args.mode == 'update':
+if mode == 'update':
     old_df = pd.read_csv('./evaluations/MAPE.csv')
     
     # filter out duplicate scores
@@ -733,7 +734,7 @@ if args.mode == 'update':
     dfmape = pd.concat([old_df, new_df])
     dfmape.to_csv('./evaluations/MAPE.csv', index=False, mode='w')
     
-elif args.mode == 'scratch':
+elif mode == 'scratch':
     dfmape.to_csv('./scratch/MAPE.csv', index=False, mode='w')
 
 
