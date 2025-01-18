@@ -59,7 +59,7 @@ jobs:
 
       - name: run evaluations
         run: |
-          python epistorm_evaluations.py --mode scratch --models ${{ inputs.models }} --dates ${{ inputs.dates}}
+          python epistorm_evaluations.py --mode 'scratch' --models ${{ inputs.models }} --dates ${{ inputs.dates}}
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add evaluations/*
