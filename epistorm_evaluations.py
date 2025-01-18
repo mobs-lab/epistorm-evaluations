@@ -434,6 +434,7 @@ parser.add_argument('--models', nargs='+', choices=all_models+['all'], required=
 parser.add_argument('--dates', nargs='+', required=False, default='all',
                     help='Specify any number of space-separated dates in YYYY-MM-DD format, or \'all\'.')
 args = parser.parse_args()
+print(args.mode)
 
 # mode
 if args.mode == 'update':
