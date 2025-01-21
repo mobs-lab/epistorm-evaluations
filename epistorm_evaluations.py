@@ -435,6 +435,10 @@ parser.add_argument('--dates', nargs='+', required=False, default='all',
                     help='Specify any number of space-separated dates in YYYY-MM-DD format, or \'all\'.')
 args = parser.parse_args()
 print(args.mode[0])
+print(args.models)
+print(args.models[0])
+print(args.dates)
+print(args.dates[0])
 
 # mode
 mode = args.mode[0]
@@ -463,7 +467,7 @@ if mode == 'update':
         for i in [1, 2, 3]:
             update_reference_dates = update_reference_dates.append(datetime.datetime.strftime(
                 datetime.datetime.strptime('2023-10-14', date_format) - datetime.timedelta(weeks=1), date_format))
-    dates = np.concat((dates, update_reference_dates))
+    dates = np.concat([dates, update_reference_dates])
     
     # add predictions from all models for the updated surveillance target dates to a single dataframe
     predictionsall = pd.DataFrame()
@@ -476,7 +480,7 @@ if mode == 'update':
                     predictionsall = pd.concat([predictionsall, predictions]).drop_duplicates().reset_index(drop=True)
                 except Exception as e:
                     print(e)
-            for ext in ['.parquet','.pq']:
+            for ext in ['.parquet','.pq',".gz",".zip"]:
                 try:
                     predictions = pd.read_parquet(f'./data/predictions/{model}/{date}-{model}{ext}')
                     predictions['Model'] = model
@@ -490,16 +494,14 @@ if mode == 'update':
     for file in updated_forecasts.file:
         model = file.split('/')[2]
         date = '-'.join(file.split('/')[-1].split('-', 3)[:3])
-        for ext in [".csv",".gz",".zip",".csv.zip",".csv.gz"]:
-            try:
-                predictions = pd.read_csv(file)
-                predictions['Model'] = model
-                predictionsall = pd.concat([predictionsall, predictions]).drop_duplicates().reset_index(drop=True)
-                models.add(model)
-                dates.add(date)
-            except Exception as e:
-                print(e)
-        for ext in ['.parquet','.pq']:
+        try:
+            predictions = pd.read_csv(file)
+            predictions['Model'] = model
+            predictionsall = pd.concat([predictionsall, predictions]).drop_duplicates().reset_index(drop=True)
+            models.add(model)
+            dates.add(date)
+        except Exception as e:
+            print(e)
             try:
                 predictions = pd.read_parquet(file)
                 predictions['Model'] = model
@@ -523,12 +525,20 @@ elif mode == 'scratch':
     predictionsall = pd.DataFrame()
     for model in models:
         for date in dates:
-            try:
-                predictions = pd.read_csv(f'./FluSight-forecast-hub/model-output/{model}/{date}-{model}.csv')
-                predictions['Model'] = model
-                predictionsall = pd.concat([predictionsall, predictions])
-            except Exception as e:
-                print(e)
+            for ext in [".csv",".gz",".zip",".csv.zip",".csv.gz"]:
+                try:
+                    predictions = pd.read_csv(f'./FluSight-forecast-hub/model-output/{model}/{date}-{model}{ext}')
+                    predictions['Model'] = model
+                    predictionsall = pd.concat([predictionsall, predictions])
+                except Exception as e:
+                    print(e)
+            for ext in ['.parquet','.pq',".gz",".zip"]:
+                try:
+                    predictions = pd.read_parquet(f'./FluSight-forecast-hub/model-output/{model}/{date}-{model}{ext}')
+                    predictions['Model'] = model
+                    predictionsall = pd.concat([predictionsall, predictions])
+                except Exception as e:
+                    print(e)
     
 
 ### CALCULATE SCORES
