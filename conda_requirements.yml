@@ -6,6 +6,7 @@ dependencies:
   - bioconda::epiweeks
   - jupyterlab
   - argparse
+  - pyarrow
   - numpy
   - pandas
 prefix: /home/data/miniconda3/envs/epistorm-evaluations
