@@ -518,9 +518,9 @@ elif mode == 'scratch':
     
     # read files for specified models and dates directly from the flusight repo folder
     surv = pd.read_csv('./FluSight-forecast-hub/target-data/target-hospital-admissions.csv')
-    if args.models == 'all': models = all_models
+    if args.models[0] == 'all': models = all_models
     else: models = args.models
-    if args.dates == 'all': dates = pd.unique(surv.date)
+    if args.dates[0] == 'all': dates = pd.unique(surv.date)
     else: dates = args.dates
     predictionsall = pd.DataFrame()
     for model in models:
