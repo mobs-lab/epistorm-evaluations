@@ -458,6 +458,7 @@ if mode == 'update':
     new_records = surv[is_new]
     if not new_records.empty: models = all_models # if there are any new surveillance numbers we need to evaluate all models
     update_target_dates = pd.unique(new_records.date)
+    surv['Unnamed: 0'] = 0 # needed for Forecast_Eval methods
 
     # calculate reference dates for predictions including desired target dates
     update_reference_dates = np.array([])
@@ -518,6 +519,7 @@ elif mode == 'scratch':
     
     # read files for specified models and dates directly from the flusight repo folder
     surv = pd.read_csv('./FluSight-forecast-hub/target-data/target-hospital-admissions.csv')
+    surv['Unnamed: 0'] = 0 # needed for Forecast_Eval methods
     if args.models[0] == 'all': models = all_models
     else: models = args.models
     if args.dates[0] == 'all': dates = pd.unique(surv.date)
