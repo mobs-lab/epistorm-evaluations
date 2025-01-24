@@ -474,7 +474,7 @@ if mode == 'update':
                     print(e)
             for ext in ['.parquet','.pq',".gz",".zip"]:
                 try:
-                    predictions = pd.read_parquet(f'./data/predictions/{model}/{date}-{model}{ext}', dtype={'location':object})
+                    predictions = pd.read_parquet(f'./data/predictions/{model}/{date}-{model}{ext}')
                     predictions['Model'] = model
                     predictionsall = pd.concat([predictionsall, predictions]).drop_duplicates().reset_index(drop=True)
                 except Exception as e:
@@ -495,7 +495,7 @@ if mode == 'update':
         except Exception as e:
             print(e)
             try:
-                predictions = pd.read_parquet(file, dtype={'location':object})
+                predictions = pd.read_parquet(file)
                 predictions['Model'] = model
                 predictionsall = pd.concat([predictionsall, predictions]).drop_duplicates().reset_index(drop=True)
                 models.add(model)
@@ -530,7 +530,7 @@ elif mode == 'scratch':
                     print(e)
             for ext in ['.parquet','.pq',".gz",".zip"]:
                 try:
-                    predictions = pd.read_parquet(f'./FluSight-forecast-hub/model-output/{model}/{date}-{model}{ext}', dtype={'location':object})
+                    predictions = pd.read_parquet(f'./FluSight-forecast-hub/model-output/{model}/{date}-{model}{ext}')
                     predictions['Model'] = model
                     predictionsall = pd.concat([predictionsall, predictions])
                 except Exception as e:
