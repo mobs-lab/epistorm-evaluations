@@ -3,10 +3,8 @@
 import pandas as pd
 import numpy as np
 import datetime
-#import sys
 import argparse
 from epiweeks import Week
-#from os.path import exists
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -379,8 +377,7 @@ class Scoring(Forecast_Eval):
                     realvals = list(observations.value)
                     predvals = list(pred.value)
                     
-                    if len(predvals) == 0:
-                        continue
+                    if len(predvals) == 0 or len(realvals) == 0: continue
 
                     if realvals[0] == 0:
                         n = n - 1
@@ -434,17 +431,12 @@ parser.add_argument('--models', nargs='+', choices=all_models+['all'], required=
 parser.add_argument('--dates', nargs='+', required=False, default='all',
                     help='Specify any number of space-separated dates in YYYY-MM-DD format, or \'all\'.')
 args = parser.parse_args()
-print(args.mode[0])
-print(args.models)
-print(args.models[0])
-print(args.dates)
-print(args.dates[0])
 
 # mode
 mode = args.mode[0]
 if mode == 'update':
     output_directory = './evaluations/'
-    models = []
+    models = ['FluSight-baseline'] # ensure baseline is present, needed for WIS ratio
     dates = np.array([])
     
     # list of files with new predictions data
@@ -458,7 +450,6 @@ if mode == 'update':
     new_records = surv[is_new]
     if not new_records.empty: models = all_models # if there are any new surveillance numbers we need to evaluate all models
     update_target_dates = pd.unique(new_records.date)
-    surv['Unnamed: 0'] = 0 # needed for Forecast_Eval methods
 
     # calculate reference dates for predictions including desired target dates
     update_reference_dates = np.array([])
@@ -476,14 +467,14 @@ if mode == 'update':
         for date in update_reference_dates:
             for ext in [".csv",".gz",".zip",".csv.zip",".csv.gz"]:
                 try:
-                    predictions = pd.read_csv(f'./data/predictions/{model}/{date}-{model}{ext}')
+                    predictions = pd.read_csv(f'./data/predictions/{model}/{date}-{model}{ext}', dtype={'location':object})
                     predictions['Model'] = model
                     predictionsall = pd.concat([predictionsall, predictions]).drop_duplicates().reset_index(drop=True)
                 except Exception as e:
                     print(e)
             for ext in ['.parquet','.pq',".gz",".zip"]:
                 try:
-                    predictions = pd.read_parquet(f'./data/predictions/{model}/{date}-{model}{ext}')
+                    predictions = pd.read_parquet(f'./data/predictions/{model}/{date}-{model}{ext}', dtype={'location':object})
                     predictions['Model'] = model
                     predictionsall = pd.concat([predictionsall, predictions]).drop_duplicates().reset_index(drop=True)
                 except Exception as e:
@@ -496,7 +487,7 @@ if mode == 'update':
         model = file.split('/')[2]
         date = '-'.join(file.split('/')[-1].split('-', 3)[:3])
         try:
-            predictions = pd.read_csv(file)
+            predictions = pd.read_csv(file, dtype={'location':object})
             predictions['Model'] = model
             predictionsall = pd.concat([predictionsall, predictions]).drop_duplicates().reset_index(drop=True)
             models.add(model)
@@ -504,7 +495,7 @@ if mode == 'update':
         except Exception as e:
             print(e)
             try:
-                predictions = pd.read_parquet(file)
+                predictions = pd.read_parquet(file, dtype={'location':object})
                 predictions['Model'] = model
                 predictionsall = pd.concat([predictionsall, predictions]).drop_duplicates().reset_index(drop=True)
                 models.add(model)
@@ -519,29 +510,32 @@ elif mode == 'scratch':
     
     # read files for specified models and dates directly from the flusight repo folder
     surv = pd.read_csv('./FluSight-forecast-hub/target-data/target-hospital-admissions.csv')
-    surv['Unnamed: 0'] = 0 # needed for Forecast_Eval methods
     if args.models[0] == 'all': models = all_models
     else: models = args.models
     if args.dates[0] == 'all': dates = pd.unique(surv.date)
     else: dates = args.dates
+    # ensure baseline is present, needed for WIS ratio
+    models = set(models)
+    models.add('FluSight-baseline')
+    models = list(models)
     predictionsall = pd.DataFrame()
     for model in models:
         for date in dates:
             for ext in [".csv",".gz",".zip",".csv.zip",".csv.gz"]:
                 try:
-                    predictions = pd.read_csv(f'./FluSight-forecast-hub/model-output/{model}/{date}-{model}{ext}')
+                    predictions = pd.read_csv(f'./FluSight-forecast-hub/model-output/{model}/{date}-{model}{ext}', dtype={'location':object})
                     predictions['Model'] = model
                     predictionsall = pd.concat([predictionsall, predictions])
                 except Exception as e:
                     print(e)
             for ext in ['.parquet','.pq',".gz",".zip"]:
                 try:
-                    predictions = pd.read_parquet(f'./FluSight-forecast-hub/model-output/{model}/{date}-{model}{ext}')
+                    predictions = pd.read_parquet(f'./FluSight-forecast-hub/model-output/{model}/{date}-{model}{ext}', dtype={'location':object})
                     predictions['Model'] = model
                     predictionsall = pd.concat([predictionsall, predictions])
                 except Exception as e:
                     print(e)
-    
+
 
 ### CALCULATE SCORES
 #################################################
@@ -550,22 +544,23 @@ elif mode == 'scratch':
             
 # format forecasts in order to calculate scores
 # input start and end weeks for the period of interest
-start_week = Week.fromdate(datetime.datetime.strptime(surv.date.min(), '%Y-%m-%d'))
-end_week = Week.fromdate(datetime.datetime.strptime(surv.date.max(), '%Y-%m-%d'))
+surv['Unnamed: 0'] = 0 # needed for Forecast_Eval methods
+#surv.dropna(inplace=True, ignore_index=True)
+start_week = Week.fromdate(datetime.datetime.strptime(predictionsall.target_end_date.min(), '%Y-%m-%d'))
+end_week = Week.fromdate(datetime.datetime.strptime(predictionsall.target_end_date.max(), '%Y-%m-%d'))
 test = Forecast_Eval(df=pd.DataFrame(), obsdf=surv, target='hosp', 
                             start_week = start_week, end_week = end_week)
 predsall = test.format_forecasts_all(dfformat = predictionsall)
 
+
 ### WIS
 # calculate WIS for all forecasts
+print('Calculating WIS...')
 dfwis = pd.DataFrame()
 for horizon in [0, 1, 2, 3]:
     for model in models:
         for date in dates: 
             for loc in predsall.location.unique():
-                start_week = Week.fromdate(pd.to_datetime(date)) # week of submission date
-                end_week = start_week + 3 # target end date of last horizon
-
                 # filter by horizon, model and submission date
                 pred = predsall[(predsall.horizon==horizon) & (predsall.Model == model) & \
                                 (predsall.reference_date == date) & (predsall.location==loc)]
@@ -574,15 +569,18 @@ for horizon in [0, 1, 2, 3]:
                 predss = test.process_predictions(pred, t_col = 'target_end_date', quantile_col = 'output_type_id')
 
                 if len(predss) == 0: continue
-
+                
                 obs = test.get_observations(loc)
                 obs = obs[obs.date==pred.target_end_date.unique()[0]]
+
+                if len(obs) == 0: continue
                 
                 out = test.timestamp_wis(obs, predss)
 
                 dfwis = pd.concat([dfwis, out])
 
 # save to csv
+print('Saving WIS to file...')
 if mode == 'update':
     old_df = pd.read_csv('./evaluations/WIS.csv')
     
@@ -609,7 +607,7 @@ elif mode == 'scratch':
 ### WIS Ratio
 # compute wis ratio, comparing the Flusight models' forecast scores to the Flusight baseline model
 # divide flusight models by flusight baseline WIS scores at each location, week, horizon, location
-dfwis = pd.read_csv('./evaluations/WIS.csv')
+print('Calculating WIS ratio...')
 baseline = dfwis[dfwis.Model == 'FluSight-baseline'] 
 baseline = baseline.rename(columns={'wis':'wis_baseline', 'Model':'baseline'})
 dfwis_test = dfwis[dfwis.Model != 'FluSight-baseline']
@@ -621,6 +619,7 @@ dfwis_ratio = pd.merge(dfwis_test, baseline, how='inner',
 dfwis_ratio['wis_ratio'] = dfwis_ratio['wis']/dfwis_ratio['wis_baseline']
 
 # save to csv
+print('Saving WIS ratio to file...')
 if mode == 'update':
     old_df = pd.read_csv('./evaluations/WIS_ratio.csv')
     
@@ -646,14 +645,12 @@ elif mode == 'scratch':
 
 ### Coverage
 # calculate coverage for all forecasts
+print('Calculating coverage...')
 dfcoverage = pd.DataFrame()
 for date in dates:
     for model in models:
         for loc in predsall.location.unique():
             for horizon in [0,1,2,3]:
-                start_week = Week.fromdate(pd.to_datetime(date)) # week of submission date
-                end_week = start_week + 3 # target end date of last horizon
-
                 # filter by model and submission date, only look at horizon 0-3
                 pred = predsall[(predsall.Model == model)& (predsall.reference_date == date) &\
                                 (predsall.horizon == horizon) & (predsall.location == loc)]
@@ -664,7 +661,9 @@ for date in dates:
                 predss = test.process_predictions(pred, t_col = 'target_end_date', quantile_col = 'output_type_id')
 
                 obs = test.get_observations(loc)
-                obs = obs[obs.date.isin(pred.target_end_date.unique())]
+                obs = test.process_observations(obs[obs.date.isin(pred.target_end_date.unique())])
+
+                if len(obs) == 0: continue
 
                 out = test.all_coverages_from_df(obs, predss)
 
@@ -677,6 +676,7 @@ for date in dates:
 dfcoverage = dfcoverage.reset_index().drop(columns='index')
 
 # save to csv
+print('Saving coverage to file...')
 if mode == 'update':
     old_df = pd.read_csv('./evaluations/coverage.csv')
     
@@ -702,6 +702,7 @@ elif mode == 'scratch':
 
 ### MAPE
 # calculate MAPE for all forecasts
+print('Calculating MAPE...')
 dfmape = pd.DataFrame()
 for horizon in [0, 1, 2,3]:
     for model in models:
@@ -712,8 +713,8 @@ for horizon in [0, 1, 2,3]:
             # filter by horizon, model and submission date
             pred = predsall[(predsall.horizon==horizon) & (predsall.Model == model) & \
                             (predsall.reference_date == date)]
-            if len(pred)==0:
-                continue
+            
+            if len(pred)==0: continue
             
             # calculate mape for each week
             test = Scoring(df=pred, obsdf=surv, target='hosp',
@@ -727,6 +728,7 @@ for horizon in [0, 1, 2,3]:
             dfmape = pd.concat([dfmape, out])
             
 # save to csv
+print('Saving MAPE to file...')
 if mode == 'update':
     old_df = pd.read_csv('./evaluations/MAPE.csv')
     
