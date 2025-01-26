@@ -435,7 +435,6 @@ args = parser.parse_args()
 # mode
 mode = args.mode[0]
 if mode == 'update':
-    output_directory = './evaluations/'
     models = ['FluSight-baseline'] # ensure baseline is present, needed for WIS ratio
     dates = np.array([])
     
@@ -505,9 +504,7 @@ if mode == 'update':
     models = list(models)
     dates = list(dates)
                                           
-elif mode == 'scratch':
-    output_directory = './scratch/'
-    
+elif mode == 'scratch':    
     # read files for specified models and dates directly from the flusight repo folder
     surv = pd.read_csv('./FluSight-forecast-hub/target-data/target-hospital-admissions.csv')
     if args.models[0] == 'all': models = all_models
@@ -540,14 +537,18 @@ elif mode == 'scratch':
 ### CALCULATE SCORES
 #################################################
 
+### bug in predictionsall.target_end_date.min() when running on all models
+
 ### Instantiate Forecast_Eval Class and Format Data for Scoring
             
 # format forecasts in order to calculate scores
 # input start and end weeks for the period of interest
 surv['Unnamed: 0'] = 0 # needed for Forecast_Eval methods
 #surv.dropna(inplace=True, ignore_index=True)
-start_week = Week.fromdate(datetime.datetime.strptime(predictionsall.target_end_date.min(), '%Y-%m-%d'))
-end_week = Week.fromdate(datetime.datetime.strptime(predictionsall.target_end_date.max(), '%Y-%m-%d'))
+start_week = Week.fromdate(datetime.datetime.strptime(surv.date.min(), '%Y-%m-%d'))
+end_week = Week.fromdate(datetime.datetime.strptime(surv.date.max(), '%Y-%m-%d'))
+#start_week = Week.fromdate(datetime.datetime.strptime(predictionsall.target_end_date.min(), '%Y-%m-%d'))
+#end_week = Week.fromdate(datetime.datetime.strptime(predictionsall.target_end_date.max(), '%Y-%m-%d'))
 test = Forecast_Eval(df=pd.DataFrame(), obsdf=surv, target='hosp', 
                             start_week = start_week, end_week = end_week)
 predsall = test.format_forecasts_all(dfformat = predictionsall)
