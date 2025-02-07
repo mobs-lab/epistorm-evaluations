@@ -3,10 +3,10 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - bioconda::epiweeks
+  - pandas
+  - multiprocess
   - jupyterlab
-  - argparse
   - pyarrow
   - numpy
-  - pandas
+  - bioconda::epiweeks
 prefix: /home/data/miniconda3/envs/epistorm-evaluations

@@ -2,8 +2,10 @@
 #################################################
 import pandas as pd
 import numpy as np
+import multiprocess as mp
 import datetime
 import argparse
+import itertools
 from epiweeks import Week
 
 import warnings
@@ -443,7 +445,7 @@ if mode == 'update':
     
     # detect dates with new/changed surveillance numbers
     surv = pd.read_csv('./data/ground-truth/target-hospital-admissions.csv')
-    surv_old = pd.read_csv('./data/ground-truth/target-hospital-admissions_old.csv')
+    surv_old = pd.read_csv('./data/ground-truth/target-hospital-admissions.csv_old')
     all_df = pd.merge(surv, surv_old, on=surv.columns.tolist(), how='left', indicator='exists')
     is_new = np.where(all_df.exists == 'both', False, True) # True if row in surv does not exist in surv_old
     new_records = surv[is_new]
@@ -552,33 +554,41 @@ end_week = Week.fromdate(datetime.datetime.strptime(surv.date.max(), '%Y-%m-%d')
 test = Forecast_Eval(df=pd.DataFrame(), obsdf=surv, target='hosp', 
                             start_week = start_week, end_week = end_week)
 predsall = test.format_forecasts_all(dfformat = predictionsall)
-
+del predictionsall
 
 ### WIS
 # calculate WIS for all forecasts
 print('Calculating WIS...')
+
+def batch_wis(model, date, loc, horizon):
+    # filter by horizon, model and submission date
+    pred = predsall[(predsall.horizon==horizon) & (predsall.Model == model) & \
+                    (predsall.reference_date == date) & (predsall.location==loc)]
+
+    test = Scoring(df=pred, obsdf=surv, target='hosp')
+    predss = test.process_predictions(pred, t_col = 'target_end_date', quantile_col = 'output_type_id')
+
+    if len(predss) == 0: return
+
+    obs = test.get_observations(loc)
+    obs = obs[obs.date==pred.target_end_date.unique()[0]]
+
+    if len(obs) == 0: return
+
+    out = test.timestamp_wis(obs, predss)
+    
+    print(f'WIS completed {model} {date} location {loc} horizon {horizon}', flush=True)
+
+    return out
+
 dfwis = pd.DataFrame()
-for horizon in [0, 1, 2, 3]:
-    for model in models:
-        for date in dates: 
-            for loc in predsall.location.unique():
-                # filter by horizon, model and submission date
-                pred = predsall[(predsall.horizon==horizon) & (predsall.Model == model) & \
-                                (predsall.reference_date == date) & (predsall.location==loc)]
-
-                test = Scoring(df=pred, obsdf=surv, target='hosp')
-                predss = test.process_predictions(pred, t_col = 'target_end_date', quantile_col = 'output_type_id')
-
-                if len(predss) == 0: continue
-                
-                obs = test.get_observations(loc)
-                obs = obs[obs.date==pred.target_end_date.unique()[0]]
-
-                if len(obs) == 0: continue
-                
-                out = test.timestamp_wis(obs, predss)
-
-                dfwis = pd.concat([dfwis, out])
+with mp.Pool() as pool:
+    import os
+    print(f'{os.process_cpu_count()} cores available', flush=True)
+    a = [models, dates, predsall.location.unique(), [0,1,2,3]]
+    arguments = list(itertools.product(*a))
+    scores = pool.starmap(batch_wis, arguments)
+    dfwis = pd.concat(scores)
 
 # save to csv
 print('Saving WIS to file...')
@@ -647,33 +657,41 @@ elif mode == 'scratch':
 ### Coverage
 # calculate coverage for all forecasts
 print('Calculating coverage...')
+
+def batch_coverage(model, date, loc, horizon):
+    # filter by model and submission date, only look at horizon 0-3
+    pred = predsall[(predsall.Model == model)& (predsall.reference_date == date) &\
+                    (predsall.horizon == horizon) & (predsall.location == loc)]
+
+    if len(pred) == 0: return
+
+    test = Scoring(df=pred, obsdf=surv, target='hosp')
+    predss = test.process_predictions(pred, t_col = 'target_end_date', quantile_col = 'output_type_id')
+
+    obs = test.get_observations(loc)
+    obs = test.process_observations(obs[obs.date.isin(pred.target_end_date.unique())])
+
+    if len(obs) == 0: return
+
+    out = test.all_coverages_from_df(obs, predss)
+
+    out['horizon'] = horizon
+    out['Model'] = model
+    out['reference_date'] = date
+    out['location'] = loc
+
+    print(f'Coverage completed {model} {date} location {loc} horizon {horizon}', flush=True)
+    
+    return pd.DataFrame(out,index=[0])
+
 dfcoverage = pd.DataFrame()
-for date in dates:
-    for model in models:
-        for loc in predsall.location.unique():
-            for horizon in [0,1,2,3]:
-                # filter by model and submission date, only look at horizon 0-3
-                pred = predsall[(predsall.Model == model)& (predsall.reference_date == date) &\
-                                (predsall.horizon == horizon) & (predsall.location == loc)]
-
-                if len(pred) == 0: continue
-
-                test = Scoring(df=pred, obsdf=surv, target='hosp')
-                predss = test.process_predictions(pred, t_col = 'target_end_date', quantile_col = 'output_type_id')
-
-                obs = test.get_observations(loc)
-                obs = test.process_observations(obs[obs.date.isin(pred.target_end_date.unique())])
-
-                if len(obs) == 0: continue
-
-                out = test.all_coverages_from_df(obs, predss)
-
-                out['horizon'] = horizon
-                out['Model'] = model
-                out['reference_date'] = date
-                out['location'] = loc
-
-                dfcoverage = pd.concat([dfcoverage, pd.DataFrame(out,index=[0])])
+with mp.Pool() as pool:
+    import os
+    print(f'{os.process_cpu_count()} cores available', flush=True)
+    a = [models, dates, predsall.location.unique(), [0,1,2,3]]
+    arguments = list(itertools.product(*a))
+    scores = pool.starmap(batch_coverage, arguments)
+    dfcoverage = pd.concat(scores)
 dfcoverage = dfcoverage.reset_index().drop(columns='index')
 
 # save to csv
@@ -704,30 +722,39 @@ elif mode == 'scratch':
 ### MAPE
 # calculate MAPE for all forecasts
 print('Calculating MAPE...')
-dfmape = pd.DataFrame()
-for horizon in [0, 1, 2,3]:
-    for model in models:
-        for date in dates: 
-            start_week = Week.fromdate(pd.to_datetime(date)) # week of submission date
-            end_week = start_week + 3 # target end date of last horizon
-            
-            # filter by horizon, model and submission date
-            pred = predsall[(predsall.horizon==horizon) & (predsall.Model == model) & \
-                            (predsall.reference_date == date)]
-            
-            if len(pred)==0: continue
-            
-            # calculate mape for each week
-            test = Scoring(df=pred, obsdf=surv, target='hosp',
-                            start_week = start_week, end_week = end_week)
 
-            out = test.get_mape()
-            
-            out['horizon'] = horizon
-            out['reference_date'] = date
-            
-            dfmape = pd.concat([dfmape, out])
-            
+def batch_mape(model, date, horizon):
+    start_week = Week.fromdate(pd.to_datetime(date)) # week of submission date
+    end_week = start_week + 3 # target end date of last horizon
+    
+    # filter by horizon, model and submission date
+    pred = predsall[(predsall.horizon==horizon) & (predsall.Model == model) & \
+                    (predsall.reference_date == date)]
+    
+    if len(pred)==0: return
+    
+    # calculate mape for each week
+    test = Scoring(df=pred, obsdf=surv, target='hosp',
+                    start_week = start_week, end_week = end_week)
+
+    out = test.get_mape()
+    
+    out['horizon'] = horizon
+    out['reference_date'] = date
+    
+    print(f'MAPE completed {model} {date} horizon {horizon}', flush=True)
+    
+    return out
+
+dfmape = pd.DataFrame()
+with mp.Pool() as pool:
+    import os
+    print(f'{os.process_cpu_count()} cores available', flush=True)
+    a = [models, dates, [0,1,2,3]]
+    arguments = list(itertools.product(*a))
+    scores = pool.starmap(batch_mape, arguments)
+    dfmape = pd.concat(scores)         
+
 # save to csv
 print('Saving MAPE to file...')
 if mode == 'update':
