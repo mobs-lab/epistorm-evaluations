@@ -434,14 +434,14 @@ parser.add_argument('--dates', nargs='+', required=False, default='all',
                     help='Specify any number of space-separated dates in YYYY-MM-DD format, or \'all\'.')
 args = parser.parse_args()
 
-# mode
+# mode handling and data reading
 mode = args.mode[0]
+print('Reading data...')
+            
 if mode == 'update':
-    models = ['FluSight-baseline'] # ensure baseline is present, needed for WIS ratio
-    dates = np.array([])
-    
     # list of files with new predictions data
     updated_forecasts = pd.read_csv('./updated_forecasts.csv')
+    print(f'New forecasts:\n{str(updated_forecasts)}\n')
     
     # detect dates with new/changed surveillance numbers
     surv = pd.read_csv('./data/ground-truth/target-hospital-admissions.csv')
@@ -449,62 +449,88 @@ if mode == 'update':
     all_df = pd.merge(surv, surv_old, on=surv.columns.tolist(), how='left', indicator='exists')
     is_new = np.where(all_df.exists == 'both', False, True) # True if row in surv does not exist in surv_old
     new_records = surv[is_new]
-    if not new_records.empty: models = all_models # if there are any new surveillance numbers we need to evaluate all models
-    update_target_dates = pd.unique(new_records.date)
-
-    # calculate reference dates for predictions including desired target dates
-    update_reference_dates = np.array([])
-    date_format = '%Y-%m-%d'
-    for date in update_target_dates:
-        update_reference_dates = update_reference_dates.append(date)
-        for i in [1, 2, 3]:
-            update_reference_dates = update_reference_dates.append(datetime.datetime.strftime(
-                datetime.datetime.strptime('2023-10-14', date_format) - datetime.timedelta(weeks=1), date_format))
-    dates = np.concat([dates, update_reference_dates])
+    print(f'New surveillance:\n{new_records}\n')
     
-    # add predictions from all models for the updated surveillance target dates to a single dataframe
+    # read predictions for all models for the updated surveillance target dates
     predictionsall = pd.DataFrame()
-    for model in all_models:
-        for date in update_reference_dates:
-            for ext in [".csv",".gz",".zip",".csv.zip",".csv.gz"]:
-                try:
-                    predictions = pd.read_csv(f'./data/predictions/{model}/{date}-{model}{ext}', dtype={'location':object})
-                    predictions['Model'] = model
-                    predictionsall = pd.concat([predictionsall, predictions]).drop_duplicates().reset_index(drop=True)
-                except Exception as e:
-                    print(e)
-            for ext in ['.parquet','.pq',".gz",".zip"]:
-                try:
-                    predictions = pd.read_parquet(f'./data/predictions/{model}/{date}-{model}{ext}')
-                    predictions['Model'] = model
-                    predictionsall = pd.concat([predictionsall, predictions]).drop_duplicates().reset_index(drop=True)
-                except Exception as e:
-                    print(e)
-
-    # add new/changed predictions files to the dataframe and record models and dates
-    models = set(models)
-    dates = set(dates)
-    for file in updated_forecasts.file:
-        model = file.split('/')[2]
-        date = '-'.join(file.split('/')[-1].split('-', 3)[:3])
+    if not new_records.empty:
+        update_target_dates = pd.unique(new_records.date)
+        
+        # calculate reference dates for predictions including desired target dates
+        update_reference_dates = np.array([])
+        date_format = '%Y-%m-%d'
+        for date in update_target_dates:
+            update_reference_dates = np.append(update_reference_dates, [date])
+            for i in [1, 2, 3]:
+                update_reference_dates = np.append(update_reference_dates, datetime.datetime.strftime(
+                    datetime.datetime.strptime(date, date_format) - datetime.timedelta(weeks=1), date_format))
+        
+        # add predictions from all models for the updated surveillance target dates to a single dataframe
+        predictionsall = pd.DataFrame()
+        new_datelocs = set(_ for _ in new_records[['date','location']].itertuples(index=False, name=None))
+        dateloc_lookup = {date: set() for date in update_target_dates} #lookup locations with updated surv
+        for item in new_datelocs: dateloc_lookup[item[0]].add(item[1])
+        
+        def read_preds_csv(model, date, ext):
+            try:
+                predictions = pd.read_csv(f'./data/predictions/{model}/{date}-{model}{ext}', dtype={'location':object})
+                predictions['Model'] = model
+                predictions = predictions[predictions.target_end_date.isin(update_target_dates)] #filter for updated target dates
+                predictions = pd.DataFrame([row for row in predictions.itertuples(index=False) 
+                                            if row.location in dateloc_lookup[row.target_end_date]]) #filter for locations with updated surv
+                return predictions
+            except Exception:
+                return
+                
+        def read_preds_pq(model, date, ext):
+            try:
+                predictions = pd.read_parquet(f'./data/predictions/{model}/{date}-{model}{ext}')
+                predictions['Model'] = model
+                predictions = predictions[predictions.target_end_date.isin(update_target_dates)] #filter for updated target dates
+                predictions = pd.DataFrame([row for row in predictions.itertuples(index=False) 
+                                            if row.location in dateloc_lookup[row.target_end_date]]) #filter for locations with updated surv
+                return predictions
+            except Exception:
+                return
+                
+        with mp.Pool() as pool:
+            import os
+            print(f'Reading predictions for updated surveillance, {os.process_cpu_count()} cores available...', flush=True)
+            
+            a = [all_models, update_reference_dates, [".csv",".gz",".zip",".csv.zip",".csv.gz"]]
+            arguments = list(itertools.product(*a))
+            preds = pd.concat(pool.starmap(read_preds_csv, arguments))
+            predictionsall = pd.concat([predictionsall, preds]).drop_duplicates().reset_index(drop=True)
+            
+            a = [all_models, update_reference_dates, ['.parquet','.pq',".gz",".zip"]]
+            arguments = list(itertools.product(*a))
+            preds = pd.concat(pool.starmap(read_preds_pq, arguments))
+            predictionsall = pd.concat([predictionsall, preds]).drop_duplicates().reset_index(drop=True)
+    
+    # add new/changed predictions files to the dataframe
+    print('Reading updated forecasts...')
+    for filename in updated_forecasts.file:
+        model = filename.split('/')[2]
+        date = '-'.join(filename.split('/')[-1].split('-', 3)[:3])
+        # ensure baseline is present, needed for WIS ratio, so far these are only published as .csv so not checking other extensions
         try:
-            predictions = pd.read_csv(file, dtype={'location':object})
+            predictions = pd.read_csv(f'./data/predictions/FluSight-baseline/{date}-FluSight-baseline.csv', dtype={'location':object})
+            predictions['Model'] = 'FluSight-baseline'
+            predictionsall = pd.concat([predictionsall, predictions]).drop_duplicates().reset_index(drop=True)
+        except Exception:
+            pass
+        # read updated predictions files
+        try:
+            predictions = pd.read_csv(filename, dtype={'location':object})
             predictions['Model'] = model
             predictionsall = pd.concat([predictionsall, predictions]).drop_duplicates().reset_index(drop=True)
-            models.add(model)
-            dates.add(date)
-        except Exception as e:
-            print(e)
+        except Exception:
             try:
-                predictions = pd.read_parquet(file)
+                predictions = pd.read_parquet(filename)
                 predictions['Model'] = model
                 predictionsall = pd.concat([predictionsall, predictions]).drop_duplicates().reset_index(drop=True)
-                models.add(model)
-                dates.add(date)
-            except Exception as e:
-                print(e)
-    models = list(models)
-    dates = list(dates)
+            except Exception:
+                continue
                                           
 elif mode == 'scratch':    
     # read files for specified models and dates directly from the flusight repo folder
@@ -513,11 +539,45 @@ elif mode == 'scratch':
     else: models = args.models
     if args.dates[0] == 'all': dates = pd.unique(surv.date)
     else: dates = args.dates
+    
     # ensure baseline is present, needed for WIS ratio
     models = set(models)
     models.add('FluSight-baseline')
     models = list(models)
+    
+    # read files
     predictionsall = pd.DataFrame()
+    
+    def read_preds_csv(model, date, ext):
+        try:
+            predictions = pd.read_csv(f'./FluSight-forecast-hub/model-output/{model}/{date}-{model}{ext}', dtype={'location':object})
+            predictions['Model'] = model
+            return predictions
+        except Exception:
+            return
+            
+    def read_preds_pq(model, date, ext):
+        try:
+            predictions = pd.read_parquet(f'./FluSight-forecast-hub/model-output/{model}/{date}-{model}{ext}')
+            predictions['Model'] = model
+            return predictions
+        except Exception:
+            return
+            
+    with mp.Pool() as pool:
+        import os
+        print(f'{os.process_cpu_count()} cores available', flush=True)
+        
+        a = [models, dates, [".csv",".gz",".zip",".csv.zip",".csv.gz"]]
+        arguments = list(itertools.product(*a))
+        preds = pd.concat(pool.starmap(read_preds_csv, arguments))
+        predictionsall = pd.concat([predictionsall, preds]).drop_duplicates().reset_index(drop=True)
+        
+        a = [models, dates, ['.parquet','.pq',".gz",".zip"]]
+        arguments = list(itertools.product(*a))
+        preds = pd.concat(pool.starmap(read_preds_pq, arguments))
+        predictionsall = pd.concat([predictionsall, preds]).drop_duplicates().reset_index(drop=True)
+    '''
     for model in models:
         for date in dates:
             for ext in [".csv",".gz",".zip",".csv.zip",".csv.gz"]:
@@ -534,33 +594,32 @@ elif mode == 'scratch':
                     predictionsall = pd.concat([predictionsall, predictions])
                 except Exception as e:
                     print(e)
+     '''
+print('Data reading completed.')
+print(f'Predictions to score:\n{predictionsall}')
 
 
 ### CALCULATE SCORES
 #################################################
 
-### bug in predictionsall.target_end_date.min() when running on all models
-
 ### Instantiate Forecast_Eval Class and Format Data for Scoring
-            
 # format forecasts in order to calculate scores
 # input start and end weeks for the period of interest
 surv['Unnamed: 0'] = 0 # needed for Forecast_Eval methods
 #surv.dropna(inplace=True, ignore_index=True)
 start_week = Week.fromdate(datetime.datetime.strptime(surv.date.min(), '%Y-%m-%d'))
 end_week = Week.fromdate(datetime.datetime.strptime(surv.date.max(), '%Y-%m-%d'))
-#start_week = Week.fromdate(datetime.datetime.strptime(predictionsall.target_end_date.min(), '%Y-%m-%d'))
-#end_week = Week.fromdate(datetime.datetime.strptime(predictionsall.target_end_date.max(), '%Y-%m-%d'))
 test = Forecast_Eval(df=pd.DataFrame(), obsdf=surv, target='hosp', 
                             start_week = start_week, end_week = end_week)
 predsall = test.format_forecasts_all(dfformat = predictionsall)
 del predictionsall
 
+
 ### WIS
 # calculate WIS for all forecasts
 print('Calculating WIS...')
 
-def batch_wis(model, date, loc, horizon):
+def batch_wis(model, date, loc, horizon, verbose=False):
     # filter by horizon, model and submission date
     pred = predsall[(predsall.horizon==horizon) & (predsall.Model == model) & \
                     (predsall.reference_date == date) & (predsall.location==loc)]
@@ -577,7 +636,7 @@ def batch_wis(model, date, loc, horizon):
 
     out = test.timestamp_wis(obs, predss)
     
-    print(f'WIS completed {model} {date} location {loc} horizon {horizon}', flush=True)
+    if verbose: print(f'WIS completed {model} {date} location {loc} horizon {horizon}', flush=True)
 
     return out
 
@@ -585,15 +644,14 @@ dfwis = pd.DataFrame()
 with mp.Pool() as pool:
     import os
     print(f'{os.process_cpu_count()} cores available', flush=True)
-    a = [models, dates, predsall.location.unique(), [0,1,2,3]]
-    arguments = list(itertools.product(*a))
+    arguments = set(_ for _ in predsall[['Model','reference_date','location','horizon']].itertuples(index=False, name=None))
     scores = pool.starmap(batch_wis, arguments)
     dfwis = pd.concat(scores)
 
 # save to csv
 print('Saving WIS to file...')
 if mode == 'update':
-    old_df = pd.read_csv('./evaluations/WIS.csv')
+    old_df = pd.read_csv('./evaluations/WIS.csv', parse_dates=['target_end_date'])
     
     # filter out duplicate scores
     all_df = pd.merge(dfwis, old_df, on=dfwis.columns.tolist(), how='left', indicator='exists')
@@ -632,7 +690,7 @@ dfwis_ratio['wis_ratio'] = dfwis_ratio['wis']/dfwis_ratio['wis_baseline']
 # save to csv
 print('Saving WIS ratio to file...')
 if mode == 'update':
-    old_df = pd.read_csv('./evaluations/WIS_ratio.csv')
+    old_df = pd.read_csv('./evaluations/WIS_ratio.csv', parse_dates=['target_end_date'])
     
     # filter out duplicate scores
     all_df = pd.merge(dfwis_ratio, old_df, on=dfwis_ratio.columns.tolist(), how='left', indicator='exists')
@@ -658,7 +716,7 @@ elif mode == 'scratch':
 # calculate coverage for all forecasts
 print('Calculating coverage...')
 
-def batch_coverage(model, date, loc, horizon):
+def batch_coverage(model, date, loc, horizon, verbose=False):
     # filter by model and submission date, only look at horizon 0-3
     pred = predsall[(predsall.Model == model)& (predsall.reference_date == date) &\
                     (predsall.horizon == horizon) & (predsall.location == loc)]
@@ -680,7 +738,7 @@ def batch_coverage(model, date, loc, horizon):
     out['reference_date'] = date
     out['location'] = loc
 
-    print(f'Coverage completed {model} {date} location {loc} horizon {horizon}', flush=True)
+    if verbose: print(f'Coverage completed {model} {date} location {loc} horizon {horizon}', flush=True)
     
     return pd.DataFrame(out,index=[0])
 
@@ -688,8 +746,7 @@ dfcoverage = pd.DataFrame()
 with mp.Pool() as pool:
     import os
     print(f'{os.process_cpu_count()} cores available', flush=True)
-    a = [models, dates, predsall.location.unique(), [0,1,2,3]]
-    arguments = list(itertools.product(*a))
+    arguments = set(_ for _ in predsall[['Model','reference_date','location','horizon']].itertuples(index=False, name=None))
     scores = pool.starmap(batch_coverage, arguments)
     dfcoverage = pd.concat(scores)
 dfcoverage = dfcoverage.reset_index().drop(columns='index')
@@ -705,8 +762,8 @@ if mode == 'update':
     new_df = dfcoverage[is_new]
     
     # filter out scores which are being replaced with new scores
-    trunc_old_df = old_df.iloc[:,:5]
-    trunc_new_df = new_df.iloc[:,:5]
+    trunc_old_df = old_df.iloc[:,11:]
+    trunc_new_df = new_df.iloc[:,11:]
     all_df = pd.merge(trunc_old_df, trunc_new_df, on=trunc_new_df.columns.tolist(), how='left', indicator='exists')
     retain_rows = np.where(all_df.exists == 'both', False, True) # True if row in old_df should be retained (is not updated)
     old_df = old_df[retain_rows]
@@ -723,7 +780,7 @@ elif mode == 'scratch':
 # calculate MAPE for all forecasts
 print('Calculating MAPE...')
 
-def batch_mape(model, date, horizon):
+def batch_mape(model, date, horizon, verbose=False):
     start_week = Week.fromdate(pd.to_datetime(date)) # week of submission date
     end_week = start_week + 3 # target end date of last horizon
     
@@ -742,7 +799,7 @@ def batch_mape(model, date, horizon):
     out['horizon'] = horizon
     out['reference_date'] = date
     
-    print(f'MAPE completed {model} {date} horizon {horizon}', flush=True)
+    if verbose: print(f'MAPE completed {model} {date} horizon {horizon}', flush=True)
     
     return out
 
@@ -750,8 +807,7 @@ dfmape = pd.DataFrame()
 with mp.Pool() as pool:
     import os
     print(f'{os.process_cpu_count()} cores available', flush=True)
-    a = [models, dates, [0,1,2,3]]
-    arguments = list(itertools.product(*a))
+    arguments = set(_ for _ in predsall[['Model','reference_date','horizon']].itertuples(index=False, name=None))
     scores = pool.starmap(batch_mape, arguments)
     dfmape = pd.concat(scores)         
 
@@ -766,8 +822,8 @@ if mode == 'update':
     new_df = dfmape[is_new]
     
     # filter out scores which are being replaced with new scores
-    trunc_old_df = old_df.iloc[:,:5]
-    trunc_new_df = new_df.iloc[:,:5]
+    trunc_old_df = old_df[['Model','Location','horizon','reference_date']]
+    trunc_new_df = new_df[['Model','Location','horizon','reference_date']]
     all_df = pd.merge(trunc_old_df, trunc_new_df, on=trunc_new_df.columns.tolist(), how='left', indicator='exists')
     retain_rows = np.where(all_df.exists == 'both', False, True) # True if row in old_df should be retained (is not updated)
     old_df = old_df[retain_rows]
