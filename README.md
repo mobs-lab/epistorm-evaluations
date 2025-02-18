@@ -8,27 +8,39 @@ Up-to-date evaluations are available in `/evaluations`. **This directory is load
 
 ## Directory
 
-- `epistorm_evaluations.ipynb` is a working evaluations notebook
-- `epistorm_evaluations.py` is the automated evaluations script
-- `.github/workflows/evaluate_predictions.yml` runs `epistorm_evaluations.py` on a schedule or on manual initiation and uploads the new evaluations to `/evaluations`.
-- `/dat` contains data for use in evaluations
-- `/deprecated` contains old versions of files
-- `conda_requirements.yml` for running locally with a conda environment
-- `pip_requirements.txt` for running on GitHub Actions (or locally) with pip
+- `epistorm_evaluations.ipynb` is a working evaluations notebook.
+- `epistorm_evaluations.py` is the automated evaluations script.
+- `.github/workflows/update_evaluations.yml` runs `epistorm_evaluations.py` in update mode on a schedule or on manual initiation and uploads the new evaluations to `/evaluations`. This workflow is responsible for maintaining up-to-date CI/CD evaluations of all models for all time.
+- `.github/workflows/update_evaluations.yml` runs `epistorm_evaluations.py` in scratch mode for the specified models and dates. Results are upoaded to `/scratch` and overwrite existing files in this directory.
+- `/evaluations` contains up-to-date evaluations of all models for all time.
+- `/scratch` contains scratch evaluations output.
+- `/Flusight-forecast-hub` is the submodule repo containing all data.
+- `/data` contains copied data for use in automated evaluations with update tracking.
+- `/deprecated` contains old versions of files.
+- `data_retrieval.sh` copies and tracks updated data for use in CI/CD workflow.
+- `updated_forecasts.csv` contains paths to forecast files which have been updated since the last evaluations run, as recorded by `data_retrieval.sh`.
+- `conda_requirements.yml` for running locally with a conda environment.
+- `pip_requirements.txt` for running on GitHub Actions (or locally) with pip.
 
-## Manually Running via GitHub Actions
+## Running Scratch Evaluations via GitHub Actions
 
-The `evaluate-predictions` workflow enables you to manually initiate evaluations with the following inputs:
+The `scratch_evalations` workflow enables you to manually initiate evaluations with the following inputs:
 
-Mode: `most_recent` only evaluates predictions with a reference date equalling the most recent surveillance date, while `recalculate_all` overwrites existing data and evaluates all selected models for all dates.
+Models: either `all` or specify any number of models by name, space-separated in a single string without quotes (defaults to `MOBS-GLEAM_FLUH`).
 
-Output Directory: Writing to the `scratch` directory always overwrites existing files. Use this directory for testing and exploration. The `evaluations` directory should only ever contain non-duplicate up-to-date evaluations for all models and all dates.
+Dates: either `all` or specify any number of dates in YYYY-MM-DD format, space-separated in a single string without quotes (defaults to `all`).
 
-Models: specify any number of models by name, space-separated in a single string (defaults to all models).
+This workflow outputs evaluations for the specified models and dates to the `/scratch` directory, overwriting existing files. Run the workflow via the GUI in the GitHub Actions tab.
 
-## Running Locally
+## Up-To-Date Evaluations for All Models for All Time
+
+The `update_evaluations` workflow runs on a schedule to provide updated evaluations in the `/evaluations` directory. You can manually initiate an out-of-schedule update via the GitHub Actions tab.
+
+## Running Notebook Locally
 
 Install conda environment from .yml file
 `conda env create -f conda_requirements.yml`
+and activate the environment
+`conda activate epistorm-evaluations`
 
-Open `epistorm_evaluations.ipynb` with your preferred editor, e.g. `jupyter lab`
+Open `epistorm_evaluations.ipynb` with your preferred editor, e.g. `jupyter lab`.
