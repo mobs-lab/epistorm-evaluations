@@ -489,6 +489,11 @@ if mode == 'update':
         for item in new_datelocs: dateloc_lookup[item[0]].add(item[1])
         
         def read_preds_csv(model, date, ext):
+            '''
+            Read csv predictions for new surveillance data in update mode.
+            Assumes update target dates are recorded and dateloc_lookup is calculated.
+            Uses file tracking coordinated with GitHub Actions and data retrieval bash script.
+            '''
             try:
                 predictions = pd.read_csv(f'./data/predictions/{model}/{date}-{model}{ext}', dtype={'location':object})
                 predictions['Model'] = model
@@ -500,6 +505,11 @@ if mode == 'update':
                 return
                 
         def read_preds_pq(model, date, ext):
+            '''
+            Read parquet predictions for new surveillance data in update mode.
+            Assumes update target dates are recorded and dateloc_lookup is calculated.
+            Uses file tracking coordinated with GitHub Actions and data retrieval bash script.
+            '''
             try:
                 predictions = pd.read_parquet(f'./data/predictions/{model}/{date}-{model}{ext}')
                 predictions['Model'] = model
@@ -572,6 +582,10 @@ elif mode == 'scratch':
     predictionsall = pd.DataFrame()
     
     def read_preds_csv(model, date, ext):
+        '''
+        Read csv predictions in scratch mode.
+        Reads directly from FluSight repo.
+        '''
         try:
             predictions = pd.read_csv(f'./FluSight-forecast-hub/model-output/{model}/{date}-{model}{ext}', dtype={'location':object})
             predictions['Model'] = model
@@ -580,6 +594,10 @@ elif mode == 'scratch':
             return
             
     def read_preds_pq(model, date, ext):
+        '''
+        Read parquet predictions in scratch mode.
+        Reads directly from FluSight repo.
+        '''
         try:
             predictions = pd.read_parquet(f'./FluSight-forecast-hub/model-output/{model}/{date}-{model}{ext}')
             predictions['Model'] = model
@@ -606,24 +624,8 @@ elif mode == 'scratch':
             predictionsall = pd.concat([predictionsall, preds]).drop_duplicates().reset_index(drop=True)
         except ValueError as e:
             print(f'{e}\nIf error \"All objects passed were None\" no parquet files found', flush=True)
-    '''
-    for model in models:
-        for date in dates:
-            for ext in [".csv",".gz",".zip",".csv.zip",".csv.gz"]:
-                try:
-                    predictions = pd.read_csv(f'./FluSight-forecast-hub/model-output/{model}/{date}-{model}{ext}', dtype={'location':object})
-                    predictions['Model'] = model
-                    predictionsall = pd.concat([predictionsall, predictions])
-                except Exception as e:
-                    print(e)
-            for ext in ['.parquet','.pq',".gz",".zip"]:
-                try:
-                    predictions = pd.read_parquet(f'./FluSight-forecast-hub/model-output/{model}/{date}-{model}{ext}')
-                    predictions['Model'] = model
-                    predictionsall = pd.concat([predictionsall, predictions])
-                except Exception as e:
-                    print(e)
-     '''
+            
+
 print('Data reading completed.')
 print(f'Predictions to score:\n{predictionsall}')
 
@@ -649,6 +651,20 @@ del predictionsall
 print('Calculating WIS...')
 
 def batch_wis(model, date, loc, horizon, verbose=False):
+    '''
+    Calculate WIS for given model, date, location, and horizon.
+    Assumes Scoring class is defined and formatted predsall dataframe is available.
+    
+    Arguments:
+      model   - model name as string
+      date    - reference date as formatted in predsall
+      loc     - location code as string
+      horizon - horizon as int
+      verbose - if True prints message if data exist and scoring is completed
+    
+    Returns:
+      formatted dataframe of scores
+    '''
     # filter by horizon, model and submission date
     pred = predsall[(predsall.horizon==horizon) & (predsall.Model == model) & \
                     (predsall.reference_date == date) & (predsall.location==loc)]
@@ -747,6 +763,20 @@ elif mode == 'scratch':
 print('Calculating coverage...')
 
 def batch_coverage(model, date, loc, horizon, verbose=False):
+    '''
+    Calculate coverage for given model, date, location, and horizon.
+    Assumes Scoring class is defined and formatted predsall dataframe is available.
+    
+    Arguments:
+      model   - model name as string
+      date    - reference date as formatted in predsall
+      loc     - location code as string
+      horizon - horizon as int
+      verbose - if True prints message if data exist and scoring is completed
+    
+    Returns:
+      formatted dataframe of scores
+    '''
     # filter by model and submission date, only look at horizon 0-3
     pred = predsall[(predsall.Model == model)& (predsall.reference_date == date) &\
                     (predsall.horizon == horizon) & (predsall.location == loc)]
@@ -812,6 +842,19 @@ elif mode == 'scratch':
 print('Calculating MAPE...')
 
 def batch_mape(model, date, horizon, verbose=False):
+    '''
+    Calculate MAPE for given model, date, and horizon.
+    Assumes Scoring class is defined and formatted predsall dataframe is available.
+    
+    Arguments:
+      model   - model name as string
+      date    - reference date as formatted in predsall
+      horizon - horizon as int
+      verbose - if True prints message if data exist and scoring is completed
+    
+    Returns:
+      formatted dataframe of scores
+    '''
     start_week = Week.fromdate(pd.to_datetime(date)) # week of submission date
     end_week = start_week + 3 # target end date of last horizon
     
