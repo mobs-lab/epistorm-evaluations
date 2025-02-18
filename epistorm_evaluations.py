@@ -660,7 +660,7 @@ def batch_wis(model, date, loc, horizon, verbose=False):
 dfwis = pd.DataFrame()
 with mp.Pool() as pool:
     import os
-    print(f'{os.process_cpu_count()} cores available', flush=True)
+    print(f'{len(os.sched_getaffinity(0))} cores available', flush=True)#os.process_cpu_count()
     report_memory()
     arguments = set(_ for _ in predsall[['Model','reference_date','location','horizon']].itertuples(index=False, name=None))
     scores = pool.starmap(batch_wis, arguments)
@@ -763,7 +763,7 @@ def batch_coverage(model, date, loc, horizon, verbose=False):
 dfcoverage = pd.DataFrame()
 with mp.Pool() as pool:
     import os
-    print(f'{os.process_cpu_count()} cores available', flush=True)
+    print(f'{len(os.sched_getaffinity(0))} cores available', flush=True)#os.process_cpu_count()
     report_memory()
     arguments = set(_ for _ in predsall[['Model','reference_date','location','horizon']].itertuples(index=False, name=None))
     scores = pool.starmap(batch_coverage, arguments)
@@ -825,7 +825,7 @@ def batch_mape(model, date, horizon, verbose=False):
 dfmape = pd.DataFrame()
 with mp.Pool() as pool:
     import os
-    print(f'{os.process_cpu_count()} cores available', flush=True)
+    print(f'{len(os.sched_getaffinity(0))} cores available', flush=True)#os.process_cpu_count()
     report_memory()
     arguments = set(_ for _ in predsall[['Model','reference_date','horizon']].itertuples(index=False, name=None))
     scores = pool.starmap(batch_mape, arguments)
