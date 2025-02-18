@@ -421,6 +421,23 @@ all_models = ['CADPH-FluCAT_Ensemble', 'CEPH-Rtrend_fluH',  'CMU-TimeSeries', 'C
           'NEU_ISI-FluBcast', 'OHT_JHU-nbxd', 'SigSci-BECAM', 'Stevens-ILIForecast', 'UGA_CEID-Walk', 'UGA_flucast-Scenariocast',
           'UI_CompEpi-EpiGen', 'UMass-AR2', 'VTSanghani-PRIME']
 
+# Report available and used RAM
+def report_memory():
+    '''
+    Report available and used RAM
+    Prints with flush=True
+    '''
+    import os
+
+    # Getting all memory using os.popen()
+    total_memory, used_memory, free_memory = map(
+	    int, os.popen('free -t -m').readlines()[-1].split()[1:])
+
+    # Memory usage
+    print(f'Total RAM: {total_memory}\nRAM % used: {round((used_memory/total_memory) * 100, 2)}', flush=True)
+
+report_memory()
+
 # Accept inputs for:
 # mode - 'update' or 'scratch'
 # models - any number of model names in a space-separated string, or 'all'
@@ -644,6 +661,7 @@ dfwis = pd.DataFrame()
 with mp.Pool() as pool:
     import os
     print(f'{os.process_cpu_count()} cores available', flush=True)
+    report_memory()
     arguments = set(_ for _ in predsall[['Model','reference_date','location','horizon']].itertuples(index=False, name=None))
     scores = pool.starmap(batch_wis, arguments)
     dfwis = pd.concat(scores)
@@ -746,6 +764,7 @@ dfcoverage = pd.DataFrame()
 with mp.Pool() as pool:
     import os
     print(f'{os.process_cpu_count()} cores available', flush=True)
+    report_memory()
     arguments = set(_ for _ in predsall[['Model','reference_date','location','horizon']].itertuples(index=False, name=None))
     scores = pool.starmap(batch_coverage, arguments)
     dfcoverage = pd.concat(scores)
@@ -807,6 +826,7 @@ dfmape = pd.DataFrame()
 with mp.Pool() as pool:
     import os
     print(f'{os.process_cpu_count()} cores available', flush=True)
+    report_memory()
     arguments = set(_ for _ in predsall[['Model','reference_date','horizon']].itertuples(index=False, name=None))
     scores = pool.starmap(batch_mape, arguments)
     dfmape = pd.concat(scores)         
