@@ -516,13 +516,19 @@ if mode == 'update':
             
             a = [all_models, update_reference_dates, [".csv",".gz",".zip",".csv.zip",".csv.gz"]]
             arguments = list(itertools.product(*a))
-            preds = pd.concat(pool.starmap(read_preds_csv, arguments))
-            predictionsall = pd.concat([predictionsall, preds]).drop_duplicates().reset_index(drop=True)
+            try:
+                preds = pd.concat(pool.starmap(read_preds_csv, arguments))
+                predictionsall = pd.concat([predictionsall, preds]).drop_duplicates().reset_index(drop=True)
+            except ValueError as e:
+                print(f'{e}\nIf error \"All objects passed were None\" no csv files found', flush=True)
             
             a = [all_models, update_reference_dates, ['.parquet','.pq',".gz",".zip"]]
             arguments = list(itertools.product(*a))
-            preds = pd.concat(pool.starmap(read_preds_pq, arguments))
-            predictionsall = pd.concat([predictionsall, preds]).drop_duplicates().reset_index(drop=True)
+            try:
+                preds = pd.concat(pool.starmap(read_preds_pq, arguments))
+                predictionsall = pd.concat([predictionsall, preds]).drop_duplicates().reset_index(drop=True)
+            except ValueError as e:
+                print(f'{e}\nIf error \"All objects passed were None\" no parquet files found', flush=True)
     
     # add new/changed predictions files to the dataframe
     print('Reading updated forecasts...')
@@ -587,13 +593,19 @@ elif mode == 'scratch':
         
         a = [models, dates, [".csv",".gz",".zip",".csv.zip",".csv.gz"]]
         arguments = list(itertools.product(*a))
-        preds = pd.concat(pool.starmap(read_preds_csv, arguments))
-        predictionsall = pd.concat([predictionsall, preds]).drop_duplicates().reset_index(drop=True)
+        try:
+            preds = pd.concat(pool.starmap(read_preds_csv, arguments))
+            predictionsall = pd.concat([predictionsall, preds]).drop_duplicates().reset_index(drop=True)
+        except ValueError as e:
+            print(f'{e}\nIf error \"All objects passed were None\" no csv files found', flush=True)
         
         a = [models, dates, ['.parquet','.pq',".gz",".zip"]]
         arguments = list(itertools.product(*a))
-        preds = pd.concat(pool.starmap(read_preds_pq, arguments))
-        predictionsall = pd.concat([predictionsall, preds]).drop_duplicates().reset_index(drop=True)
+        try:
+            preds = pd.concat(pool.starmap(read_preds_pq, arguments))
+            predictionsall = pd.concat([predictionsall, preds]).drop_duplicates().reset_index(drop=True)
+        except ValueError as e:
+            print(f'{e}\nIf error \"All objects passed were None\" no parquet files found', flush=True)
     '''
     for model in models:
         for date in dates:
