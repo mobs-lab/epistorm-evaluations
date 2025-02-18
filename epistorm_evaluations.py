@@ -512,7 +512,7 @@ if mode == 'update':
                 
         with mp.Pool() as pool:
             import os
-            print(f'Reading predictions for updated surveillance, {os.process_cpu_count()} cores available...', flush=True)
+            print(f'Reading predictions for updated surveillance, {len(os.sched_getaffinity(0))} cores available...', flush=True)#os.process_cpu_count()
             
             a = [all_models, update_reference_dates, [".csv",".gz",".zip",".csv.zip",".csv.gz"]]
             arguments = list(itertools.product(*a))
@@ -583,7 +583,7 @@ elif mode == 'scratch':
             
     with mp.Pool() as pool:
         import os
-        print(f'{os.process_cpu_count()} cores available', flush=True)
+        print(f'{len(os.sched_getaffinity(0))} cores available', flush=True)#os.process_cpu_count()
         
         a = [models, dates, [".csv",".gz",".zip",".csv.zip",".csv.gz"]]
         arguments = list(itertools.product(*a))
