@@ -25,15 +25,12 @@ SURVEILLANCE_DATA_FILE_NAME='target-hospital-admissions.csv'
 PREDICTION_UPDATE_TRACKING_FILE='updated_forecasts.csv'
 
 #region Check if new model predictions are available and copy them over if yes
+printf "file" > "$PREDICTION_UPDATE_TRACKING_FILE" # Init file update tracking
 for team in "${team_names[@]}"; do
   echo "Checking for new files from $team..."
 
-# Make sure each model has a subdirectory
-  #if [ -d "$PREDICTION_DATA_SOURCE_LOCATION/$team" ]; then
+  # Make sure each model has a subdirectory
   mkdir -p "$PREDICTION_DATA_TARGET_LOCATION/$team"
-
-  # Init file update tracking
-  printf "file" > "$PREDICTION_UPDATE_TRACKING_FILE"
   
   # Iterate through all the models on CDC's source
   for file in "$PREDICTION_DATA_SOURCE_LOCATION/$team"/*; do
@@ -58,9 +55,6 @@ for team in "${team_names[@]}"; do
       fi
     fi
   done
-  #else
-  #  echo "Error: team subdirectory does not exist. Please make sure subdirectories are set up."
-  #fi
   echo
 done
 #endregion
@@ -78,12 +72,13 @@ if [ ! -f "$SURVEILLANCE_DATA_TARGET_LOCATION/$SURVEILLANCE_DATA_FILE_NAME" ]; t
   echo "Copied target-hospital-admissions.csv to $SURVEILLANCE_DATA_TARGET_LOCATION"
   NEW_SURVEILLANCE_DATA_COPIED=true
 else
+  echo "Checking for new surveillance data..."
   if ! cmp -s "$SURVEILLANCE_DATA_SOURCE_LOCATION/$SURVEILLANCE_DATA_FILE_NAME" "$SURVEILLANCE_DATA_TARGET_LOCATION/$SURVEILLANCE_DATA_FILE_NAME"; then
-    echo "Detected new version of $SURVEILLANCE_DATA_FILE_NAME in source, copying into compare area..."
+    echo "Detected new version of $SURVEILLANCE_DATA_FILE_NAME in source, copying and preserving old file for comparison..."
     cp --remove-destination "$SURVEILLANCE_DATA_TARGET_LOCATION/$SURVEILLANCE_DATA_FILE_NAME"{,_old} # Preserve old file for comparison
     rm "$SURVEILLANCE_DATA_TARGET_LOCATION/$SURVEILLANCE_DATA_FILE_NAME" # Remove the old file
     cp "$SURVEILLANCE_DATA_SOURCE_LOCATION/$SURVEILLANCE_DATA_FILE_NAME" "$SURVEILLANCE_DATA_TARGET_LOCATION/$SURVEILLANCE_DATA_FILE_NAME" # Copy the new file over
-    echo "Copied $SURVEILLANCE_DATA_FILE_NAME into our $SURVEILLANCE_DATA_TARGET_LOCATION, awaiting cleanup of NA rows..."
+    echo "Copied $SURVEILLANCE_DATA_FILE_NAME into our $SURVEILLANCE_DATA_TARGET_LOCATION."
     NEW_SURVEILLANCE_DATA_COPIED=true
   fi
 fi
