@@ -37,23 +37,26 @@ jobs:
           
   evaluate-predictions:
     needs: update-data
-    if: ${{ env.NEW_PREDICTION_DATA_COPIED == 'true' || env.NEW_SURVEILLANCE_DATA_COPIED == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: checkout repository
+        if: ${{ env.NEW_PREDICTION_DATA_COPIED == 'true' || env.NEW_SURVEILLANCE_DATA_COPIED == 'true' }}
         uses: actions/checkout@v4
           
       - name: python setup
+        if: ${{ env.NEW_PREDICTION_DATA_COPIED == 'true' || env.NEW_SURVEILLANCE_DATA_COPIED == 'true' }}
         uses: actions/setup-python@v4
         with:
           python-version: 3.11
          
       - name: install dependencies
+        if: ${{ env.NEW_PREDICTION_DATA_COPIED == 'true' || env.NEW_SURVEILLANCE_DATA_COPIED == 'true' }}
         run: |
           python -m pip install --upgrade pip
           pip install -r pip_requirements.txt
 
       - name: run evaluations
+        if: ${{ env.NEW_PREDICTION_DATA_COPIED == 'true' || env.NEW_SURVEILLANCE_DATA_COPIED == 'true' }}
         run: |
           python epistorm_evaluations.py --mode update
           git config user.name github-actions
