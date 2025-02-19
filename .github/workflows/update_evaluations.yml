@@ -34,6 +34,11 @@ jobs:
         id: check-copy
         run: |
           source ./data_retrieval.sh
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add *
+          git commit -m 'track data updates via github actions'
+          git push
           
   evaluate-predictions:
     needs: update-data
