@@ -1,1 +1,12 @@
 file
+data/predictions/CADPH-FluCAT_Ensemble/2025-02-22-CADPH-FluCAT_Ensemble.csv
+data/predictions/SigSci-TSENS/2025-02-22-SigSci-TSENS.csv
+data/predictions/UGA_flucast-Copycat/2025-02-22-UGA_flucast-Copycat.csv
+data/predictions/UGA_flucast-INFLAenza/2025-02-22-UGA_flucast-INFLAenza.csv
+data/predictions/UMass-trends_ensemble/2025-02-22-UMass-trends_ensemble.parquet
+data/predictions/fjordhest-ensemble/2025-02-22-fjordhest-ensemble.parquet
+data/predictions/OHT_JHU-nbxd/2025-02-22-OHT_JHU-nbxd.csv
+data/predictions/SigSci-BECAM/2025-02-22-SigSci-BECAM.csv
+data/predictions/UGA_CEID-Walk/2025-02-22-UGA_CEID-Walk.csv
+data/predictions/UGA_flucast-Scenariocast/2025-02-22-UGA_flucast-Scenariocast.csv
+data/predictions/UMass-AR2/2025-02-22-UMass-AR2.csv
