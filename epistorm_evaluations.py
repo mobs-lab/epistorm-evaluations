@@ -607,7 +607,7 @@ elif mode == 'scratch':
             
     with mp.Pool() as pool:
         import os
-        print(f'{len(os.sched_getaffinity(0))} cores available', flush=True)#os.process_cpu_count()
+        print(f'{len(os.sched_getaffinity(0))} cores available', flush=True)
         
         a = [models, dates, [".csv",".gz",".zip",".csv.zip",".csv.gz"]]
         arguments = list(itertools.product(*a))
@@ -627,24 +627,17 @@ elif mode == 'scratch':
             
 
 print('Data reading completed.')
-print(f'Predictions to score:\n{predictionsall}')
-
 
 ### CALCULATE SCORES
 #################################################
 
 ### Instantiate Forecast_Eval Class and Format Data for Scoring
 # format forecasts in order to calculate scores
-# input start and end weeks for the period of interest
 surv['Unnamed: 0'] = 0 # needed for Forecast_Eval methods
-#surv.dropna(inplace=True, ignore_index=True)
-start_week = Week.fromdate(datetime.datetime.strptime(surv.date.min(), '%Y-%m-%d'))
-end_week = Week.fromdate(datetime.datetime.strptime(surv.date.max(), '%Y-%m-%d'))
-test = Forecast_Eval(df=pd.DataFrame(), obsdf=surv, target='hosp', 
-                            start_week = start_week, end_week = end_week)
+test = Forecast_Eval(df=pd.DataFrame(), obsdf=surv, target='hosp')
 predsall = test.format_forecasts_all(dfformat = predictionsall)
 del predictionsall
-
+print(f'Predictions to score:\n{predsall}')
 
 ### WIS
 # calculate WIS for all forecasts
@@ -688,7 +681,7 @@ def batch_wis(model, date, loc, horizon, verbose=False):
 dfwis = pd.DataFrame()
 with mp.Pool() as pool:
     import os
-    print(f'{len(os.sched_getaffinity(0))} cores available', flush=True)#os.process_cpu_count()
+    print(f'{len(os.sched_getaffinity(0))} cores available', flush=True)
     report_memory()
     arguments = set(_ for _ in predsall[['Model','reference_date','location','horizon']].itertuples(index=False, name=None))
     scores = pool.starmap(batch_wis, arguments)
@@ -805,7 +798,7 @@ def batch_coverage(model, date, loc, horizon, verbose=False):
 dfcoverage = pd.DataFrame()
 with mp.Pool() as pool:
     import os
-    print(f'{len(os.sched_getaffinity(0))} cores available', flush=True)#os.process_cpu_count()
+    print(f'{len(os.sched_getaffinity(0))} cores available', flush=True)
     report_memory()
     arguments = set(_ for _ in predsall[['Model','reference_date','location','horizon']].itertuples(index=False, name=None))
     scores = pool.starmap(batch_coverage, arguments)
@@ -855,9 +848,6 @@ def batch_mape(model, date, horizon, verbose=False):
     Returns:
       formatted dataframe of scores
     '''
-    start_week = Week.fromdate(pd.to_datetime(date)) # week of submission date
-    end_week = start_week + 3 # target end date of last horizon
-    
     # filter by horizon, model and submission date
     pred = predsall[(predsall.horizon==horizon) & (predsall.Model == model) & \
                     (predsall.reference_date == date)]
@@ -865,8 +855,7 @@ def batch_mape(model, date, horizon, verbose=False):
     if len(pred)==0: return
     
     # calculate mape for each week
-    test = Scoring(df=pred, obsdf=surv, target='hosp',
-                    start_week = start_week, end_week = end_week)
+    test = Scoring(df=pred, obsdf=surv, target='hosp')
 
     out = test.get_mape()
     
@@ -880,8 +869,9 @@ def batch_mape(model, date, horizon, verbose=False):
 dfmape = pd.DataFrame()
 with mp.Pool() as pool:
     import os
-    print(f'{len(os.sched_getaffinity(0))} cores available', flush=True)#os.process_cpu_count()
+    print(f'{len(os.sched_getaffinity(0))} cores available', flush=True)
     report_memory()
+    print(predsall)
     arguments = set(_ for _ in predsall[['Model','reference_date','horizon']].itertuples(index=False, name=None))
     scores = pool.starmap(batch_mape, arguments)
     dfmape = pd.concat(scores)         
