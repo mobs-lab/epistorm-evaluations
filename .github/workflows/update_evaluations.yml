@@ -10,8 +10,7 @@ on:
 #    - cron: '0 21 * * 3,5,6'   # separately runs on every Wednesday, Friday, and Saturday at 9:00 PM UTC
   
 jobs:
-
-  update-data:
+  update-evaluations:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -40,13 +39,13 @@ jobs:
           git commit -m 'track data updates via github actions'
           git push
           
-  evaluate-predictions:
-    needs: update-data
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout repository
-        if: ${{ env.NEW_PREDICTION_DATA_COPIED == 'true' || env.NEW_SURVEILLANCE_DATA_COPIED == 'true' }}
-        uses: actions/checkout@v4
+#  evaluate-predictions:
+#    needs: update-data
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: checkout repository
+#        if: ${{ env.NEW_PREDICTION_DATA_COPIED == 'true' || env.NEW_SURVEILLANCE_DATA_COPIED == 'true' }}
+#        uses: actions/checkout@v4
           
       - name: python setup
         if: ${{ env.NEW_PREDICTION_DATA_COPIED == 'true' || env.NEW_SURVEILLANCE_DATA_COPIED == 'true' }}

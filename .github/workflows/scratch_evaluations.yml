@@ -16,18 +16,17 @@ on:
         type: string
   
 jobs:
-
-  update-data:
+  scratch-evaluations:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: checkout repository
         uses: actions/checkout@v4
         with:
           submodules: 'recursive'
           fetch-depth: 0
           ref: main  # Explicitly checkout main
 
-      - name: Update Submodule
+      - name: update submodule
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
@@ -36,16 +35,16 @@ jobs:
           git submodule update --remote
           git submodule foreach git pull origin main
           
-  evaluate-predictions:
-    needs: update-data
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
-          fetch-depth: 0
-          ref: main  # Explicitly checkout main
+#  evaluate-predictions:
+#    needs: update-data
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout repository
+#        uses: actions/checkout@v4
+#        with:
+#          submodules: 'recursive'
+#          fetch-depth: 0
+#          ref: main  # Explicitly checkout main
           
       - name: python setup
         uses: actions/setup-python@v4
