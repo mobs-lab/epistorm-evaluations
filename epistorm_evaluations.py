@@ -871,7 +871,6 @@ with mp.Pool() as pool:
     import os
     print(f'{len(os.sched_getaffinity(0))} cores available', flush=True)
     report_memory()
-    print(predsall)
     arguments = set(_ for _ in predsall[['Model','reference_date','horizon']].itertuples(index=False, name=None))
     scores = pool.starmap(batch_mape, arguments)
     dfmape = pd.concat(scores)         
