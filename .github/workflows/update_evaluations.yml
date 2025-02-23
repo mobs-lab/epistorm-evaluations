@@ -13,14 +13,14 @@ jobs:
   update-evaluations:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: checkout repository
         uses: actions/checkout@v4
         with:
           submodules: 'recursive'
           fetch-depth: 0
           ref: main  # Explicitly checkout main
 
-      - name: Update Submodule
+      - name: update submodule
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
@@ -29,10 +29,14 @@ jobs:
           git submodule update --remote
           git submodule foreach git pull origin main
           
-      - name: Check and Copy New Files
+      - name: check and copy new files
         id: check-copy
         run: |
           source ./data_retrieval.sh
+          
+      - name: push copied files
+        if: ${{ env.NEW_PREDICTION_DATA_COPIED == 'true' || env.NEW_SURVEILLANCE_DATA_COPIED == 'true' }}
+        run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add *
