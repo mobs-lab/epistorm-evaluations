@@ -39,15 +39,6 @@ jobs:
           git commit -m 'track data updates via github actions' --allow-empty
           git push
           
-#      - name: push copied files
-#        if: ${{ env.NEW_PREDICTION_DATA_COPIED == 'true' || env.NEW_SURVEILLANCE_DATA_COPIED == 'true' }}
-#        run: |
-#          git config user.name github-actions
-#          git config user.email github-actions@github.com
-#          git add *
-#          git commit -m 'track data updates via github actions'
-#          git push
-          
       - name: python setup
         if: ${{ env.NEW_PREDICTION_DATA_COPIED == 'true' || env.NEW_SURVEILLANCE_DATA_COPIED == 'true' }}
         uses: actions/setup-python@v4
