@@ -3,3 +3,5 @@ numpy
 epiweeks
 pyarrow
 multiprocess
+matplotlib
+seaborn

@@ -8,5 +8,7 @@ dependencies:
   - jupyterlab
   - pyarrow
   - numpy
+  - matplotlib
+  - seaborn
   - bioconda::epiweeks
 prefix: /home/data/miniconda3/envs/epistorm-evaluations
