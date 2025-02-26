@@ -1,1 +1,4 @@
 file
+data/predictions/FluSight-baseline/2025-03-01-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2025-03-01-FluSight-equal_cat.csv
+data/predictions/FluSight-base_seasonal/2025-03-01-FluSight-base_seasonal.csv
