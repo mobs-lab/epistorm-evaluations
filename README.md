@@ -21,6 +21,11 @@ This workflow outputs evaluations for the specified models and dates to the `/sc
 
 The `update_evaluations` workflow runs on a schedule to provide updated evaluations in the `/evaluations` directory. You can manually initiate an out-of-schedule update via the GitHub Actions tab.
 
+The update schedule is:
+
+- Every Thursday, starting from 6:00 AM UTC until 9:00 PM UTC, every 3 hours
+- Every Wednesday, Friday, and Saturday at 9:00 PM UTC
+
 ## Running Locally
 
 Install conda environment from .yml file
