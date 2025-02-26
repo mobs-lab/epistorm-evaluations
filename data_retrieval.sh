@@ -1,16 +1,5 @@
 # Model Names Listed Here
-team_names=('CADPH-FluCAT_Ensemble' 'CEPH-Rtrend_fluH'  'CMU-TimeSeries' 'CU-ensemble' 'FluSight-baseline'
-          'FluSight-ensemble' 'FluSight-equal_cat' 'FluSight-lop_norm' 'GH-model' 'GT-FluFNP' 'ISU_NiemiLab-ENS' 
-          'ISU_NiemiLab-NLH' 'ISU_NiemiLab-SIR' 'LUcompUncertLab-chimera' 'LosAlamos_NAU-CModel_Flu' 
-          'MIGHTE-Nsemble' 'MOBS-GLEAM_FLUH' 'NIH-Flu_ARIMA' 'PSI-PROF' 'SGroup-RandomForest' 'SigSci-CREG' 
-          'SigSci-TSENS' 'Stevens-GBR' 'UGA_flucast-Copycat' 'UGA_flucast-INFLAenza' 'UGA_flucast-OKeeffe' 
-          'UGuelph-CompositeCurve' 'UGuelphensemble-GRYPHON' 'UM-DeepOutbreak' 'UMass-flusion' 'UMass-trends_ensemble'
-          'UNC_IDD-InfluPaint' 'UVAFluX-Ensemble' 'VTSanghani-Ensemble' 'cfa-flumech' 'cfarenewal-cfaepimlight' 
-          'fjordhest-ensemble' 'NU_UCSD-GLEAM_AI_FLUH' 'PSI-PROF_beta' 'JHU_CSSE-CSSE_Ensemble' 'FluSight-national_cat'
-          'FluSight-ens_q_cat' 'FluSight-baseline_cat' 'FluSight-base_seasonal' 'Gatech-ensemble_point' 'Gatech-ensemble_prob'
-          'ISU_NiemiLab-GPE' 'JHUAPL-DMD' 'MDPredict-SIRS' 'MIGHTE-Joint' 'Metaculus-cp' 'NEU_ISI-AdaptiveEnsemble'
-          'NEU_ISI-FluBcast' 'OHT_JHU-nbxd' 'SigSci-BECAM' 'Stevens-ILIForecast' 'UGA_CEID-Walk' 'UGA_flucast-Scenariocast'
-          'UI_CompEpi-EpiGen' 'UMass-AR2' 'VTSanghani-PRIME')
+team_names=($(ls -d FluSight-forecast-hub/model-output/*/ | xargs -n 1 basename))
 
 NEW_PREDICTION_DATA_COPIED=false
 NEW_SURVEILLANCE_DATA_COPIED=false

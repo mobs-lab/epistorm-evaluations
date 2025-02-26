@@ -6,6 +6,7 @@ import multiprocess as mp
 import datetime
 import argparse
 import itertools
+import glob
 from epiweeks import Week
 
 import warnings
@@ -408,6 +409,8 @@ class Scoring(Forecast_Eval):
 ### HANDLE INPUTS & LOAD DATA
 #################################################
 # all existing models as of Dec 2024
+all_models = [f.split('/')[-2] for f in glob.glob('./data/predictions/*/')]
+'''
 all_models = ['CADPH-FluCAT_Ensemble', 'CEPH-Rtrend_fluH',  'CMU-TimeSeries', 'CU-ensemble', 'FluSight-baseline',
           'FluSight-ensemble','FluSight-equal_cat', 'FluSight-lop_norm', 'GH-model', 'GT-FluFNP', 'ISU_NiemiLab-ENS', 
           'ISU_NiemiLab-NLH','ISU_NiemiLab-SIR', 'LUcompUncertLab-chimera', 'LosAlamos_NAU-CModel_Flu', 
@@ -420,7 +423,7 @@ all_models = ['CADPH-FluCAT_Ensemble', 'CEPH-Rtrend_fluH',  'CMU-TimeSeries', 'C
           'ISU_NiemiLab-GPE', 'JHUAPL-DMD', 'MDPredict-SIRS', 'MIGHTE-Joint', 'Metaculus-cp', 'NEU_ISI-AdaptiveEnsemble',
           'NEU_ISI-FluBcast', 'OHT_JHU-nbxd', 'SigSci-BECAM', 'Stevens-ILIForecast', 'UGA_CEID-Walk', 'UGA_flucast-Scenariocast',
           'UI_CompEpi-EpiGen', 'UMass-AR2', 'VTSanghani-PRIME']
-
+'''
 # Report available and used RAM
 def report_memory():
     '''
@@ -522,7 +525,7 @@ if mode == 'update':
                 
         with mp.Pool() as pool:
             import os
-            print(f'Reading predictions for updated surveillance, {len(os.sched_getaffinity(0))} cores available...', flush=True)#os.process_cpu_count()
+            print(f'Reading predictions for updated surveillance, {len(os.sched_getaffinity(0))} cores available...', flush=True)
             
             a = [all_models, update_reference_dates, [".csv",".gz",".zip",".csv.zip",".csv.gz"]]
             arguments = list(itertools.product(*a))
@@ -636,6 +639,7 @@ print('Data reading completed.')
 surv['Unnamed: 0'] = 0 # needed for Forecast_Eval methods
 test = Forecast_Eval(df=pd.DataFrame(), obsdf=surv, target='hosp')
 predsall = test.format_forecasts_all(dfformat = predictionsall)
+predsall = predsall[predsall.target=='wk inc flu hosp']
 del predictionsall
 print(f'Predictions to score:\n{predsall}')
 
