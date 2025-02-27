@@ -86,4 +86,4 @@ for ref_date in dates:
     fig.suptitle(f'Forecast Date: {ref_date}',y=1, fontsize=20)
 
     fig.tight_layout()
-    plt.savefig(f'./plots/WIS_{ref_date}.pdf')
+    plt.savefig(f'./plots/WIS/WIS_{ref_date}.pdf')
