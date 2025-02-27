@@ -29,6 +29,6 @@ jobs:
           python plots.py
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add *
+          git add plots/*
           git commit -m 'generate plots via github actions'
           git push
