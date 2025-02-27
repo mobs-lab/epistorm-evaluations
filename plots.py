@@ -5,7 +5,7 @@ import os
 import glob
 
 # delete old plots
-files = glob.glob('/plots/WIS_ratio/*')
+files = glob.glob('/plots/WIS/*')
 for f in files:
     os.remove(f)
 
