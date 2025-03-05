@@ -1,1 +1,15 @@
 file
+data/predictions/CADPH-FluCAT_Ensemble/2025-03-08-CADPH-FluCAT_Ensemble.csv
+data/predictions/CMU-TimeSeries/2025-03-08-CMU-TimeSeries.csv
+data/predictions/CMU-climate_baseline/2025-03-08-CMU-climate_baseline.csv
+data/predictions/CU-ensemble/2025-03-08-CU-ensemble.csv
+data/predictions/FluSight-base_seasonal/2025-03-08-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2025-03-08-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2025-03-08-FluSight-equal_cat.csv
+data/predictions/Metaculus-cp/2025-03-08-Metaculus-cp.csv
+data/predictions/UGA_flucast-Copycat/2025-03-08-UGA_flucast-Copycat.csv
+data/predictions/UGA_flucast-INFLAenza/2025-03-08-UGA_flucast-INFLAenza.csv
+data/predictions/UGA_flucast-Scenariocast/2025-03-08-UGA_flucast-Scenariocast.csv
+data/predictions/UMass-trends_ensemble/2025-03-08-UMass-trends_ensemble.parquet
+data/predictions/VTSanghani-PRIME/2025-03-08-VTSanghani-PRIME.csv
+data/predictions/fjordhest-ensemble/2025-03-08-fjordhest-ensemble.parquet
