@@ -410,7 +410,6 @@ class Scoring(Forecast_Eval):
 #################################################
 # all existing models
 all_models = [f.split('/')[-2] for f in glob.glob('./FluSight-forecast-hub/model-output/*/')]
-archive_models = [f.split('/')[-2] for f in glob.glob('./data/predictions-archive-2021-2023/*/')]
 
 # Report available and used RAM
 def report_memory():
@@ -618,10 +617,10 @@ elif mode == 'scratch':
 
 elif mode == 'archive':
     surv = pd.read_csv('./FluSight-forecast-hub/target-data/target-hospital-admissions.csv')
-    
+
     # read files
     predictionsall = pd.DataFrame()
-    
+
     def read_preds_csv(filename):
         '''
         Read csv predictions in archive mode.
@@ -647,7 +646,6 @@ elif mode == 'archive':
             print(e, flush=True)
             
     # make format match new data
-    predictionsall = predictionsall.iloc[:,:-2]
     predictionsall.dropna(inplace=True)
     predictionsall['horizon'] = predictionsall.target.str.split(' ', n=1, expand=True)[0].astype(int) - 1
     predictionsall['target'] = 'wk inc flu hosp'
@@ -655,8 +653,9 @@ elif mode == 'archive':
     predictionsall['reference_date'] = pd.to_datetime(predictionsall.reference_date, format='%Y-%m-%d') + datetime.timedelta(days=5)
     predictionsall['reference_date'] = predictionsall.reference_date.astype(str)
     
-
+    
 print('Data reading completed.')
+
 
 ### CALCULATE SCORES
 #################################################
