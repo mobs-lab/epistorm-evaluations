@@ -410,6 +410,7 @@ class Scoring(Forecast_Eval):
 #################################################
 # all existing models
 all_models = [f.split('/')[-2] for f in glob.glob('./FluSight-forecast-hub/model-output/*/')]
+archive_models = [f.split('/')[-2] for f in glob.glob('./data/predictions-archive-2021-2023/*/')]
 
 # Report available and used RAM
 def report_memory():
@@ -429,12 +430,12 @@ def report_memory():
 report_memory()
 
 # Accept inputs for:
-# mode - 'update' or 'scratch'
+# mode - 'update', 'scratch', or 'archive' (archive is for 2021-22 and 2022-23 seasons)
 # models - any number of model names in a space-separated string, or 'all'
 # dates - any number of dates in YYYY-MM-DD format in a space-separated string
 parser = argparse.ArgumentParser()
-parser.add_argument('--mode', action='store', nargs=1, choices=['update', 'scratch'], required=True,
-                    help='Update deployment evaluations or work in scratch folder.')
+parser.add_argument('--mode', action='store', nargs=1, choices=['update', 'scratch', 'archive'], required=True,
+                    help='Update deployment evaluations, work in scratch folder, or score 2021-23 archive data.')
 parser.add_argument('--models', nargs='+', choices=all_models+['all'], required=False, default='all',
                     help='Specify any number of space-separated model names, or \'all\'.')
 parser.add_argument('--dates', nargs='+', required=False, default='all',
@@ -614,7 +615,46 @@ elif mode == 'scratch':
             predictionsall = pd.concat([predictionsall, preds]).drop_duplicates().reset_index(drop=True)
         except ValueError as e:
             print(f'{e}\nIf error \"All objects passed were None\" no parquet files found', flush=True)
+
+elif mode == 'archive':
+    surv = pd.read_csv('./FluSight-forecast-hub/target-data/target-hospital-admissions.csv')
+    
+    # read files
+    predictionsall = pd.DataFrame()
+    
+    def read_preds_csv(filename):
+        '''
+        Read csv predictions in archive mode.
+        '''
+        model = filename.split('/')[-2]
+        try:
+            predictions = pd.read_csv(filename, dtype={'location':object})
+            predictions['Model'] = model
+            return predictions
+        except Exception:
+            return
             
+    with mp.Pool() as pool:
+        import os
+        print(f'{len(os.sched_getaffinity(0))} cores available', flush=True)
+        
+        predsarchive = [f for f in glob.glob('./data/predictions-archive-2021-2023/*/*.csv')] #all files in archive are .csv
+        
+        try:
+            preds = pd.concat(pool.map(read_preds_csv, predsarchive))
+            predictionsall = pd.concat([predictionsall, preds]).drop_duplicates().reset_index(drop=True)
+        except Exception as e:
+            print(e, flush=True)
+            
+    # make format match new data
+    predictionsall = predictionsall.iloc[:,:-2]
+    predictionsall.dropna(inplace=True)
+    predictionsall['horizon'] = predictionsall.target.str.split(' ', n=1, expand=True)[0].astype(int) - 1
+    predictionsall['target'] = 'wk inc flu hosp'
+    predictionsall.rename(columns={'forecast_date':'reference_date', 'type':'output_type', 'quantile':'output_type_id'}, inplace=True)
+    predictionsall['reference_date'] = pd.to_datetime(predictionsall.reference_date, format='%Y-%m-%d') + datetime.timedelta(days=5)
+    predictionsall['reference_date'] = predictionsall.reference_date.astype(str)
+    
 
 print('Data reading completed.')
 
@@ -701,6 +741,15 @@ if mode == 'update':
     
 elif mode == 'scratch':
     dfwis.to_csv('./scratch/WIS.csv', index=False, mode='w')
+    
+elif mode == 'archive':
+    # save only archive scores to separate file
+    dfwis.to_csv('./evaluations/archive-2021-2023/WIS.csv', index=False, mode='w')
+    
+    # insert archive scores into main evals file
+    old_df = pd.read_csv('./evaluations/WIS.csv', parse_dates=['target_end_date'])
+    all_df = pd.concat([old_df, dfwis]).drop_duplicates().reset_index(drop=True)
+    all_df.to_csv('./evaluations/WIS.csv', index=False, mode='w')
 
 
 ### WIS Ratio
@@ -741,7 +790,16 @@ if mode == 'update':
 elif mode == 'scratch':
     dfwis_ratio.to_csv('./scratch/WIS_ratio.csv', index=False, mode='w')
 
-
+elif mode == 'archive':
+    # save only archive scores to separate file
+    dfwis_ratio.to_csv('./evaluations/archive-2021-2023/WIS_ratio.csv', index=False, mode='w')
+    
+    # insert archive scores into main evals file
+    old_df = pd.read_csv('./evaluations/WIS_ratio.csv', parse_dates=['target_end_date'])
+    all_df = pd.concat([old_df, dfwis_ratio]).drop_duplicates().reset_index(drop=True)
+    all_df.to_csv('./evaluations/WIS_ratio.csv', index=False, mode='w')
+    
+    
 ### Coverage
 # calculate coverage for all forecasts
 print('Calculating coverage...')
@@ -820,6 +878,15 @@ if mode == 'update':
 elif mode == 'scratch':
     dfcoverage.to_csv('./scratch/coverage.csv', index=False, mode='w')
 
+elif mode == 'archive':
+    # save only archive scores to separate file
+    dfcoverage.to_csv('./evaluations/archive-2021-2023/coverage.csv', index=False, mode='w')
+    
+    # insert archive scores into main evals file
+    old_df = pd.read_csv('./evaluations/coverage.csv')
+    all_df = pd.concat([old_df, dfcoverage]).drop_duplicates().reset_index(drop=True)
+    all_df.to_csv('./evaluations/coverage.csv', index=False, mode='w')
+    
 
 ### MAPE
 # calculate MAPE for all forecasts
@@ -890,7 +957,14 @@ if mode == 'update':
 elif mode == 'scratch':
     dfmape.to_csv('./scratch/MAPE.csv', index=False, mode='w')
 
-
+elif mode == 'archive':
+    # save only archive scores to separate file
+    dfmape.to_csv('./evaluations/archive-2021-2023/MAPE.csv', index=False, mode='w')
+    
+    # insert archive scores into main evals file
+    old_df = pd.read_csv('./evaluations/MAPE.csv')
+    all_df = pd.concat([old_df, dfmape]).drop_duplicates().reset_index(drop=True)
+    all_df.to_csv('./evaluations/MAPE.csv', index=False, mode='w')
 
 
 

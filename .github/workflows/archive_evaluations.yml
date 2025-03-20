@@ -1,0 +1,44 @@
+name: archive_evaluations
+
+on:   
+# run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+jobs:
+  archive-evaluations:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+          fetch-depth: 0
+          ref: main  # Explicitly checkout main
+
+      - name: update submodule
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git pull origin main
+          git submodule init
+          git submodule update --remote
+          git submodule foreach git pull origin main
+          
+      - name: python setup
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+         
+      - name: install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r pip_requirements.txt
+
+      - name: run evaluations
+        run: |
+          python epistorm_evaluations.py --mode archive
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add *
+          git commit -m 'generate 2021-23 archive evaluations via github actions'
+          git push
