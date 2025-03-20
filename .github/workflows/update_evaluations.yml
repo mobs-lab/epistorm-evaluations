@@ -5,9 +5,9 @@ on:
   workflow_dispatch:
       
 # run on schedule with data release
-  schedule:
-    - cron: '0 6-21/3 * * 4'  # runs every Thursday, starting from 6:00 AM UTC until 9:00 PM UTC, every 3 hours
-    - cron: '0 21 * * 3,5,6'   # separately runs on every Wednesday, Friday, and Saturday at 9:00 PM UTC
+#  schedule:
+#    - cron: '0 6-21/3 * * 4'  # runs every Thursday, starting from 6:00 AM UTC until 9:00 PM UTC, every 3 hours
+#    - cron: '0 21 * * 3,5,6'   # separately runs on every Wednesday, Friday, and Saturday at 9:00 PM UTC
   
 jobs:
   update-evaluations:
