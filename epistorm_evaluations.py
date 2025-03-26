@@ -304,7 +304,7 @@ class Scoring(Forecast_Eval):
             If the observation, the lower and upper vectors are not the same length.
         """
         if len(lower) != len(upper) or len(lower) != len(observation):
-            raise ValueError("vector shape mismatch")
+            raise ValueError(f"vector shape mismatch: lower/upper/obs {len(lower)}/{len(upper)}/{len(observation)}")
 
         #make sure vector operation works
         obs,l,u = np.array(observation),np.array(lower),np.array(upper)
@@ -831,8 +831,11 @@ def batch_coverage(model, date, loc, horizon, verbose=False):
     obs = test.process_observations(obs[obs.date.isin(pred.target_end_date.unique())])
 
     if len(obs) == 0: return
-
-    out = test.all_coverages_from_df(obs, predss)
+    try:
+        out = test.all_coverages_from_df(obs, predss)
+    except Exception as e:
+        print(f'{e} encountered in {model} {date} location {loc} horizon {horizon}')
+        return
 
     out['horizon'] = horizon
     out['Model'] = model
@@ -880,7 +883,7 @@ elif mode == 'scratch':
 elif mode == 'archive':
     # save only archive scores to separate file
     dfcoverage.to_csv('./evaluations/archive-2021-2023/coverage.csv', index=False, mode='w')
-    
+
     # insert archive scores into main evals file
     old_df = pd.read_csv('./evaluations/coverage.csv')
     all_df = pd.concat([old_df, dfcoverage]).drop_duplicates().reset_index(drop=True)
@@ -959,7 +962,7 @@ elif mode == 'scratch':
 elif mode == 'archive':
     # save only archive scores to separate file
     dfmape.to_csv('./evaluations/archive-2021-2023/MAPE.csv', index=False, mode='w')
-    
+
     # insert archive scores into main evals file
     old_df = pd.read_csv('./evaluations/MAPE.csv')
     all_df = pd.concat([old_df, dfmape]).drop_duplicates().reset_index(drop=True)
