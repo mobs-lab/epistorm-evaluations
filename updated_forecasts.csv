@@ -1,1 +1,17 @@
 file
+data/predictions/CEPH-Rtrend_fluH/2025-04-19-CEPH-Rtrend_fluH.csv
+data/predictions/CU-ensemble/2025-04-19-CU-ensemble.csv
+data/predictions/FluSight-base_seasonal/2025-04-19-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2025-04-19-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2025-04-19-FluSight-equal_cat.csv
+data/predictions/JHUAPL-DMD/2025-04-19-JHUAPL-DMD.csv
+data/predictions/Metaculus-cp/2025-04-19-Metaculus-cp.csv
+data/predictions/SigSci-BECAM/2025-04-19-SigSci-BECAM.csv
+data/predictions/SigSci-TSENS/2025-04-19-SigSci-TSENS.csv
+data/predictions/UGA_CEID-Walk/2025-04-19-UGA_CEID-Walk.csv
+data/predictions/UGA_flucast-Copycat/2025-04-19-UGA_flucast-Copycat.csv
+data/predictions/UGA_flucast-INFLAenza/2025-04-19-UGA_flucast-INFLAenza.csv
+data/predictions/UGA_flucast-Scenariocast/2025-04-19-UGA_flucast-Scenariocast.csv
+data/predictions/UMass-AR2/2025-04-19-UMass-AR2.csv
+data/predictions/UMass-trends_ensemble/2025-04-19-UMass-trends_ensemble.parquet
+data/predictions/fjordhest-ensemble/2025-04-19-fjordhest-ensemble.parquet
