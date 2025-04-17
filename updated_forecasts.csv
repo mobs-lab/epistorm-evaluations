@@ -1,8 +1,1 @@
 file
-data/predictions/FluSight-baseline_cat/2025-04-19-FluSight-baseline_cat.csv
-data/predictions/FluSight-ens_q_cat/2025-04-19-FluSight-ens_q_cat.csv
-data/predictions/FluSight-ensemble/2025-04-19-FluSight-ensemble.csv
-data/predictions/FluSight-lop_norm/2025-04-19-FluSight-lop_norm.csv
-data/predictions/FluSight-trained_mean/2025-04-19-FluSight-trained_mean.csv
-data/predictions/FluSight-trained_med/2025-04-19-FluSight-trained_med.csv
-data/predictions/ISU_NiemiLab-GPE/2025-04-19-ISU_NiemiLab-GPE.csv
