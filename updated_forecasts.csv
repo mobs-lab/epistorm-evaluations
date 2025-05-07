@@ -1,1 +1,5 @@
 file
+data/predictions/UGA_CEID-Walk/2025-05-10-UGA_CEID-Walk.csv
+data/predictions/UGA_flucast-Copycat/2025-05-10-UGA_flucast-Copycat.csv
+data/predictions/UGA_flucast-Scenariocast/2025-05-10-UGA_flucast-Scenariocast.csv
+data/predictions/fjordhest-ensemble/2025-05-10-fjordhest-ensemble.parquet
