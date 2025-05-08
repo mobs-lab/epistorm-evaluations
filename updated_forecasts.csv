@@ -1,9 +1,8 @@
 file
-data/predictions/LosAlamos_NAU-CModel_Flu/2025-05-10-LosAlamos_NAU-CModel_Flu.csv
-data/predictions/MDPredict-SIRS/2025-05-10-MDPredict-SIRS.csv
-data/predictions/UGuelph-CompositeCurve/2025-05-10-UGuelph-CompositeCurve.csv
-data/predictions/UI_CompEpi-EpiGen/2025-05-10-UI_CompEpi-EpiGen.csv
-data/predictions/UVAFluX-CESGCN/2025-05-10-UVAFluX-CESGCN.csv
-data/predictions/UVAFluX-Ensemble/2025-05-10-UVAFluX-Ensemble.csv
-data/predictions/UVAFluX-OptimWISE/2025-05-10-UVAFluX-OptimWISE.csv
-data/predictions/VTSanghani-PRIME/2025-05-10-VTSanghani-PRIME.csv
+data/predictions/FluSight-baseline_cat/2025-05-10-FluSight-baseline_cat.csv
+data/predictions/FluSight-ens_q_cat/2025-05-10-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ensemble/2025-05-10-FluSight-ensemble.csv
+data/predictions/FluSight-lop_norm/2025-05-10-FluSight-lop_norm.csv
+data/predictions/FluSight-trained_mean/2025-05-10-FluSight-trained_mean.csv
+data/predictions/FluSight-trained_med/2025-05-10-FluSight-trained_med.csv
+data/predictions/ISU_NiemiLab-GPE/2025-05-10-ISU_NiemiLab-GPE.csv
