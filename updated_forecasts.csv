@@ -1,11 +1,7 @@
 file
-data/predictions/CEPH-Rtrend_fluH/2025-05-17-CEPH-Rtrend_fluH.csv
-data/predictions/Google_SAI-FluBoostQR/2025-05-17-Google_SAI-FluBoostQR.csv
-data/predictions/ISU_NiemiLab-GPE/2025-05-17-ISU_NiemiLab-GPE.csv
-data/predictions/MDPredict-SIRS/2025-05-17-MDPredict-SIRS.csv
-data/predictions/MIGHTE-Joint/2025-05-17-MIGHTE-Joint.csv
-data/predictions/MIGHTE-Nsemble/2025-05-17-MIGHTE-Nsemble.csv
-data/predictions/NIH-Flu_ARIMA/2025-05-17-NIH-Flu_ARIMA.csv
-data/predictions/UGuelph-CompositeCurve/2025-05-17-UGuelph-CompositeCurve.csv
-data/predictions/UM-DeepOutbreak/2025-05-17-UM-DeepOutbreak.csv
-data/predictions/VTSanghani-PRIME/2025-05-17-VTSanghani-PRIME.csv
+data/predictions/FluSight-baseline_cat/2025-05-17-FluSight-baseline_cat.csv
+data/predictions/FluSight-ens_q_cat/2025-05-17-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ensemble/2025-05-17-FluSight-ensemble.csv
+data/predictions/FluSight-lop_norm/2025-05-17-FluSight-lop_norm.csv
+data/predictions/FluSight-trained_mean/2025-05-17-FluSight-trained_mean.csv
+data/predictions/FluSight-trained_med/2025-05-17-FluSight-trained_med.csv
