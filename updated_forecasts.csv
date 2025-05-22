@@ -1,1 +1,6 @@
 file
+data/predictions/MOBS-GLEAM_FLUH/2025-05-24-MOBS-GLEAM_FLUH.csv
+data/predictions/NIH-Flu_ARIMA/2025-05-24-NIH-Flu_ARIMA.csv
+data/predictions/Stevens-ILIForecast/2025-05-24-Stevens-ILIForecast.csv
+data/predictions/UI_CompEpi-EpiGen/2025-05-24-UI_CompEpi-EpiGen.csv
+data/predictions/VTSanghani-PRIME/2025-05-24-VTSanghani-PRIME.csv
