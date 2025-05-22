@@ -1,10 +1,1 @@
 file
-data/predictions/FluSight-baseline_cat/2025-05-24-FluSight-baseline_cat.csv
-data/predictions/FluSight-ens_q_cat/2025-05-24-FluSight-ens_q_cat.csv
-data/predictions/FluSight-ensemble/2025-05-24-FluSight-ensemble.csv
-data/predictions/FluSight-lop_norm/2025-05-24-FluSight-lop_norm.csv
-data/predictions/FluSight-trained_mean/2025-05-24-FluSight-trained_mean.csv
-data/predictions/FluSight-trained_med/2025-05-24-FluSight-trained_med.csv
-data/predictions/UVAFluX-CESGCN/2025-05-24-UVAFluX-CESGCN.csv
-data/predictions/UVAFluX-Ensemble/2025-05-24-UVAFluX-Ensemble.csv
-data/predictions/UVAFluX-OptimWISE/2025-05-24-UVAFluX-OptimWISE.csv
