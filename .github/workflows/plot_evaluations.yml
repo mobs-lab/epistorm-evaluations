@@ -1,6 +1,11 @@
 name: plot_evaluations
 
 on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'evaluations/*.csv'
   workflow_dispatch:
   
 jobs:
