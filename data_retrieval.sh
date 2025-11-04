@@ -12,9 +12,11 @@ SURVEILLANCE_DATA_TARGET_LOCATION='data/ground-truth'
 SURVEILLANCE_DATA_FILE_NAME='target-hospital-admissions.csv'
 
 PREDICTION_UPDATE_TRACKING_FILE='updated_forecasts.csv'
+PREDICTION_UPDATE_LOG_FILE='updated_forecasts_log.csv'
 
 #region Check if new model predictions are available and copy them over if yes
 printf "file" > "$PREDICTION_UPDATE_TRACKING_FILE" # Init file update tracking
+printf 'date +"%Y-%m-%d %H:%M:%S"' >> PREDICTION_UPDATE_LOG_FILE
 for team in "${team_names[@]}"; do
   echo "Checking for new files from $team..."
 
@@ -31,6 +33,7 @@ for team in "${team_names[@]}"; do
       cp "$file" "$PREDICTION_DATA_TARGET_LOCATION/$team/"
       echo "Copied $filename to $PREDICTION_DATA_TARGET_LOCATION/$team/"
       printf "\n$PREDICTION_DATA_TARGET_LOCATION/$team/$filename" >> "$PREDICTION_UPDATE_TRACKING_FILE"
+      printf "\n$PREDICTION_DATA_TARGET_LOCATION/$team/$filename" >> "$PREDICTION_UPDATE_LOG_FILE"
       NEW_PREDICTION_DATA_COPIED=true
     else
       # Check if the file has been updated and if so, copy it
@@ -40,6 +43,7 @@ for team in "${team_names[@]}"; do
         cp "$file" "$PREDICTION_DATA_TARGET_LOCATION/$team/" # Copy the new file over
         echo "Copied $filename into $PREDICTION_DATA_TARGET_LOCATION/$team/."
         printf "\n$PREDICTION_DATA_TARGET_LOCATION/$team/$filename" >> "$PREDICTION_UPDATE_TRACKING_FILE"
+        printf "\n$PREDICTION_DATA_TARGET_LOCATION/$team/$filename" >> "$PREDICTION_UPDATE_LOG_FILE"
         NEW_PREDICTION_DATA_COPIED=true
       fi
     fi
