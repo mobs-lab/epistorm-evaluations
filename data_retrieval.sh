@@ -16,7 +16,7 @@ PREDICTION_UPDATE_LOG_FILE='updated_forecasts_log.csv'
 
 #region Check if new model predictions are available and copy them over if yes
 printf "file" > "$PREDICTION_UPDATE_TRACKING_FILE" # Init file update tracking
-printf 'date +"%Y-%m-%d %H:%M:%S"' >> PREDICTION_UPDATE_LOG_FILE
+printf 'date +"%Y-%m-%d %H:%M:%S"' >> "$PREDICTION_UPDATE_LOG_FILE"
 for team in "${team_names[@]}"; do
   echo "Checking for new files from $team..."
 
