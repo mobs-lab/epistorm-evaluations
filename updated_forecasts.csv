@@ -1,2 +1,7 @@
 file
-data/predictions/CADPH-FluCAT_Ensemble/2025-11-22-CADPH-FluCAT_Ensemble.csv
+data/predictions/CEPH-Rtrend_fluH/2025-11-22-CEPH-Rtrend_fluH.csv
+data/predictions/MOBS-GLEAM_RL_FLUH/2025-11-22-MOBS-GLEAM_RL_FLUH.csv
+data/predictions/NEU_ISI-AdaptiveEnsemble/2025-11-22-NEU_ISI-AdaptiveEnsemble.csv
+data/predictions/NEU_ISI-FluBcast/2025-11-22-NEU_ISI-FluBcast.csv
+data/predictions/UMass-AR2/2025-11-22-UMass-AR2.csv
+data/predictions/UMass-trends_ensemble/2025-11-22-UMass-trends_ensemble.parquet
