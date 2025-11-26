@@ -47,4 +47,10 @@ data/predictions/MDPredict-SIRS/2025-11-22-MDPredict-SIRS.csv
 data/predictions/NIH-Flu_ARIMA/2025-11-22-NIH-Flu_ARIMA.csv
 data/predictions/OHT_JHU-nbxd/2025-11-22-OHT_JHU-nbxd.csv
 data/predictions/UNC_IDD-InfluPaint/2025-11-22-UNC_IDD-InfluPaint.csvdate 2025-11-20_18:03:42date 2025-11-20_21:03:16
-data/predictions/FluSight-HJudge_ensemble/2025-11-22-FluSight-HJudge_ensemble.csvdate 2025-11-21_21:04:51date 2025-11-22_21:04:34date 2025-11-26_06:03:35date 2025-11-26_09:03:31date 2025-11-26_12:03:55date 2025-11-26_15:03:23date 2025-11-26_18:03:50
+data/predictions/FluSight-HJudge_ensemble/2025-11-22-FluSight-HJudge_ensemble.csvdate 2025-11-21_21:04:51date 2025-11-22_21:04:34date 2025-11-26_06:03:35date 2025-11-26_09:03:31date 2025-11-26_12:03:55date 2025-11-26_15:03:23date 2025-11-26_18:03:50date 2025-11-26_21:03:15
+data/predictions/FluSight-base_seasonal/2025-11-29-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2025-11-29-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2025-11-29-FluSight-equal_cat.csv
+data/predictions/LosAlamos_NAU-CModel_Flu/2025-11-29-LosAlamos_NAU-CModel_Flu.csv
+data/predictions/NAU-FourCAT/2025-11-29-NAU-FourCAT.csv
+data/predictions/UGA_flucast-Scenariocast/2025-11-29-UGA_flucast-Scenariocast.csv

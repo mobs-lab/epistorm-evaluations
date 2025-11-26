@@ -1,1 +1,7 @@
 file
+data/predictions/FluSight-base_seasonal/2025-11-29-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2025-11-29-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2025-11-29-FluSight-equal_cat.csv
+data/predictions/LosAlamos_NAU-CModel_Flu/2025-11-29-LosAlamos_NAU-CModel_Flu.csv
+data/predictions/NAU-FourCAT/2025-11-29-NAU-FourCAT.csv
+data/predictions/UGA_flucast-Scenariocast/2025-11-29-UGA_flucast-Scenariocast.csv
