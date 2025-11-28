@@ -90,4 +90,11 @@ data/predictions/LosAlamos-ThinMint/2025-11-29-LosAlamos-ThinMint.csv
 data/predictions/MDPredict-SIRS/2025-11-29-MDPredict-SIRS.csv
 data/predictions/UM-DeepOutbreak/2025-11-29-UM-DeepOutbreak.csv
 data/predictions/UNC_IDD-InfluPaint/2025-11-29-UNC_IDD-InfluPaint.csv
-data/predictions/UVAFluX-Ensemble/2025-11-29-UVAFluX-Ensemble.csv
+data/predictions/UVAFluX-Ensemble/2025-11-29-UVAFluX-Ensemble.csvdate 2025-11-28_21:04:38
+data/predictions/FluSight-baseline_cat/2025-11-29-FluSight-baseline_cat.csv
+data/predictions/FluSight-ens_q_cat/2025-11-29-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ensemble/2025-11-29-FluSight-ensemble.csv
+data/predictions/FluSight-lop_norm/2025-11-29-FluSight-lop_norm.csv
+data/predictions/FluSight-trained_mean/2025-11-29-FluSight-trained_mean.csv
+data/predictions/FluSight-trained_med/2025-11-29-FluSight-trained_med.csv
+data/predictions/LosAlamos-DoSiDo/2025-11-22-LosAlamos-DoSiDo.csv
