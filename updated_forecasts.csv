@@ -1,1 +1,16 @@
 file
+data/predictions/CEPH-Rtrend_fluH/2025-12-06-CEPH-Rtrend_fluH.csv
+data/predictions/FluSight-base_seasonal/2025-12-06-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2025-12-06-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2025-12-06-FluSight-equal_cat.csv
+data/predictions/Google_SAI-FluEns/2025-12-06-Google_SAI-FluEns.csv
+data/predictions/LosAlamos-DoSiDo/2025-12-06-LosAlamos-DoSiDo.csv
+data/predictions/LosAlamos-ThinMint/2025-12-06-LosAlamos-ThinMint.csv
+data/predictions/NEU_ISI-AdaptiveEnsemble/2025-12-06-NEU_ISI-AdaptiveEnsemble.csv
+data/predictions/NEU_ISI-FluBcast/2025-12-06-NEU_ISI-FluBcast.csv
+data/predictions/OHT_JHU-nbxd/2025-12-06-OHT_JHU-nbxd.csv
+data/predictions/UGA_CEID-auto_AVG_LB/2025-12-06-UGA_CEID-auto_AVG_LB.csv
+data/predictions/UGA_flucast-Scenariocast/2025-12-06-UGA_flucast-Scenariocast.csv
+data/predictions/UMass-AR2/2025-12-06-UMass-AR2.csv
+data/predictions/UMass-trends_ensemble/2025-12-06-UMass-trends_ensemble.parquet
+data/predictions/VTSanghani-PRIME/2025-12-06-VTSanghani-PRIME.csv
