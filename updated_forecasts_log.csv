@@ -130,4 +130,23 @@ data/predictions/PSI-PROF/2025-12-06-PSI-PROF.csv
 data/predictions/PSI-PROF_MOA/2025-12-06-PSI-PROF_MOA.csv
 data/predictions/UGA_CEID-Walk/2025-12-06-UGA_CEID-Walk.csv
 data/predictions/UGuelph-CompositeCurve/2025-12-06-UGuelph-CompositeCurve.csv
-data/predictions/UMass-flusion/2025-12-06-UMass-flusion.csvdate 2025-12-04_09:04:55date 2025-12-04_12:04:20
+data/predictions/UMass-flusion/2025-12-06-UMass-flusion.csvdate 2025-12-04_09:04:55date 2025-12-04_12:04:20date 2025-12-04_15:04:28
+data/predictions/FluSight-baseline_cat/2025-12-06-FluSight-baseline_cat.csv
+data/predictions/FluSight-ens_q_cat/2025-12-06-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ensemble/2025-12-06-FluSight-ensemble.csv
+data/predictions/FluSight-lop_norm/2025-12-06-FluSight-lop_norm.csv
+data/predictions/FluSight-trained_mean/2025-12-06-FluSight-trained_mean.csv
+data/predictions/FluSight-trained_med/2025-12-06-FluSight-trained_med.csv
+data/predictions/Gatech-ensemble_prob/2025-12-06-Gatech-ensemble_prob.csv
+data/predictions/LUcompUncertLab-chimera/2025-12-06-LUcompUncertLab-chimera.csv
+data/predictions/LosAlamos_NAU-CModel_Flu/2025-12-06-LosAlamos_NAU-CModel_Flu.csv
+data/predictions/MDPredict-SIRS/2025-12-06-MDPredict-SIRS.csv
+data/predictions/MIGHTE-Nsemble/2025-12-06-MIGHTE-Nsemble.csv
+data/predictions/NAU-vulPES/2025-12-06-NAU-vulPES.csv
+data/predictions/NIH-Flu_ARIMA/2025-12-06-NIH-Flu_ARIMA.csv
+data/predictions/UGA_flucast-Copycat/2025-12-06-UGA_flucast-Copycat.csv
+data/predictions/UGA_flucast-INFLAenza/2025-12-06-UGA_flucast-INFLAenza.csv
+data/predictions/UI_CompEpi-EpiGen/2025-12-06-UI_CompEpi-EpiGen.csv
+data/predictions/UM-DeepOutbreak/2025-12-06-UM-DeepOutbreak.csv
+data/predictions/UNC_IDD-InfluPaint/2025-12-06-UNC_IDD-InfluPaint.csv
+data/predictions/UVAFluX-Ensemble/2025-12-06-UVAFluX-Ensemble.csv
