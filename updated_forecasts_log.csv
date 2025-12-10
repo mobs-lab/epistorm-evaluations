@@ -150,4 +150,10 @@ data/predictions/UI_CompEpi-EpiGen/2025-12-06-UI_CompEpi-EpiGen.csv
 data/predictions/UM-DeepOutbreak/2025-12-06-UM-DeepOutbreak.csv
 data/predictions/UNC_IDD-InfluPaint/2025-12-06-UNC_IDD-InfluPaint.csv
 data/predictions/UVAFluX-Ensemble/2025-12-06-UVAFluX-Ensemble.csvdate 2025-12-04_18:03:52date 2025-12-04_21:03:32date 2025-12-05_21:05:14date 2025-12-06_21:04:47date 2025-12-10_06:03:40date 2025-12-10_09:05:59date 2025-12-10_12:04:05date 2025-12-10_15:04:11date 2025-12-10_18:04:37
-data/predictions/FluSight-HJudge_ensemble/2025-12-06-FluSight-HJudge_ensemble.csv
+data/predictions/FluSight-HJudge_ensemble/2025-12-06-FluSight-HJudge_ensemble.csvdate 2025-12-10_21:03:03
+data/predictions/CADPH-FluCAT_Ensemble/2025-12-13-CADPH-FluCAT_Ensemble.csv
+data/predictions/FluSight-base_seasonal/2025-12-13-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2025-12-13-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2025-12-13-FluSight-equal_cat.csv
+data/predictions/UGA_CEID-Walk/2025-12-13-UGA_CEID-Walk.csv
+data/predictions/UGA_flucast-Scenariocast/2025-12-13-UGA_flucast-Scenariocast.csv

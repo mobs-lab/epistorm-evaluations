@@ -1,2 +1,7 @@
 file
-data/predictions/FluSight-HJudge_ensemble/2025-12-06-FluSight-HJudge_ensemble.csv
+data/predictions/CADPH-FluCAT_Ensemble/2025-12-13-CADPH-FluCAT_Ensemble.csv
+data/predictions/FluSight-base_seasonal/2025-12-13-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2025-12-13-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2025-12-13-FluSight-equal_cat.csv
+data/predictions/UGA_CEID-Walk/2025-12-13-UGA_CEID-Walk.csv
+data/predictions/UGA_flucast-Scenariocast/2025-12-13-UGA_flucast-Scenariocast.csv
