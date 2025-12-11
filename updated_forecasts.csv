@@ -1,2 +1,7 @@
 file
-data/predictions/UM-DeepOutbreak/2025-12-13-UM-DeepOutbreak.csv
+data/predictions/FluSight-baseline_cat/2025-12-13-FluSight-baseline_cat.csv
+data/predictions/FluSight-ens_q_cat/2025-12-13-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ensemble/2025-12-13-FluSight-ensemble.csv
+data/predictions/FluSight-lop_norm/2025-12-13-FluSight-lop_norm.csv
+data/predictions/FluSight-trained_mean/2025-12-13-FluSight-trained_mean.csv
+data/predictions/FluSight-trained_med/2025-12-13-FluSight-trained_med.csv

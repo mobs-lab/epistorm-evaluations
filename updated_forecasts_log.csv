@@ -199,4 +199,10 @@ data/predictions/UNC_IDD-InfluPaint/2025-12-13-UNC_IDD-InfluPaint.csv
 data/predictions/UVAFluX-CESGCN/2025-12-13-UVAFluX-CESGCN.csv
 data/predictions/UVAFluX-Ensemble/2025-12-13-UVAFluX-Ensemble.csv
 data/predictions/VTSanghani-PRIME/2025-12-13-VTSanghani-PRIME.csvdate 2025-12-11_09:05:19date 2025-12-11_12:04:27
-data/predictions/UM-DeepOutbreak/2025-12-13-UM-DeepOutbreak.csv
+data/predictions/UM-DeepOutbreak/2025-12-13-UM-DeepOutbreak.csvdate 2025-12-11_15:04:34
+data/predictions/FluSight-baseline_cat/2025-12-13-FluSight-baseline_cat.csv
+data/predictions/FluSight-ens_q_cat/2025-12-13-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ensemble/2025-12-13-FluSight-ensemble.csv
+data/predictions/FluSight-lop_norm/2025-12-13-FluSight-lop_norm.csv
+data/predictions/FluSight-trained_mean/2025-12-13-FluSight-trained_mean.csv
+data/predictions/FluSight-trained_med/2025-12-13-FluSight-trained_med.csv
