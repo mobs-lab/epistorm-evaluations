@@ -207,4 +207,10 @@ data/predictions/FluSight-lop_norm/2025-12-13-FluSight-lop_norm.csv
 data/predictions/FluSight-trained_mean/2025-12-13-FluSight-trained_mean.csv
 data/predictions/FluSight-trained_med/2025-12-13-FluSight-trained_med.csvdate 2025-12-11_18:04:13
 data/predictions/FluSight-HJudge_ensemble/2025-12-13-FluSight-HJudge_ensemble.csv
-data/predictions/FluSight-ens_q_cat/2025-12-13-FluSight-ens_q_cat.csvdate 2025-12-11_21:03:50date 2025-12-12_21:05:30date 2025-12-13_21:04:53date 2025-12-17_06:04:02date 2025-12-17_09:05:51date 2025-12-17_12:04:10date 2025-12-17_15:03:49date 2025-12-17_18:04:17
+data/predictions/FluSight-ens_q_cat/2025-12-13-FluSight-ens_q_cat.csvdate 2025-12-11_21:03:50date 2025-12-12_21:05:30date 2025-12-13_21:04:53date 2025-12-17_06:04:02date 2025-12-17_09:05:51date 2025-12-17_12:04:10date 2025-12-17_15:03:49date 2025-12-17_18:04:17date 2025-12-17_21:03:46
+data/predictions/CEPH-Rtrend_fluH/2025-12-20-CEPH-Rtrend_fluH.csv
+data/predictions/FluSight-base_seasonal/2025-12-20-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2025-12-20-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2025-12-20-FluSight-equal_cat.csv
+data/predictions/UGA_flucast-Scenariocast/2025-12-20-UGA_flucast-Scenariocast.csv
+data/predictions/VTSanghani-PRIME/2025-12-20-VTSanghani-PRIME.csv
