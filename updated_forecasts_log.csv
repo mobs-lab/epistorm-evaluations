@@ -325,4 +325,11 @@ data/predictions/UMass-trends_ensemble/2025-12-27-UMass-trends_ensemble.parquet
 data/predictions/UNC_IDD-InfluPaint/2025-12-27-UNC_IDD-InfluPaint.csv
 data/predictions/UVAFluX-Ensemble/2025-12-27-UVAFluX-Ensemble.csv
 data/predictions/UVAFluX-FS_OptimWISE/2025-12-27-UVAFluX-FS_OptimWISE.csv
-data/predictions/VTSanghani-PRIME/2025-12-27-VTSanghani-PRIME.csvdate 2025-12-31_09:04:51date 2025-12-31_12:03:55date 2025-12-31_15:03:32date 2025-12-31_18:03:40
+data/predictions/VTSanghani-PRIME/2025-12-27-VTSanghani-PRIME.csvdate 2025-12-31_09:04:51date 2025-12-31_12:03:55date 2025-12-31_15:03:32date 2025-12-31_18:03:40date 2025-12-31_21:03:25
+data/predictions/CADPH-FluCAT_Ensemble/2026-01-03-CADPH-FluCAT_Ensemble.csv
+data/predictions/CMU-TimeSeries/2026-01-03-CMU-TimeSeries.csv
+data/predictions/FluSight-base_seasonal/2026-01-03-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2026-01-03-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2026-01-03-FluSight-equal_cat.csv
+data/predictions/SigSci-TSENS/2026-01-03-SigSci-TSENS.csv
+data/predictions/UGA_flucast-Scenariocast/2026-01-03-UGA_flucast-Scenariocast.csv

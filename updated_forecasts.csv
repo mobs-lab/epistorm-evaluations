@@ -1,1 +1,8 @@
 file
+data/predictions/CADPH-FluCAT_Ensemble/2026-01-03-CADPH-FluCAT_Ensemble.csv
+data/predictions/CMU-TimeSeries/2026-01-03-CMU-TimeSeries.csv
+data/predictions/FluSight-base_seasonal/2026-01-03-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2026-01-03-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2026-01-03-FluSight-equal_cat.csv
+data/predictions/SigSci-TSENS/2026-01-03-SigSci-TSENS.csv
+data/predictions/UGA_flucast-Scenariocast/2026-01-03-UGA_flucast-Scenariocast.csv
