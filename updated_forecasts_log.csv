@@ -332,4 +332,8 @@ data/predictions/FluSight-base_seasonal/2026-01-03-FluSight-base_seasonal.csv
 data/predictions/FluSight-baseline/2026-01-03-FluSight-baseline.csv
 data/predictions/FluSight-equal_cat/2026-01-03-FluSight-equal_cat.csv
 data/predictions/SigSci-TSENS/2026-01-03-SigSci-TSENS.csv
-data/predictions/UGA_flucast-Scenariocast/2026-01-03-UGA_flucast-Scenariocast.csv
+data/predictions/UGA_flucast-Scenariocast/2026-01-03-UGA_flucast-Scenariocast.csvdate 2026-01-01_06:03:58
+data/predictions/Cornell_JHU-hierarchSIR/2026-01-03-Cornell_JHU-hierarchSIR.csv
+data/predictions/LosAlamos-DoSiDo/2026-01-03-LosAlamos-DoSiDo.csv
+data/predictions/LosAlamos-ThinMint/2026-01-03-LosAlamos-ThinMint.csv
+data/predictions/OHT_JHU-nbxd/2026-01-03-OHT_JHU-nbxd.csv
