@@ -1,1 +1,7 @@
 file
+data/predictions/LosAlamos_NAU-CModel_Flu/2026-01-03-LosAlamos_NAU-CModel_Flu.csv
+data/predictions/NAU-FourCAT/2026-01-03-NAU-FourCAT.csv
+data/predictions/UMass-AR2/2026-01-03-UMass-AR2.csv
+data/predictions/UMass-flusion/2026-01-03-UMass-flusion.csv
+data/predictions/UMass-trends_ensemble/2026-01-03-UMass-trends_ensemble.parquet
+data/predictions/VTSanghani-PRIME/2026-01-03-VTSanghani-PRIME.csv

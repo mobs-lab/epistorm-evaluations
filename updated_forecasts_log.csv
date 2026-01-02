@@ -336,4 +336,10 @@ data/predictions/UGA_flucast-Scenariocast/2026-01-03-UGA_flucast-Scenariocast.cs
 data/predictions/Cornell_JHU-hierarchSIR/2026-01-03-Cornell_JHU-hierarchSIR.csv
 data/predictions/LosAlamos-DoSiDo/2026-01-03-LosAlamos-DoSiDo.csv
 data/predictions/LosAlamos-ThinMint/2026-01-03-LosAlamos-ThinMint.csv
-data/predictions/OHT_JHU-nbxd/2026-01-03-OHT_JHU-nbxd.csvdate 2026-01-01_09:04:47date 2026-01-01_12:04:00date 2026-01-01_15:03:39date 2026-01-01_18:03:53date 2026-01-01_21:03:17
+data/predictions/OHT_JHU-nbxd/2026-01-03-OHT_JHU-nbxd.csvdate 2026-01-01_09:04:47date 2026-01-01_12:04:00date 2026-01-01_15:03:39date 2026-01-01_18:03:53date 2026-01-01_21:03:17date 2026-01-02_21:05:13
+data/predictions/LosAlamos_NAU-CModel_Flu/2026-01-03-LosAlamos_NAU-CModel_Flu.csv
+data/predictions/NAU-FourCAT/2026-01-03-NAU-FourCAT.csv
+data/predictions/UMass-AR2/2026-01-03-UMass-AR2.csv
+data/predictions/UMass-flusion/2026-01-03-UMass-flusion.csv
+data/predictions/UMass-trends_ensemble/2026-01-03-UMass-trends_ensemble.parquet
+data/predictions/VTSanghani-PRIME/2026-01-03-VTSanghani-PRIME.csv
