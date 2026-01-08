@@ -432,4 +432,14 @@ data/predictions/UMass-flusion/2026-01-10-UMass-flusion.csv
 data/predictions/UMass-trends_ensemble/2026-01-10-UMass-trends_ensemble.parquet
 data/predictions/UNC_IDD-InfluPaint/2026-01-10-UNC_IDD-InfluPaint.csv
 data/predictions/UVAFluX-Ensemble/2026-01-10-UVAFluX-Ensemble.csv
-data/predictions/VTSanghani-PRIME/2026-01-10-VTSanghani-PRIME.csvdate 2026-01-08_09:06:06date 2026-01-08_12:04:11
+data/predictions/VTSanghani-PRIME/2026-01-10-VTSanghani-PRIME.csvdate 2026-01-08_09:06:06date 2026-01-08_12:04:11date 2026-01-08_15:04:50
+data/predictions/FluSight-HJudge_ensemble/2026-01-10-FluSight-HJudge_ensemble.csv
+data/predictions/FluSight-baseline_cat/2026-01-10-FluSight-baseline_cat.csv
+data/predictions/FluSight-ens_q_cat/2026-01-10-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ensemble/2026-01-10-FluSight-ensemble.csv
+data/predictions/FluSight-lop_norm/2026-01-10-FluSight-lop_norm.csv
+data/predictions/FluSight-trained_mean/2026-01-10-FluSight-trained_mean.csv
+data/predictions/FluSight-trained_med/2026-01-10-FluSight-trained_med.csv
+data/predictions/MDPredict-SIRS/2026-01-10-MDPredict-SIRS.csv
+data/predictions/UGuelphensemble-GRYPHON/2026-01-10-UGuelphensemble-GRYPHON.csv
+data/predictions/UM-DeepOutbreak/2026-01-10-UM-DeepOutbreak.csv
