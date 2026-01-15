@@ -1,1 +1,15 @@
 file
+data/predictions/DMAPRIME-QR/2026-01-17-DMAPRIME-QR.csv
+data/predictions/FluSight-HJudge_ensemble/2026-01-17-FluSight-HJudge_ensemble.csv
+data/predictions/FluSight-baseline_cat/2026-01-17-FluSight-baseline_cat.csv
+data/predictions/FluSight-ens_q_cat/2026-01-17-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ensemble/2026-01-17-FluSight-ensemble.csv
+data/predictions/FluSight-lop_norm/2026-01-17-FluSight-lop_norm.csv
+data/predictions/FluSight-trained_mean/2026-01-17-FluSight-trained_mean.csv
+data/predictions/FluSight-trained_med/2026-01-17-FluSight-trained_med.csv
+data/predictions/Gatech-ensemble_prob/2026-01-17-Gatech-ensemble_prob.csv
+data/predictions/Gatech-ensemble_stat/2026-01-17-Gatech-ensemble_stat.csv
+data/predictions/LUcompUncertLab-puca/2026-01-17-LUcompUncertLab-puca.csv
+data/predictions/LosAlamos_NAU-CModel_Flu/2026-01-17-LosAlamos_NAU-CModel_Flu.csv
+data/predictions/MDPredict-SIRS/2026-01-17-MDPredict-SIRS.csv
+data/predictions/UM-DeepOutbreak/2026-01-17-UM-DeepOutbreak.csv
