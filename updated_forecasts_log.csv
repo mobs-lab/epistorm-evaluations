@@ -498,4 +498,15 @@ data/predictions/LUcompUncertLab-puca/2026-01-17-LUcompUncertLab-puca.csv
 data/predictions/LosAlamos_NAU-CModel_Flu/2026-01-17-LosAlamos_NAU-CModel_Flu.csv
 data/predictions/MDPredict-SIRS/2026-01-17-MDPredict-SIRS.csv
 data/predictions/UM-DeepOutbreak/2026-01-17-UM-DeepOutbreak.csvdate 2026-01-15_18:06:48
-data/predictions/UVAFluX-FS_OptimWISE/2026-01-17-UVAFluX-FS_OptimWISE.csvdate 2026-01-15_21:03:17date 2026-01-16_21:05:33date 2026-01-17_21:05:00date 2026-01-21_06:04:54date 2026-01-21_09:07:46date 2026-01-21_12:04:14date 2026-01-21_15:07:19date 2026-01-21_18:13:48
+data/predictions/UVAFluX-FS_OptimWISE/2026-01-17-UVAFluX-FS_OptimWISE.csvdate 2026-01-15_21:03:17date 2026-01-16_21:05:33date 2026-01-17_21:05:00date 2026-01-21_06:04:54date 2026-01-21_09:07:46date 2026-01-21_12:04:14date 2026-01-21_15:07:19date 2026-01-21_18:13:48date 2026-01-21_21:07:06
+data/predictions/CADPH-FluCAT_Ensemble/2026-01-24-CADPH-FluCAT_Ensemble.csv
+data/predictions/CEPH-Rtrend_fluH/2026-01-24-CEPH-Rtrend_fluH.csv
+data/predictions/FluSight-base_seasonal/2026-01-24-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2026-01-24-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2026-01-24-FluSight-equal_cat.csv
+data/predictions/NAU-FourCAT/2026-01-24-NAU-FourCAT.csv
+data/predictions/NEU_ISI-AdaptiveEnsemble/2026-01-24-NEU_ISI-AdaptiveEnsemble.csv
+data/predictions/NEU_ISI-FluBcast/2026-01-24-NEU_ISI-FluBcast.csv
+data/predictions/SigSci-TSENS/2026-01-24-SigSci-TSENS.csv
+data/predictions/UGA_flucast-INFLAenza/2026-01-24-UGA_flucast-INFLAenza.csv
+data/predictions/UGA_flucast-Scenariocast/2026-01-24-UGA_flucast-Scenariocast.csv
