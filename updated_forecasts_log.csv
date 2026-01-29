@@ -591,4 +591,24 @@ data/predictions/UGA_flucast-Scenariocast/2026-01-31-UGA_flucast-Scenariocast.cs
 data/predictions/UMass-AR2/2026-01-31-UMass-AR2.csv
 data/predictions/UMass-flusion/2026-01-31-UMass-flusion.csv
 data/predictions/UMass-trends_ensemble/2026-01-31-UMass-trends_ensemble.parquet
-data/predictions/UNC_IDD-InfluPaint/2026-01-31-UNC_IDD-InfluPaint.csvdate 2026-01-29_09:12:40date 2026-01-29_12:06:55
+data/predictions/UNC_IDD-InfluPaint/2026-01-31-UNC_IDD-InfluPaint.csvdate 2026-01-29_09:12:40date 2026-01-29_12:06:55date 2026-01-29_15:11:17
+data/predictions/CU-ARNB_Net/2026-01-31-CU-ARNB_Net.csv
+data/predictions/CU-ensemble/2026-01-31-CU-ensemble.csv
+data/predictions/DMAPRIME-QR/2026-01-31-DMAPRIME-QR.csv
+data/predictions/FluSight-HJudge_ensemble/2026-01-31-FluSight-HJudge_ensemble.csv
+data/predictions/FluSight-baseline_cat/2026-01-31-FluSight-baseline_cat.csv
+data/predictions/FluSight-ens_q_cat/2026-01-31-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ensemble/2026-01-31-FluSight-ensemble.csv
+data/predictions/FluSight-lop_norm/2026-01-31-FluSight-lop_norm.csv
+data/predictions/FluSight-trained_mean/2026-01-31-FluSight-trained_mean.csv
+data/predictions/FluSight-trained_med/2026-01-31-FluSight-trained_med.csv
+data/predictions/Gatech-ensemble_prob/2026-01-31-Gatech-ensemble_prob.csv
+data/predictions/LosAlamos_NAU-CModel_Flu/2026-01-31-LosAlamos_NAU-CModel_Flu.csv
+data/predictions/MDPredict-SIRS/2026-01-31-MDPredict-SIRS.csv
+data/predictions/NIH-Flu_ARIMA/2026-01-31-NIH-Flu_ARIMA.csv
+data/predictions/NU-PGF_FLUH/2026-01-31-NU-PGF_FLUH.csv
+data/predictions/PSI-PROF/2026-01-31-PSI-PROF.csv
+data/predictions/PSI-PROF_MOA/2026-01-31-PSI-PROF_MOA.csv
+data/predictions/UI_CompEpi-EpiGen/2026-01-31-UI_CompEpi-EpiGen.csv
+data/predictions/UM-DeepOutbreak/2026-01-31-UM-DeepOutbreak.csv
+data/predictions/UVAFluX-Ensemble/2026-01-31-UVAFluX-Ensemble.csv
