@@ -612,4 +612,37 @@ data/predictions/PSI-PROF_MOA/2026-01-31-PSI-PROF_MOA.csv
 data/predictions/UI_CompEpi-EpiGen/2026-01-31-UI_CompEpi-EpiGen.csv
 data/predictions/UM-DeepOutbreak/2026-01-31-UM-DeepOutbreak.csv
 data/predictions/UVAFluX-Ensemble/2026-01-31-UVAFluX-Ensemble.csvdate 2026-01-29_18:09:47date 2026-01-29_21:05:25
-data/predictions/UVAFluX-FS_OptimWISE/2026-01-31-UVAFluX-FS_OptimWISE.csvdate 2026-01-30_21:09:17date 2026-01-31_21:05:56date 2026-02-04_06:14:28date 2026-02-04_09:13:48date 2026-02-04_12:07:15date 2026-02-04_15:14:15date 2026-02-04_18:13:29date 2026-02-04_21:08:25
+data/predictions/UVAFluX-FS_OptimWISE/2026-01-31-UVAFluX-FS_OptimWISE.csvdate 2026-01-30_21:09:17date 2026-01-31_21:05:56date 2026-02-04_06:14:28date 2026-02-04_09:13:48date 2026-02-04_12:07:15date 2026-02-04_15:14:15date 2026-02-04_18:13:29date 2026-02-04_21:08:25date 2026-02-05_06:18:10
+data/predictions/CADPH-FluCAT_Ensemble/2026-02-07-CADPH-FluCAT_Ensemble.csv
+data/predictions/CEPH-Rtrend_fluH/2026-02-07-CEPH-Rtrend_fluH.csv
+data/predictions/CFA_Pyrenew-Pyrenew_E_Flu/2026-02-07-CFA_Pyrenew-Pyrenew_E_Flu.csv
+data/predictions/CFA_Pyrenew-Pyrenew_HE_Flu/2026-02-07-CFA_Pyrenew-Pyrenew_HE_Flu.csv
+data/predictions/CFA_Pyrenew-Pyrenew_H_Flu/2026-02-07-CFA_Pyrenew-Pyrenew_H_Flu.csv
+data/predictions/CMU-TimeSeries/2026-02-07-CMU-TimeSeries.csv
+data/predictions/Cornell_JHU-hierarchSIR/2026-02-07-Cornell_JHU-hierarchSIR.csv
+data/predictions/DMAPRIME-QR/2026-02-07-DMAPRIME-QR.csv
+data/predictions/FluSight-base_seasonal/2026-02-07-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2026-02-07-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2026-02-07-FluSight-equal_cat.csv
+data/predictions/Gatech-ensemble_stat/2026-02-07-Gatech-ensemble_stat.csv
+data/predictions/LUcompUncertLab-puca/2026-02-07-LUcompUncertLab-puca.csv
+data/predictions/LosAlamos-DoSiDo/2026-02-07-LosAlamos-DoSiDo.csv
+data/predictions/LosAlamos-ThinMint/2026-02-07-LosAlamos-ThinMint.csv
+data/predictions/MOBS-EpyStrain_Flu/2026-02-07-MOBS-EpyStrain_Flu.csv
+data/predictions/MOBS-GLEAM_RL_FLUH/2026-02-07-MOBS-GLEAM_RL_FLUH.csv
+data/predictions/NAU-FourCAT/2026-02-07-NAU-FourCAT.csv
+data/predictions/NAU-vulPES/2026-02-07-NAU-vulPES.csv
+data/predictions/NEU_ISI-AdaptiveEnsemble/2026-02-07-NEU_ISI-AdaptiveEnsemble.csv
+data/predictions/NEU_ISI-FluBcast/2026-02-07-NEU_ISI-FluBcast.csv
+data/predictions/OHT_JHU-nbxd/2026-02-07-OHT_JHU-nbxd.csv
+data/predictions/SigSci-TSENS/2026-02-07-SigSci-TSENS.csv
+data/predictions/UGA_CEID-Walk/2026-02-07-UGA_CEID-Walk.csv
+data/predictions/UGA_CEID-auto_AVG_LB/2026-02-07-UGA_CEID-auto_AVG_LB.csv
+data/predictions/UGA_flucast-Copycat/2026-02-07-UGA_flucast-Copycat.csv
+data/predictions/UGA_flucast-INFLAenza/2026-02-07-UGA_flucast-INFLAenza.csv
+data/predictions/UGA_flucast-Scenariocast/2026-02-07-UGA_flucast-Scenariocast.csv
+data/predictions/UMass-AR2/2026-02-07-UMass-AR2.csv
+data/predictions/UMass-flusion/2026-02-07-UMass-flusion.csv
+data/predictions/UMass-trends_ensemble/2026-02-07-UMass-trends_ensemble.parquet
+data/predictions/UNC_IDD-InfluPaint/2026-02-07-UNC_IDD-InfluPaint.csv
+data/predictions/VTSanghani-PRIME/2026-02-07-VTSanghani-PRIME.csv
