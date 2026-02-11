@@ -1,1 +1,9 @@
 file
+data/predictions/CADPH-FluCAT_Ensemble/2026-02-14-CADPH-FluCAT_Ensemble.csv
+data/predictions/CEPH-Rtrend_fluH/2026-02-14-CEPH-Rtrend_fluH.csv
+data/predictions/CMU-TimeSeries/2026-02-14-CMU-TimeSeries.csv
+data/predictions/LUcompUncertLab-puca/2026-02-14-LUcompUncertLab-puca.csv
+data/predictions/NAU-FourCAT/2026-02-14-NAU-FourCAT.csv
+data/predictions/SigSci-TSENS/2026-02-14-SigSci-TSENS.csv
+data/predictions/UGA_flucast-INFLAenza/2026-02-14-UGA_flucast-INFLAenza.csv
+data/predictions/UGA_flucast-Scenariocast/2026-02-14-UGA_flucast-Scenariocast.csv
