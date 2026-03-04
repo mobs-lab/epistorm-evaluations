@@ -1,1 +1,6 @@
 file
+data/predictions/CEPH-Rtrend_fluH/2026-03-07-CEPH-Rtrend_fluH.csv
+data/predictions/FluSight-base_seasonal/2026-03-07-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2026-03-07-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2026-03-07-FluSight-equal_cat.csv
+data/predictions/SigSci-TSENS/2026-03-07-SigSci-TSENS.csv

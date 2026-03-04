@@ -845,4 +845,9 @@ data/predictions/UGuelphensemble-GRYPHON/2026-02-28-UGuelphensemble-GRYPHON.csv
 data/predictions/UI_CompEpi-EpiGen/2026-02-28-UI_CompEpi-EpiGen.csv
 data/predictions/UM-DeepOutbreak/2026-02-28-UM-DeepOutbreak.csvdate 2026-02-26_18:13:53
 data/predictions/FluSight-HJudge_ensemble/2026-02-28-FluSight-HJudge_ensemble.csvdate 2026-02-26_21:10:44date 2026-02-27_21:09:10
-data/predictions/UVAFluX-FS_OptimWISE/2026-02-28-UVAFluX-FS_OptimWISE.csvdate 2026-02-28_21:05:44date 2026-03-04_06:12:10date 2026-03-04_09:11:52date 2026-03-04_12:06:43date 2026-03-04_15:12:11date 2026-03-04_18:11:07
+data/predictions/UVAFluX-FS_OptimWISE/2026-02-28-UVAFluX-FS_OptimWISE.csvdate 2026-02-28_21:05:44date 2026-03-04_06:12:10date 2026-03-04_09:11:52date 2026-03-04_12:06:43date 2026-03-04_15:12:11date 2026-03-04_18:11:07date 2026-03-04_21:08:18
+data/predictions/CEPH-Rtrend_fluH/2026-03-07-CEPH-Rtrend_fluH.csv
+data/predictions/FluSight-base_seasonal/2026-03-07-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2026-03-07-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2026-03-07-FluSight-equal_cat.csv
+data/predictions/SigSci-TSENS/2026-03-07-SigSci-TSENS.csv
