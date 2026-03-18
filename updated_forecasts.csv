@@ -1,1 +1,8 @@
 file
+data/predictions/CADPH-FluCAT_Ensemble/2026-03-21-CADPH-FluCAT_Ensemble.csv
+data/predictions/CEPH-Rtrend_fluH/2026-03-21-CEPH-Rtrend_fluH.csv
+data/predictions/CU-ARNB_Net/2026-03-21-CU-ARNB_Net.csv
+data/predictions/CU-ensemble/2026-03-21-CU-ensemble.csv
+data/predictions/NEU_ISI-AdaptiveEnsemble/2026-03-21-NEU_ISI-AdaptiveEnsemble.csv
+data/predictions/NEU_ISI-FluBcast/2026-03-21-NEU_ISI-FluBcast.csv
+data/predictions/UGA_flucast-Scenariocast/2026-03-21-UGA_flucast-Scenariocast.csv
