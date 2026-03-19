@@ -1,9 +1,2 @@
 file
-data/predictions/FluSight-HJudge_ensemble/2026-03-21-FluSight-HJudge_ensemble.csv
-data/predictions/FluSight-baseline_cat/2026-03-21-FluSight-baseline_cat.csv
-data/predictions/FluSight-ens_q_cat/2026-03-21-FluSight-ens_q_cat.csv
-data/predictions/FluSight-ens_q_cat_sub/2026-03-21-FluSight-ens_q_cat_sub.csv
-data/predictions/FluSight-ensemble/2026-03-21-FluSight-ensemble.csv
-data/predictions/FluSight-lop_norm/2026-03-21-FluSight-lop_norm.csv
-data/predictions/FluSight-trained_mean/2026-03-21-FluSight-trained_mean.csv
-data/predictions/FluSight-trained_med/2026-03-21-FluSight-trained_med.csv
+data/predictions/UVAFluX-FS_OptimWISE/2026-03-21-UVAFluX-FS_OptimWISE.csv
