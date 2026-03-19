@@ -1,1 +1,12 @@
 file
+data/predictions/Epistorm-Ensemble_Flu/2026-03-21-Epistorm-Ensemble_Flu.csv
+data/predictions/FluSight-base_seasonal/2026-03-21-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2026-03-21-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2026-03-21-FluSight-equal_cat.csv
+data/predictions/Gatech-ensemble_prob/2026-03-21-Gatech-ensemble_prob.csv
+data/predictions/Gatech-ensemble_stat/2026-03-21-Gatech-ensemble_stat.csv
+data/predictions/LUcompUncertLab-puca/2026-03-21-LUcompUncertLab-puca.csv
+data/predictions/LosAlamos_NAU-CModel_Flu/2026-03-21-LosAlamos_NAU-CModel_Flu.csv
+data/predictions/MIGHTE-Joint/2026-03-21-MIGHTE-Joint.csv
+data/predictions/NIH-Flu_ARIMA/2026-03-21-NIH-Flu_ARIMA.csv
+data/predictions/UGuelphensemble-GRYPHON/2026-03-21-UGuelphensemble-GRYPHON.csv
