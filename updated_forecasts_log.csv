@@ -1137,4 +1137,21 @@ data/predictions/FluSight-lop_norm/2026-03-28-FluSight-lop_norm.csv
 data/predictions/FluSight-trained_mean/2026-03-28-FluSight-trained_mean.csv
 data/predictions/FluSight-trained_med/2026-03-28-FluSight-trained_med.csvdate 2026-03-26_18:19:14
 data/predictions/UVAFluX-FS_OptimWISE/2026-03-28-UVAFluX-FS_OptimWISE.csvdate 2026-03-26_21:08:57date 2026-03-27_21:13:05
-data/predictions/MetroCast-ensemble/2026-03-28-MetroCast-ensemble.csvdate 2026-03-28_21:10:16date 2026-04-01_06:31:39date 2026-04-01_09:25:22date 2026-04-01_12:15:03date 2026-04-01_15:28:00date 2026-04-01_18:16:00
+data/predictions/MetroCast-ensemble/2026-03-28-MetroCast-ensemble.csvdate 2026-03-28_21:10:16date 2026-04-01_06:31:39date 2026-04-01_09:25:22date 2026-04-01_12:15:03date 2026-04-01_15:28:00date 2026-04-01_18:16:00date 2026-04-01_21:14:31
+data/predictions/CADPH-FluCAT_Ensemble/2026-04-04-CADPH-FluCAT_Ensemble.csv
+data/predictions/CEPH-Rtrend_fluH/2026-04-04-CEPH-Rtrend_fluH.csv
+data/predictions/CMU-TimeSeries/2026-04-04-CMU-TimeSeries.csv
+data/predictions/CU-ARNB_Net/2026-04-04-CU-ARNB_Net.csv
+data/predictions/CU-ensemble/2026-04-04-CU-ensemble.csv
+data/predictions/DMAPRIME-DLM/2026-04-04-DMAPRIME-DLM.csv
+data/predictions/LUcompUncertLab-puca/2026-04-04-LUcompUncertLab-puca.csv
+data/predictions/LosAlamos-DoSiDo/2026-04-04-LosAlamos-DoSiDo.csv
+data/predictions/LosAlamos-ThinMint/2026-04-04-LosAlamos-ThinMint.csv
+data/predictions/MOBS-GLEAM_RL_FLUH/2026-04-04-MOBS-GLEAM_RL_FLUH.csv
+data/predictions/NAU-FourCAT/2026-04-04-NAU-FourCAT.csv
+data/predictions/NAU-epymorph/2026-04-04-NAU-epymorph.csv
+data/predictions/NEU_ISI-AdaptiveEnsemble/2026-04-04-NEU_ISI-AdaptiveEnsemble.csv
+data/predictions/NEU_ISI-FluBcast/2026-04-04-NEU_ISI-FluBcast.csv
+data/predictions/SigSci-TSENS/2026-04-04-SigSci-TSENS.csv
+data/predictions/UGA_flucast-Scenariocast/2026-04-04-UGA_flucast-Scenariocast.csv
+data/predictions/UMass-trends_ensemble/2026-04-04-UMass-trends_ensemble.parquet
