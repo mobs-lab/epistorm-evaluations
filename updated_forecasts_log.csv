@@ -1179,4 +1179,15 @@ data/predictions/UMass-AR2/2026-04-04-UMass-AR2.csv
 data/predictions/UMass-flusion/2026-04-04-UMass-flusion.csv
 data/predictions/UNC_IDD-InfluPaint/2026-04-04-UNC_IDD-InfluPaint.csv
 data/predictions/UVAFluX-Ensemble/2026-04-04-UVAFluX-Ensemble.csv
-data/predictions/VTSanghani-PRIME/2026-04-04-VTSanghani-PRIME.csvdate 2026-04-02_09:21:24
+data/predictions/VTSanghani-PRIME/2026-04-04-VTSanghani-PRIME.csvdate 2026-04-02_09:21:24date 2026-04-02_12:15:02
+data/predictions/CFA_Pyrenew-Pyrenew_E_Flu/2026-04-04-CFA_Pyrenew-Pyrenew_E_Flu.csv
+data/predictions/CFA_Pyrenew-Pyrenew_HE_Flu/2026-04-04-CFA_Pyrenew-Pyrenew_HE_Flu.csv
+data/predictions/CFA_Pyrenew-Pyrenew_H_Flu/2026-04-04-CFA_Pyrenew-Pyrenew_H_Flu.csv
+data/predictions/Epistorm-Ensemble_Flu/2026-04-04-Epistorm-Ensemble_Flu.csv
+data/predictions/Gatech-ensemble_prob/2026-04-04-Gatech-ensemble_prob.csv
+data/predictions/LosAlamos_NAU-CModel_Flu/2026-04-04-LosAlamos_NAU-CModel_Flu.csv
+data/predictions/NAU-vulPES/2026-04-04-NAU-vulPES.csv
+data/predictions/NIH-Flu_ARIMA/2026-04-04-NIH-Flu_ARIMA.csv
+data/predictions/NU-PGF_FLUH/2026-04-04-NU-PGF_FLUH.csv
+data/predictions/UGA_flucast-Copycat/2026-04-04-UGA_flucast-Copycat.csv
+data/predictions/UGuelphensemble-GRYPHON/2026-04-04-UGuelphensemble-GRYPHON.csv
