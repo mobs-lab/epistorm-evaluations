@@ -1190,4 +1190,14 @@ data/predictions/NAU-vulPES/2026-04-04-NAU-vulPES.csv
 data/predictions/NIH-Flu_ARIMA/2026-04-04-NIH-Flu_ARIMA.csv
 data/predictions/NU-PGF_FLUH/2026-04-04-NU-PGF_FLUH.csv
 data/predictions/UGA_flucast-Copycat/2026-04-04-UGA_flucast-Copycat.csv
-data/predictions/UGuelphensemble-GRYPHON/2026-04-04-UGuelphensemble-GRYPHON.csv
+data/predictions/UGuelphensemble-GRYPHON/2026-04-04-UGuelphensemble-GRYPHON.csvdate 2026-04-02_15:22:19
+data/predictions/FluSight-HJudge_ensemble/2026-04-04-FluSight-HJudge_ensemble.csv
+data/predictions/FluSight-baseline_cat/2026-04-04-FluSight-baseline_cat.csv
+data/predictions/FluSight-dist_cat/2026-04-04-FluSight-dist_cat.csv
+data/predictions/FluSight-ens_q_cat/2026-04-04-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat_sub/2026-04-04-FluSight-ens_q_cat_sub.csv
+data/predictions/FluSight-ensemble/2026-04-04-FluSight-ensemble.csv
+data/predictions/FluSight-lop_norm/2026-04-04-FluSight-lop_norm.csv
+data/predictions/FluSight-trained_mean/2026-04-04-FluSight-trained_mean.csv
+data/predictions/FluSight-trained_med/2026-04-04-FluSight-trained_med.csv
+data/predictions/UVAFluX-FS_OptimWISE/2026-04-04-UVAFluX-FS_OptimWISE.csv
