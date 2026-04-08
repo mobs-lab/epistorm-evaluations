@@ -1,1 +1,9 @@
 file
+data/predictions/CADPH-FluCAT_Ensemble/2026-04-11-CADPH-FluCAT_Ensemble.csv
+data/predictions/FluSight-base_seasonal/2026-04-11-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2026-04-11-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2026-04-11-FluSight-equal_cat.csv
+data/predictions/SigSci-TSENS/2026-04-11-SigSci-TSENS.csv
+data/predictions/UGA_flucast-Scenariocast/2026-04-11-UGA_flucast-Scenariocast.csv
+data/predictions/UMass-AR2/2026-04-11-UMass-AR2.csv
+data/predictions/UMass-trends_ensemble/2026-04-11-UMass-trends_ensemble.parquet
