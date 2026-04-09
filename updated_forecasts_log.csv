@@ -1261,4 +1261,8 @@ data/predictions/Gatech-ensemble_stat/2026-04-11-Gatech-ensemble_stat.csv
 data/predictions/LosAlamos_NAU-CModel_Flu/2026-04-11-LosAlamos_NAU-CModel_Flu.csv
 data/predictions/NIH-Flu_ARIMA/2026-04-11-NIH-Flu_ARIMA.csv
 data/predictions/UGuelphensemble-GRYPHON/2026-04-11-UGuelphensemble-GRYPHON.csv
-data/predictions/UI_CompEpi-EpiGen/2026-04-11-UI_CompEpi-EpiGen.csv
+data/predictions/UI_CompEpi-EpiGen/2026-04-11-UI_CompEpi-EpiGen.csvdate 2026-04-09_15:31:07
+data/predictions/FluSight-HJudge_ensemble/2026-04-11-FluSight-HJudge_ensemble.csv
+data/predictions/FluSight-ens_q_cat/2026-04-11-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ensemble/2026-04-11-FluSight-ensemble.csv
+data/predictions/FluSight-lop_norm/2026-04-11-FluSight-lop_norm.csv
