@@ -1267,4 +1267,16 @@ data/predictions/FluSight-ens_q_cat/2026-04-11-FluSight-ens_q_cat.csv
 data/predictions/FluSight-ensemble/2026-04-11-FluSight-ensemble.csv
 data/predictions/FluSight-lop_norm/2026-04-11-FluSight-lop_norm.csvdate 2026-04-09_18:19:47
 data/predictions/MetroCast-ensemble/2026-04-11-MetroCast-ensemble.csvdate 2026-04-09_21:15:41
-data/predictions/UVAFluX-FS_OptimWISE/2026-04-11-UVAFluX-FS_OptimWISE.csvdate 2026-04-10_21:13:32date 2026-04-11_21:11:11date 2026-04-15_06:34:17date 2026-04-15_09:31:49date 2026-04-15_12:17:21date 2026-04-15_15:25:47date 2026-04-15_18:22:07
+data/predictions/UVAFluX-FS_OptimWISE/2026-04-11-UVAFluX-FS_OptimWISE.csvdate 2026-04-10_21:13:32date 2026-04-11_21:11:11date 2026-04-15_06:34:17date 2026-04-15_09:31:49date 2026-04-15_12:17:21date 2026-04-15_15:25:47date 2026-04-15_18:22:07date 2026-04-15_21:17:16
+data/predictions/CADPH-FluCAT_Ensemble/2026-04-18-CADPH-FluCAT_Ensemble.csv
+data/predictions/CEPH-Rtrend_fluH/2026-04-18-CEPH-Rtrend_fluH.csv
+data/predictions/CU-ARNB_Net/2026-04-18-CU-ARNB_Net.csv
+data/predictions/CU-ensemble/2026-04-18-CU-ensemble.csv
+data/predictions/LosAlamos-DoSiDo/2026-04-18-LosAlamos-DoSiDo.csv
+data/predictions/LosAlamos-ThinMint/2026-04-18-LosAlamos-ThinMint.csv
+data/predictions/MOBS-GLEAM_RL_FLUH/2026-04-18-MOBS-GLEAM_RL_FLUH.csv
+data/predictions/NAU-FourCAT/2026-04-18-NAU-FourCAT.csv
+data/predictions/NAU-epymorph/2026-04-18-NAU-epymorph.csv
+data/predictions/UGA_flucast-Scenariocast/2026-04-18-UGA_flucast-Scenariocast.csv
+data/predictions/UMass-AR2/2026-04-18-UMass-AR2.csv
+data/predictions/UMass-trends_ensemble/2026-04-18-UMass-trends_ensemble.parquet
