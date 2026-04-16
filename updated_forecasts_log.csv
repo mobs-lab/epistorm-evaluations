@@ -1326,4 +1326,5 @@ data/predictions/FluSight-ens_q_cat_sub/2026-04-18-FluSight-ens_q_cat_sub.csv
 data/predictions/FluSight-ensemble/2026-04-18-FluSight-ensemble.csv
 data/predictions/FluSight-lop_norm/2026-04-18-FluSight-lop_norm.csv
 data/predictions/FluSight-trained_mean/2026-04-18-FluSight-trained_mean.csv
-data/predictions/FluSight-trained_med/2026-04-18-FluSight-trained_med.csv
+data/predictions/FluSight-trained_med/2026-04-18-FluSight-trained_med.csvdate 2026-04-16_15:31:55
+data/predictions/FluSight-HJudge_ensemble/2026-04-18-FluSight-HJudge_ensemble.csv
