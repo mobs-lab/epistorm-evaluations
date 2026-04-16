@@ -1318,4 +1318,12 @@ data/predictions/UM-DeepOutbreak/2026-04-18-UM-DeepOutbreak.csv
 data/predictions/UMass-flusion/2026-04-18-UMass-flusion.csv
 data/predictions/UNC_IDD-InfluPaint/2026-04-18-UNC_IDD-InfluPaint.csv
 data/predictions/UVAFluX-Ensemble/2026-04-18-UVAFluX-Ensemble.csv
-data/predictions/VTSanghani-PRIME/2026-04-18-VTSanghani-PRIME.csvdate 2026-04-16_09:30:54
+data/predictions/VTSanghani-PRIME/2026-04-18-VTSanghani-PRIME.csvdate 2026-04-16_09:30:54date 2026-04-16_12:19:37
+data/predictions/FluSight-baseline_cat/2026-04-18-FluSight-baseline_cat.csv
+data/predictions/FluSight-dist_cat/2026-04-18-FluSight-dist_cat.csv
+data/predictions/FluSight-ens_q_cat/2026-04-18-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat_sub/2026-04-18-FluSight-ens_q_cat_sub.csv
+data/predictions/FluSight-ensemble/2026-04-18-FluSight-ensemble.csv
+data/predictions/FluSight-lop_norm/2026-04-18-FluSight-lop_norm.csv
+data/predictions/FluSight-trained_mean/2026-04-18-FluSight-trained_mean.csv
+data/predictions/FluSight-trained_med/2026-04-18-FluSight-trained_med.csv
