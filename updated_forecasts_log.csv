@@ -1329,4 +1329,19 @@ data/predictions/FluSight-trained_mean/2026-04-18-FluSight-trained_mean.csv
 data/predictions/FluSight-trained_med/2026-04-18-FluSight-trained_med.csvdate 2026-04-16_15:31:55
 data/predictions/FluSight-HJudge_ensemble/2026-04-18-FluSight-HJudge_ensemble.csvdate 2026-04-16_18:23:20
 data/predictions/MetroCast-ensemble/2026-04-18-MetroCast-ensemble.csv
-data/predictions/UVAFluX-FS_OptimWISE/2026-04-18-UVAFluX-FS_OptimWISE.csvdate 2026-04-16_21:15:21date 2026-04-17_21:17:54date 2026-04-18_21:12:41date 2026-04-22_06:34:48date 2026-04-22_09:31:15date 2026-04-22_12:18:18date 2026-04-22_15:28:13date 2026-04-22_18:21:00
+data/predictions/UVAFluX-FS_OptimWISE/2026-04-18-UVAFluX-FS_OptimWISE.csvdate 2026-04-16_21:15:21date 2026-04-17_21:17:54date 2026-04-18_21:12:41date 2026-04-22_06:34:48date 2026-04-22_09:31:15date 2026-04-22_12:18:18date 2026-04-22_15:28:13date 2026-04-22_18:21:00date 2026-04-22_21:17:06
+data/predictions/CU-ARNB_Net/2026-04-25-CU-ARNB_Net.csv
+data/predictions/CU-ensemble/2026-04-25-CU-ensemble.csv
+data/predictions/FluSight-base_seasonal/2026-04-25-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2026-04-25-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2026-04-25-FluSight-equal_cat.csv
+data/predictions/LosAlamos-DoSiDo/2026-04-25-LosAlamos-DoSiDo.csv
+data/predictions/LosAlamos-ThinMint/2026-04-25-LosAlamos-ThinMint.csv
+data/predictions/NAU-epymorph/2026-04-25-NAU-epymorph.csv
+data/predictions/NEU_ISI-AdaptiveEnsemble/2026-04-25-NEU_ISI-AdaptiveEnsemble.csv
+data/predictions/NEU_ISI-FluBcast/2026-04-25-NEU_ISI-FluBcast.csv
+data/predictions/OHT_JHU-nbxd/2026-04-25-OHT_JHU-nbxd.csv
+data/predictions/SigSci-TSENS/2026-04-25-SigSci-TSENS.csv
+data/predictions/UGA_CEID-Walk/2026-04-25-UGA_CEID-Walk.csv
+data/predictions/UGA_CEID-auto_AVG_LB/2026-04-25-UGA_CEID-auto_AVG_LB.csv
+data/predictions/UGA_flucast-Scenariocast/2026-04-25-UGA_flucast-Scenariocast.csv
