@@ -1,1 +1,7 @@
 file
+data/predictions/FluSight-baseline_cat/2026-04-25-FluSight-baseline_cat.csv
+data/predictions/FluSight-dist_cat/2026-04-25-FluSight-dist_cat.csv
+data/predictions/FluSight-ens_q_cat/2026-04-25-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat_sub/2026-04-25-FluSight-ens_q_cat_sub.csv
+data/predictions/FluSight-ensemble/2026-04-25-FluSight-ensemble.csv
+data/predictions/FluSight-lop_norm/2026-04-25-FluSight-lop_norm.csv
