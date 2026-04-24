@@ -1389,4 +1389,5 @@ data/predictions/FluSight-lop_norm/2026-04-25-FluSight-lop_norm.csvdate 2026-04-
 data/predictions/FluSight-HJudge_ensemble/2026-04-25-FluSight-HJudge_ensemble.csv
 data/predictions/FluSight-trained_mean/2026-04-25-FluSight-trained_mean.csv
 data/predictions/FluSight-trained_med/2026-04-25-FluSight-trained_med.csv
-data/predictions/UVAFluX-FS_OptimWISE/2026-04-25-UVAFluX-FS_OptimWISE.csvdate 2026-04-23_18:22:23date 2026-04-23_21:16:44
+data/predictions/UVAFluX-FS_OptimWISE/2026-04-25-UVAFluX-FS_OptimWISE.csvdate 2026-04-23_18:22:23date 2026-04-23_21:16:44date 2026-04-24_21:19:20
+data/predictions/MetroCast-ensemble/2026-04-25-MetroCast-ensemble.csv
