@@ -1445,4 +1445,5 @@ data/predictions/FluSight-ens_q_cat_sub/2026-05-02-FluSight-ens_q_cat_sub.csv
 data/predictions/FluSight-ensemble/2026-05-02-FluSight-ensemble.csv
 data/predictions/FluSight-lop_norm/2026-05-02-FluSight-lop_norm.csv
 data/predictions/FluSight-trained_mean/2026-05-02-FluSight-trained_mean.csv
-data/predictions/FluSight-trained_med/2026-05-02-FluSight-trained_med.csv
+data/predictions/FluSight-trained_med/2026-05-02-FluSight-trained_med.csvdate 2026-04-30_15:34:18
+data/predictions/UVAFluX-FS_OptimWISE/2026-05-02-UVAFluX-FS_OptimWISE.csv
