@@ -1448,4 +1448,20 @@ data/predictions/FluSight-trained_mean/2026-05-02-FluSight-trained_mean.csv
 data/predictions/FluSight-trained_med/2026-05-02-FluSight-trained_med.csvdate 2026-04-30_15:34:18
 data/predictions/UVAFluX-FS_OptimWISE/2026-05-02-UVAFluX-FS_OptimWISE.csvdate 2026-04-30_18:27:30
 data/predictions/FluSight-HJudge_ensemble/2026-05-02-FluSight-HJudge_ensemble.csv
-data/predictions/MetroCast-ensemble/2026-05-02-MetroCast-ensemble.csvdate 2026-04-30_21:21:21date 2026-05-01_21:20:09date 2026-05-02_21:17:19date 2026-05-06_06:52:15date 2026-05-06_09:46:33date 2026-05-06_12:33:49date 2026-05-06_15:46:16date 2026-05-06_18:31:16
+data/predictions/MetroCast-ensemble/2026-05-02-MetroCast-ensemble.csvdate 2026-04-30_21:21:21date 2026-05-01_21:20:09date 2026-05-02_21:17:19date 2026-05-06_06:52:15date 2026-05-06_09:46:33date 2026-05-06_12:33:49date 2026-05-06_15:46:16date 2026-05-06_18:31:16date 2026-05-06_21:25:03
+data/predictions/CADPH-FluCAT_Ensemble/2026-05-09-CADPH-FluCAT_Ensemble.csv
+data/predictions/CEPH-Rtrend_fluH/2026-05-09-CEPH-Rtrend_fluH.csv
+data/predictions/CMU-TimeSeries/2026-05-09-CMU-TimeSeries.csv
+data/predictions/DMAPRIME-DLM/2026-05-09-DMAPRIME-DLM.csv
+data/predictions/FluSight-base_seasonal/2026-05-09-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2026-05-09-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2026-05-09-FluSight-equal_cat.csv
+data/predictions/LosAlamos-DoSiDo/2026-05-09-LosAlamos-DoSiDo.csv
+data/predictions/LosAlamos-ThinMint/2026-05-09-LosAlamos-ThinMint.csv
+data/predictions/MOBS-GLEAM_RL_FLUH/2026-05-09-MOBS-GLEAM_RL_FLUH.csv
+data/predictions/NAU-FourCAT/2026-05-09-NAU-FourCAT.csv
+data/predictions/NEU_ISI-AdaptiveEnsemble/2026-05-09-NEU_ISI-AdaptiveEnsemble.csv
+data/predictions/NEU_ISI-FluBcast/2026-05-09-NEU_ISI-FluBcast.csv
+data/predictions/NU-PGF_FLUH/2026-05-09-NU-PGF_FLUH.csv
+data/predictions/SigSci-TSENS/2026-05-09-SigSci-TSENS.csv
+data/predictions/UNC_IDD-InfluPaint/2026-05-09-UNC_IDD-InfluPaint.csv
