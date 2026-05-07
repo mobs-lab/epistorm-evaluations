@@ -1495,4 +1495,14 @@ data/predictions/UMass-AR2/2026-05-09-UMass-AR2.csv
 data/predictions/UMass-flusion/2026-05-09-UMass-flusion.csv
 data/predictions/UMass-trends_ensemble/2026-05-09-UMass-trends_ensemble.parquet
 data/predictions/UVAFluX-Ensemble/2026-05-09-UVAFluX-Ensemble.csv
-data/predictions/VTSanghani-PRIME/2026-05-09-VTSanghani-PRIME.csvdate 2026-05-07_09:51:32
+data/predictions/VTSanghani-PRIME/2026-05-09-VTSanghani-PRIME.csvdate 2026-05-07_09:51:32date 2026-05-07_12:34:42
+data/predictions/DMAPRIME-QR/2026-05-09-DMAPRIME-QR.csv
+data/predictions/FluSight-baseline_cat/2026-05-09-FluSight-baseline_cat.csv
+data/predictions/FluSight-dist_cat/2026-05-09-FluSight-dist_cat.csv
+data/predictions/FluSight-ens_q_cat/2026-05-09-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat_sub/2026-05-09-FluSight-ens_q_cat_sub.csv
+data/predictions/FluSight-ensemble/2026-05-09-FluSight-ensemble.csv
+data/predictions/FluSight-lop_norm/2026-05-09-FluSight-lop_norm.csv
+data/predictions/FluSight-trained_mean/2026-05-09-FluSight-trained_mean.csv
+data/predictions/FluSight-trained_med/2026-05-09-FluSight-trained_med.csv
+data/predictions/UGA_flucast-Scenariocast/2026-05-09-UGA_flucast-Scenariocast.csv
