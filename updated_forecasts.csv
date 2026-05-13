@@ -1,4 +1,14 @@
 file
-data/predictions/CMU-TimeSeries/2026-05-16-CMU-TimeSeries.csv
-data/predictions/MOBS-GLEAM_RL_FLUH/2026-05-16-MOBS-GLEAM_RL_FLUH.csv
-data/predictions/SigSci-TSENS/2026-05-16-SigSci-TSENS.csv
+data/predictions/CEPH-Rtrend_fluH/2026-05-16-CEPH-Rtrend_fluH.csv
+data/predictions/DMAPRIME-QR/2026-05-16-DMAPRIME-QR.csv
+data/predictions/FluSight-base_seasonal/2026-05-16-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2026-05-16-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2026-05-16-FluSight-equal_cat.csv
+data/predictions/LUcompUncertLab-puca/2026-05-16-LUcompUncertLab-puca.csv
+data/predictions/NAU-FourCAT/2026-05-16-NAU-FourCAT.csv
+data/predictions/NAU-epymorph/2026-05-16-NAU-epymorph.csv
+data/predictions/NEU_ISI-AdaptiveEnsemble/2026-05-16-NEU_ISI-AdaptiveEnsemble.csv
+data/predictions/NEU_ISI-FluBcast/2026-05-16-NEU_ISI-FluBcast.csv
+data/predictions/UGA_flucast-Scenariocast/2026-05-16-UGA_flucast-Scenariocast.csv
+data/predictions/UMass-AR2/2026-05-16-UMass-AR2.csv
+data/predictions/UMass-trends_ensemble/2026-05-16-UMass-trends_ensemble.parquet
