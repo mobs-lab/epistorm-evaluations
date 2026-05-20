@@ -1569,4 +1569,45 @@ data/predictions/FluSight-trained_mean/2026-05-16-FluSight-trained_mean.csv
 data/predictions/FluSight-trained_med/2026-05-16-FluSight-trained_med.csvdate 2026-05-14_15:46:20
 data/predictions/FluSight-HJudge_ensemble/2026-05-16-FluSight-HJudge_ensemble.csvdate 2026-05-14_18:34:53
 data/predictions/UVAFluX-FS_OptimWISE/2026-05-16-UVAFluX-FS_OptimWISE.csvdate 2026-05-14_21:25:46date 2026-05-15_21:26:08
-data/predictions/MetroCast-ensemble/2026-05-16-MetroCast-ensemble.csvdate 2026-05-16_21:20:09date 2026-05-20_07:08:13date 2026-05-20_10:07:40date 2026-05-20_12:47:54
+data/predictions/MetroCast-ensemble/2026-05-16-MetroCast-ensemble.csvdate 2026-05-16_21:20:09date 2026-05-20_07:08:13date 2026-05-20_10:07:40date 2026-05-20_12:47:54date 2026-05-20_16:12:32
+data/predictions/FluSight-ens_q_cat/2023-10-14-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2023-10-21-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2023-10-28-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2023-11-04-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2023-11-11-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2023-11-18-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2023-11-25-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2023-12-02-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2023-12-09-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2023-12-16-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2023-12-23-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2023-12-30-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-01-06-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-01-13-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-01-20-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-01-27-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-02-03-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-02-10-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-02-17-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-02-24-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-03-02-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-03-09-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-03-16-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-03-23-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-03-30-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-04-06-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-04-13-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-04-20-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-04-27-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-05-04-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-11-23-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-11-30-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-12-07-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-12-14-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-12-21-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2024-12-28-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2025-01-04-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2025-01-11-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2025-01-18-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2025-02-01-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat/2025-02-08-FluSight-ens_q_cat.csv
