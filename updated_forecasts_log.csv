@@ -1674,4 +1674,21 @@ data/predictions/FluSight-trained_mean/2026-05-23-FluSight-trained_mean.csv
 data/predictions/FluSight-trained_med/2026-05-23-FluSight-trained_med.csvdate 2026-05-21_18:36:24date 2026-05-21_21:31:46date 2026-05-22_21:28:39
 data/predictions/MetroCast-ensemble/2026-05-23-MetroCast-ensemble.csv
 data/predictions/UVAFluX-FS_OptimWISE/2026-05-23-UVAFluX-FS_OptimWISE.csvdate 2026-05-23_21:20:44date 2026-05-27_07:22:17date 2026-05-27_10:24:39date 2026-05-27_13:03:21date 2026-05-27_16:20:07date 2026-05-27_18:44:26
-data/predictions/CADPH-FluCAT_Ensemble/2026-05-30-CADPH-FluCAT_Ensemble.csv
+data/predictions/CADPH-FluCAT_Ensemble/2026-05-30-CADPH-FluCAT_Ensemble.csvdate 2026-05-27_21:34:50
+data/predictions/CEPH-Rtrend_fluH/2026-05-30-CEPH-Rtrend_fluH.csv
+data/predictions/CU-ARNB_Net/2026-05-30-CU-ARNB_Net.csv
+data/predictions/CU-ensemble/2026-05-30-CU-ensemble.csv
+data/predictions/DMAPRIME-QR/2026-05-30-DMAPRIME-QR.csv
+data/predictions/LosAlamos_NAU-CModel_Flu/2026-05-30-LosAlamos_NAU-CModel_Flu.csv
+data/predictions/MOBS-GLEAM_RL_FLUH/2026-05-30-MOBS-GLEAM_RL_FLUH.csv
+data/predictions/NAU-FourCAT/2026-05-30-NAU-FourCAT.csv
+data/predictions/NEU_ISI-AdaptiveEnsemble/2026-05-30-NEU_ISI-AdaptiveEnsemble.csv
+data/predictions/NEU_ISI-FluBcast/2026-05-30-NEU_ISI-FluBcast.csv
+data/predictions/OHT_JHU-nbxd/2026-05-30-OHT_JHU-nbxd.csv
+data/predictions/SigSci-TSENS/2026-05-30-SigSci-TSENS.csv
+data/predictions/UGA_CEID-Walk/2026-05-30-UGA_CEID-Walk.csv
+data/predictions/UGA_CEID-auto_AVG_LB/2026-05-30-UGA_CEID-auto_AVG_LB.csv
+data/predictions/UGA_flucast-Scenariocast/2026-05-30-UGA_flucast-Scenariocast.csv
+data/predictions/UMass-AR2/2026-05-30-UMass-AR2.csv
+data/predictions/UMass-trends_ensemble/2026-05-30-UMass-trends_ensemble.parquet
+data/predictions/UNC_IDD-InfluPaint/2026-05-30-UNC_IDD-InfluPaint.csv
