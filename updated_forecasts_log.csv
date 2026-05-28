@@ -1715,4 +1715,15 @@ data/predictions/UGA_flucast-Copycat/2026-05-30-UGA_flucast-Copycat.csv
 data/predictions/UGA_flucast-INFLAenza/2026-05-30-UGA_flucast-INFLAenza.csv
 data/predictions/UMass-flusion/2026-05-30-UMass-flusion.csv
 data/predictions/UVAFluX-Ensemble/2026-05-30-UVAFluX-Ensemble.csv
-data/predictions/VTSanghani-PRIME/2026-05-30-VTSanghani-PRIME.csvdate 2026-05-28_10:26:45
+data/predictions/VTSanghani-PRIME/2026-05-30-VTSanghani-PRIME.csvdate 2026-05-28_10:26:45date 2026-05-28_13:07:12
+data/predictions/DMAPRIME-DLM/2026-05-30-DMAPRIME-DLM.csv
+data/predictions/Epistorm-Ensemble_Flu/2026-05-30-Epistorm-Ensemble_Flu.csv
+data/predictions/FluSight-baseline_cat/2026-05-30-FluSight-baseline_cat.csv
+data/predictions/FluSight-dist_cat/2026-05-30-FluSight-dist_cat.csv
+data/predictions/FluSight-ens_q_cat/2026-05-30-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ens_q_cat_sub/2026-05-30-FluSight-ens_q_cat_sub.csv
+data/predictions/FluSight-ensemble/2026-05-30-FluSight-ensemble.csv
+data/predictions/FluSight-lop_norm/2026-05-30-FluSight-lop_norm.csv
+data/predictions/FluSight-trained_mean/2026-05-30-FluSight-trained_mean.csv
+data/predictions/FluSight-trained_med/2026-05-30-FluSight-trained_med.csv
+data/predictions/NU-PGF_FLUH/2026-05-30-NU-PGF_FLUH.csv
