@@ -1776,4 +1776,12 @@ data/predictions/UMass-AR2/2026-10-10-UMass-AR2.csv
 data/predictions/UMass-peakGB/2026-10-10-UMass-peakGB.csv
 data/predictions/UMass-trends_ensemble/2026-10-10-UMass-trends_ensemble.parquet
 data/predictions/UVAFluX-Ensemble/2026-10-10-UVAFluX-Ensemble.csv
-data/predictions/VTSanghani-PRIME/2026-10-10-VTSanghani-PRIME.csvdate 2026-10-08_09:08:09
+data/predictions/VTSanghani-PRIME/2026-10-10-VTSanghani-PRIME.csvdate 2026-10-08_09:08:09date 2026-10-08_12:06:12
+data/predictions/ACCIDDA-EpiLoom/2026-10-10-ACCIDDA-EpiLoom.csv
+data/predictions/DMAPRIME-QR/2026-10-10-DMAPRIME-QR.csv
+data/predictions/Epistorm-Ensemble_Flu/2026-10-10-Epistorm-Ensemble_Flu.csv
+data/predictions/OHT_JHU-nbxd/2026-10-10-OHT_JHU-nbxd.csv
+data/predictions/UM-DeepOutbreak/2026-10-10-UM-DeepOutbreak.csv
+data/predictions/UMass-flusion/2026-10-10-UMass-flusion.csv
+data/predictions/Xi_lab-GLEAM_AI/2026-10-10-Xi_lab-GLEAM_AI.csv
+data/predictions/Xi_lab-GLEAM_AI_hybrid/2026-10-10-Xi_lab-GLEAM_AI_hybrid.csv
