@@ -1798,4 +1798,18 @@ data/predictions/Cornell_JHU-SCARCHhierarSIR/2026-10-17-Cornell_JHU-SCARCHhierar
 data/predictions/Cornell_JHU-hierarchSIR/2026-10-17-Cornell_JHU-hierarchSIR.csv
 data/predictions/HallAI-FluTrend/2026-10-17-HallAI-FluTrend.csv
 data/predictions/bayvaxbio-CountCast/2026-10-17-bayvaxbio-CountCast.csv
-data/predictions/docxology-panelqr/2026-10-17-docxology-panelqr.csv
+data/predictions/docxology-panelqr/2026-10-17-docxology-panelqr.csvdate 2026-10-14_21:04:40
+data/predictions/CU-ensemble/2026-10-17-CU-ensemble.csv
+data/predictions/DMAPRIME-HYB/2026-10-17-DMAPRIME-HYB.csv
+data/predictions/FluSight-base_seasonal/2026-10-17-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2026-10-17-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2026-10-17-FluSight-equal_cat.csv
+data/predictions/MOBS-GLEAM_NCB_FLUH/2026-10-17-MOBS-GLEAM_NCB_FLUH.csv
+data/predictions/NAU-epymorph/2026-10-17-NAU-epymorph.csv
+data/predictions/NEU_ISI-FluBcast/2026-10-17-NEU_ISI-FluBcast.csv
+data/predictions/OHT_JHU-nbxd/2026-10-17-OHT_JHU-nbxd.csv
+data/predictions/PSI-CAT_MOA/2026-10-17-PSI-CAT_MOA.csv
+data/predictions/Schnitzels-stack5/2026-10-17-Schnitzels-stack5.csv
+data/predictions/UMass-AR2/2026-10-17-UMass-AR2.csv
+data/predictions/UMass-peakGB/2026-10-17-UMass-peakGB.csv
+data/predictions/UMass-trends_ensemble/2026-10-17-UMass-trends_ensemble.parquet
