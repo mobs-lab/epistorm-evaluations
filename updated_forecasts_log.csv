@@ -1793,4 +1793,9 @@ data/predictions/FluSight-trained_med/2026-10-10-FluSight-trained_med.csvdate 20
 data/predictions/ACCIDDA-Chromantis/2026-10-10-ACCIDDA-Chromantis.csvdate 2026-10-08_21:05:16date 2026-10-09_21:10:20
 data/predictions/CU-STS_Residual/2026-10-10-CU-STS_Residual.csv
 data/predictions/CU-STS_base/2026-10-10-CU-STS_base.csv
-data/predictions/FluSight-HJudge_ensemble/2026-10-10-FluSight-HJudge_ensemble.csvdate 2026-10-10_21:09:43date 2026-10-14_06:07:22date 2026-10-14_09:05:55date 2026-10-14_12:06:54date 2026-10-14_15:05:50
+data/predictions/FluSight-HJudge_ensemble/2026-10-10-FluSight-HJudge_ensemble.csvdate 2026-10-10_21:09:43date 2026-10-14_06:07:22date 2026-10-14_09:05:55date 2026-10-14_12:06:54date 2026-10-14_15:05:50date 2026-10-14_18:06:18
+data/predictions/Cornell_JHU-SCARCHhierarSIR/2026-10-17-Cornell_JHU-SCARCHhierarSIR.csv
+data/predictions/Cornell_JHU-hierarchSIR/2026-10-17-Cornell_JHU-hierarchSIR.csv
+data/predictions/HallAI-FluTrend/2026-10-17-HallAI-FluTrend.csv
+data/predictions/bayvaxbio-CountCast/2026-10-17-bayvaxbio-CountCast.csv
+data/predictions/docxology-panelqr/2026-10-17-docxology-panelqr.csv
