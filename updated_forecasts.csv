@@ -1,5 +1,8 @@
 file
-data/predictions/ACCIDDA-insightcast/2026-10-17-ACCIDDA-insightcast.csv
-data/predictions/MIGHTE-Base/2026-10-17-MIGHTE-Base.csv
-data/predictions/MIGHTE-Linear/2026-10-17-MIGHTE-Linear.csv
-data/predictions/MIGHTE-Nsemble/2026-10-17-MIGHTE-Nsemble.csv
+data/predictions/FluSight-baseline_cat/2026-10-10-FluSight-baseline_cat.csv
+data/predictions/FluSight-baseline_cat/2026-10-17-FluSight-baseline_cat.csv
+data/predictions/FluSight-ens_q_cat/2026-10-17-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ensemble/2026-10-17-FluSight-ensemble.csv
+data/predictions/FluSight-lop_norm/2026-10-17-FluSight-lop_norm.csv
+data/predictions/FluSight-trained_mean/2026-10-17-FluSight-trained_mean.csv
+data/predictions/FluSight-trained_med/2026-10-17-FluSight-trained_med.csv
