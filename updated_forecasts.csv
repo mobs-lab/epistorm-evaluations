@@ -1,1 +1,8 @@
 file
+data/predictions/Cornell_JHU-SCARCHhierarSIR/2026-10-24-Cornell_JHU-SCARCHhierarSIR.csv
+data/predictions/FluSight-base_seasonal/2026-10-24-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2026-10-24-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2026-10-24-FluSight-equal_cat.csv
+data/predictions/HallAI-FluTrend/2026-10-24-HallAI-FluTrend.csv
+data/predictions/NAU-epymorph/2026-10-24-NAU-epymorph.csv
+data/predictions/bayvaxbio-CountCast/2026-10-24-bayvaxbio-CountCast.csv
