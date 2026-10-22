@@ -1,7 +1,7 @@
 file
-data/predictions/CFA-NowcastAutoGP/2026-10-24-CFA-NowcastAutoGP.csv
-data/predictions/CFA-PyRenew_E/2026-10-24-CFA-PyRenew_E.csv
-data/predictions/CFA-PyRenew_H/2026-10-24-CFA-PyRenew_H.csv
-data/predictions/CFA-PyRenew_HE/2026-10-24-CFA-PyRenew_HE.csv
-data/predictions/Epistorm-Ensemble_Flu/2026-10-24-Epistorm-Ensemble_Flu.csv
-data/predictions/PLANET_NEU-ClaudeScience/2026-10-24-PLANET_NEU-ClaudeScience.csv
+data/predictions/FluSight-baseline_cat/2026-10-24-FluSight-baseline_cat.csv
+data/predictions/FluSight-ens_q_cat/2026-10-24-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ensemble/2026-10-24-FluSight-ensemble.csv
+data/predictions/FluSight-lop_norm/2026-10-24-FluSight-lop_norm.csv
+data/predictions/FluSight-trained_mean/2026-10-24-FluSight-trained_mean.csv
+data/predictions/FluSight-trained_med/2026-10-24-FluSight-trained_med.csv
