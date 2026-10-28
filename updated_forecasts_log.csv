@@ -1942,4 +1942,11 @@ data/predictions/FluSight-lop_norm/2026-10-24-FluSight-lop_norm.csv
 data/predictions/FluSight-trained_mean/2026-10-24-FluSight-trained_mean.csv
 data/predictions/FluSight-trained_med/2026-10-24-FluSight-trained_med.csvdate 2026-10-22_18:05:33
 data/predictions/FluSight-HJudge_ensemble/2026-10-24-FluSight-HJudge_ensemble.csv
-data/predictions/FluSight-ens_q_cat/2026-10-24-FluSight-ens_q_cat.csvdate 2026-10-22_21:05:07date 2026-10-23_21:09:00date 2026-10-24_21:09:14date 2026-10-28_06:06:59date 2026-10-28_09:05:06date 2026-10-28_12:04:25date 2026-10-28_15:04:44
+data/predictions/FluSight-ens_q_cat/2026-10-24-FluSight-ens_q_cat.csvdate 2026-10-22_21:05:07date 2026-10-23_21:09:00date 2026-10-24_21:09:14date 2026-10-28_06:06:59date 2026-10-28_09:05:06date 2026-10-28_12:04:25date 2026-10-28_15:04:44date 2026-10-28_18:10:59
+data/predictions/Cornell_JHU-SCARCHhierarSIR/2026-10-31-Cornell_JHU-SCARCHhierarSIR.csv
+data/predictions/Cornell_JHU-hierarchSIR/2026-10-31-Cornell_JHU-hierarchSIR.csv
+data/predictions/FluTurists-gbqr/2026-10-31-FluTurists-gbqr.csv
+data/predictions/HallAI-FluTrend/2026-10-31-HallAI-FluTrend.csv
+data/predictions/NAU-epymorph/2026-10-31-NAU-epymorph.csv
+data/predictions/NEU_ISI-FluBcast/2026-10-31-NEU_ISI-FluBcast.csv
+data/predictions/PSI-CAT_MOA/2026-10-31-PSI-CAT_MOA.csv
