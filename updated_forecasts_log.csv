@@ -1949,4 +1949,15 @@ data/predictions/FluTurists-gbqr/2026-10-31-FluTurists-gbqr.csv
 data/predictions/HallAI-FluTrend/2026-10-31-HallAI-FluTrend.csv
 data/predictions/NAU-epymorph/2026-10-31-NAU-epymorph.csv
 data/predictions/NEU_ISI-FluBcast/2026-10-31-NEU_ISI-FluBcast.csv
-data/predictions/PSI-CAT_MOA/2026-10-31-PSI-CAT_MOA.csv
+data/predictions/PSI-CAT_MOA/2026-10-31-PSI-CAT_MOA.csvdate 2026-10-28_21:04:47
+data/predictions/CADPH-FluCAT_Ensemble/2026-10-31-CADPH-FluCAT_Ensemble.csv
+data/predictions/CEPH-Rtrend_fluH/2026-10-31-CEPH-Rtrend_fluH.csv
+data/predictions/Cornell_JHU-SCARCHhierarSIR/2026-10-31-Cornell_JHU-SCARCHhierarSIR.csv
+data/predictions/FluSight-base_seasonal/2026-10-31-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2026-10-31-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2026-10-31-FluSight-equal_cat.csv
+data/predictions/PSI-PROF/2026-10-31-PSI-PROF.parquet
+data/predictions/UMass-peakGB/2026-10-31-UMass-peakGB.csv
+data/predictions/UMass-trends_ensemble/2026-10-31-UMass-trends_ensemble.parquet
+data/predictions/VTSanghani-PRIME/2026-10-31-VTSanghani-PRIME.csv
+data/predictions/docxology-panelqr/2026-10-31-docxology-panelqr.csv
