@@ -2012,4 +2012,10 @@ data/predictions/CFA-PyRenew_H/2026-10-31-CFA-PyRenew_H.csv
 data/predictions/CFA-PyRenew_HE/2026-10-31-CFA-PyRenew_HE.csv
 data/predictions/DMAPRIME-QR/2026-10-31-DMAPRIME-QR.csv
 data/predictions/NU-FLARE/2026-10-31-NU-FLARE.csv
-data/predictions/Xi_lab-Agents/2026-10-31-Xi_lab-Agents.csv
+data/predictions/Xi_lab-Agents/2026-10-31-Xi_lab-Agents.csvdate 2026-10-29_15:04:45
+data/predictions/FluSight-baseline_cat/2026-10-31-FluSight-baseline_cat.csv
+data/predictions/FluSight-ens_q_cat/2026-10-31-FluSight-ens_q_cat.csv
+data/predictions/FluSight-ensemble/2026-10-31-FluSight-ensemble.csv
+data/predictions/FluSight-lop_norm/2026-10-31-FluSight-lop_norm.csv
+data/predictions/FluSight-trained_mean/2026-10-31-FluSight-trained_mean.csv
+data/predictions/FluSight-trained_med/2026-10-31-FluSight-trained_med.csv
