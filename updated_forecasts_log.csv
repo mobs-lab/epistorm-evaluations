@@ -2023,4 +2023,27 @@ data/predictions/FluSight-HJudge_ensemble/2026-10-31-FluSight-HJudge_ensemble.cs
 data/predictions/FluSight-ens_q_cat/2026-10-31-FluSight-ens_q_cat.csv
 data/predictions/FluSight-ensemble/2026-10-31-FluSight-ensemble.csv
 data/predictions/FluSight-lop_norm/2026-10-31-FluSight-lop_norm.csvdate 2026-10-29_21:04:35date 2026-10-30_21:07:23
-data/predictions/FluSight-HJudge_ensemble/2026-10-31-FluSight-HJudge_ensemble.csvdate 2026-10-31_21:06:38date 2026-11-04_06:05:55date 2026-11-04_09:04:23date 2026-11-04_12:05:28date 2026-11-04_15:03:36date 2026-11-04_18:05:51
+data/predictions/FluSight-HJudge_ensemble/2026-10-31-FluSight-HJudge_ensemble.csvdate 2026-10-31_21:06:38date 2026-11-04_06:05:55date 2026-11-04_09:04:23date 2026-11-04_12:05:28date 2026-11-04_15:03:36date 2026-11-04_18:05:51date 2026-11-04_21:03:23
+data/predictions/CADPH-FluCAT_Ensemble/2026-11-07-CADPH-FluCAT_Ensemble.csv
+data/predictions/Emory-EpiRSI/2026-11-07-Emory-EpiRSI.csv
+data/predictions/FluSight-base_seasonal/2026-11-07-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2026-11-07-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2026-11-07-FluSight-equal_cat.csv
+data/predictions/HallAI-FluTrend/2026-11-07-HallAI-FluTrend.csv
+data/predictions/LUcompUncertLab-puca/2026-11-07-LUcompUncertLab-puca.csv
+data/predictions/MIGHTE-Base/2026-11-07-MIGHTE-Base.csv
+data/predictions/MIGHTE-Linear/2026-11-07-MIGHTE-Linear.csv
+data/predictions/MIGHTE-Nsemble/2026-11-07-MIGHTE-Nsemble.csv
+data/predictions/MOBS-GLEAM_NCB_FLUH/2026-11-07-MOBS-GLEAM_NCB_FLUH.csv
+data/predictions/NAU-epymorph/2026-11-07-NAU-epymorph.csv
+data/predictions/NDP-v1/2026-11-07-NDP-v1.csv
+data/predictions/NEU_ISI-AdaptiveEnsemble/2026-11-07-NEU_ISI-AdaptiveEnsemble.csv
+data/predictions/NEU_ISI-FluBcast/2026-11-07-NEU_ISI-FluBcast.csv
+data/predictions/OHTJHU-BM/2026-11-07-OHTJHU-BM.csv
+data/predictions/PLANET_NEU-ClaudeScience/2026-11-07-PLANET_NEU-ClaudeScience.csv
+data/predictions/PSI-CAT_MOA/2026-11-07-PSI-CAT_MOA.csv
+data/predictions/PSI-PROF/2026-11-07-PSI-PROF.parquet
+data/predictions/PSI-PROF_MOA/2026-11-07-PSI-PROF_MOA.parquet
+data/predictions/Schnitzels-stack5/2026-11-07-Schnitzels-stack5.csv
+data/predictions/UMass-AR2/2026-11-07-UMass-AR2.csv
+data/predictions/bayvaxbio-CountCast/2026-11-07-bayvaxbio-CountCast.csv
