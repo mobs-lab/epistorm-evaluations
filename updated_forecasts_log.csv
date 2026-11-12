@@ -2109,4 +2109,12 @@ data/predictions/Xi_lab-GLEAM_AI_hybrid/2026-11-07-Xi_lab-GLEAM_AI_hybrid.csv
 data/predictions/influcast-peak_gbm/2026-11-07-influcast-peak_gbm.csvdate 2026-11-05_18:03:50
 data/predictions/FluSight-HJudge_ensemble/2026-11-07-FluSight-HJudge_ensemble.csvdate 2026-11-05_21:04:21date 2026-11-06_21:06:02
 data/predictions/CADPH-FluCAT_HJudge_BU/2026-11-07-CADPH-FluCAT_HJudge_BU.csv
-data/predictions/CADPH-FluCAT_HJudge_TD/2026-11-07-CADPH-FluCAT_HJudge_TD.csvdate 2026-11-07_21:06:51date 2026-11-11_06:04:40date 2026-11-11_09:04:53date 2026-11-11_12:05:10date 2026-11-11_15:04:11date 2026-11-11_18:04:25date 2026-11-11_21:10:45date 2026-11-12_06:05:18date 2026-11-12_09:04:26date 2026-11-12_12:05:07date 2026-11-12_15:03:24
+data/predictions/CADPH-FluCAT_HJudge_TD/2026-11-07-CADPH-FluCAT_HJudge_TD.csvdate 2026-11-07_21:06:51date 2026-11-11_06:04:40date 2026-11-11_09:04:53date 2026-11-11_12:05:10date 2026-11-11_15:04:11date 2026-11-11_18:04:25date 2026-11-11_21:10:45date 2026-11-12_06:05:18date 2026-11-12_09:04:26date 2026-11-12_12:05:07date 2026-11-12_15:03:24date 2026-11-12_18:05:22
+data/predictions/Emory-EpiRSI/2026-11-14-Emory-EpiRSI.csv
+data/predictions/FluSight-base_seasonal/2026-11-14-FluSight-base_seasonal.csv
+data/predictions/FluSight-baseline/2026-11-14-FluSight-baseline.csv
+data/predictions/FluSight-equal_cat/2026-11-14-FluSight-equal_cat.csv
+data/predictions/NAU-epymorph/2026-11-14-NAU-epymorph.csv
+data/predictions/Ozgen-GBQR/2026-11-14-Ozgen-GBQR.csv
+data/predictions/bayvaxbio-CountCast/2026-11-14-bayvaxbio-CountCast.csv
+data/predictions/influcast-peak_gbm/2026-11-14-influcast-peak_gbm.csv
