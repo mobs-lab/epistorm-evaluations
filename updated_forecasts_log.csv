@@ -2264,4 +2264,9 @@ data/predictions/UMass-peakGB/2026-11-21-UMass-peakGB.csv
 data/predictions/UMass-trends_ensemble/2026-11-21-UMass-trends_ensemble.parquet
 data/predictions/UVAFluX-Ensemble/2026-11-21-UVAFluX-Ensemble.csv
 data/predictions/VTSanghani-PRIME/2026-11-21-VTSanghani-PRIME.csv
-data/predictions/reasonspire-lagQR/2026-11-21-reasonspire-lagQR.csvdate 2026-11-19_09:05:01
+data/predictions/reasonspire-lagQR/2026-11-21-reasonspire-lagQR.csvdate 2026-11-19_09:05:01date 2026-11-19_12:04:35
+data/predictions/BYFlu-STMGGP/2026-11-21-BYFlu-STMGGP.csv
+data/predictions/NU-FLARE/2026-11-21-NU-FLARE.csv
+data/predictions/UGA_CEID-Walk/2026-11-21-UGA_CEID-Walk.csv
+data/predictions/UGA_CEID-auto_AVG_LB/2026-11-21-UGA_CEID-auto_AVG_LB.csv
+data/predictions/bayvaxbio-CountCast/2026-11-21-bayvaxbio-CountCast.csv
