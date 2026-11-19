@@ -1,14 +1,1 @@
 file
-data/predictions/ACCIDDA-insightcast/2026-11-21-ACCIDDA-insightcast.csv
-data/predictions/Cornell_JHU-SCARCHhierarSIR/2026-11-21-Cornell_JHU-SCARCHhierarSIR.csv
-data/predictions/Epistorm-Ensemble_Flu/2026-11-21-Epistorm-Ensemble_Flu.csv
-data/predictions/FluSight-baseline_cat/2026-11-21-FluSight-baseline_cat.csv
-data/predictions/FluSight-ens_q_cat/2026-11-21-FluSight-ens_q_cat.csv
-data/predictions/FluSight-ensemble/2026-11-21-FluSight-ensemble.csv
-data/predictions/FluSight-lop_norm/2026-11-21-FluSight-lop_norm.csv
-data/predictions/FluSight-trained_mean/2026-11-21-FluSight-trained_mean.csv
-data/predictions/FluSight-trained_med/2026-11-21-FluSight-trained_med.csv
-data/predictions/Xi_lab-Agents/2026-11-21-Xi_lab-Agents.csv
-data/predictions/Xi_lab-GLEAM_AI/2026-11-21-Xi_lab-GLEAM_AI.csv
-data/predictions/Xi_lab-GLEAM_AI_hybrid/2026-11-21-Xi_lab-GLEAM_AI_hybrid.csv
-data/predictions/influcast-peak_gbm/2026-11-21-influcast-peak_gbm.csv
