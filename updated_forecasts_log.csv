@@ -2346,4 +2346,12 @@ data/predictions/UGA_flucast-Scenariocast/2026-11-28-UGA_flucast-Scenariocast.cs
 data/predictions/UM-DeepOutbreak/2026-11-28-UM-DeepOutbreak.csv
 data/predictions/UMass-AR2/2026-11-28-UMass-AR2.csv
 data/predictions/UMass-flusion/2026-11-28-UMass-flusion.csv
-data/predictions/VTSanghani-PRIME/2026-11-28-VTSanghani-PRIME.csvdate 2026-11-26_09:04:56date 2026-11-26_12:05:25date 2026-11-26_15:04:06date 2026-11-26_18:04:16
+data/predictions/VTSanghani-PRIME/2026-11-28-VTSanghani-PRIME.csvdate 2026-11-26_09:04:56date 2026-11-26_12:05:25date 2026-11-26_15:04:06date 2026-11-26_18:04:16date 2026-11-26_21:03:58
+data/predictions/ACCIDDA-insightcast/2026-11-28-ACCIDDA-insightcast.csv
+data/predictions/MIGHTE-Base/2026-11-28-MIGHTE-Base.csv
+data/predictions/MIGHTE-Linear/2026-11-28-MIGHTE-Linear.csv
+data/predictions/MIGHTE-Nsemble/2026-11-28-MIGHTE-Nsemble.csv
+data/predictions/NAU_PyBNF-GroundHogCGR/2026-11-28-NAU_PyBNF-GroundHogCGR.csv
+data/predictions/NAU_PyBNF-OracleSIHRS/2026-11-28-NAU_PyBNF-OracleSIHRS.csv
+data/predictions/UVAFluX-Ensemble/2026-11-28-UVAFluX-Ensemble.csv
+data/predictions/reasonspire-lagQR/2026-11-28-reasonspire-lagQR.csv
